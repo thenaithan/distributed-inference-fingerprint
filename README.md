@@ -59,6 +59,7 @@ the measured recovery cost in
   `signatures.py` (byte and port rules per stack), `rhythm.py` (periodicities and
   generation bursts: the rules that need no payload), `classify.py` (apply everything to a
   capture and report what could be said, and when).
+- `figures.py`: the figures, from the committed reports and timelines; `figures/`.
 - `tests/synthetic.py`: a synthetic pcap with the predicted shapes, to exercise the
   analysis without a cluster. It is not evidence.
 - `captures/`: per capture, the timeline, the request log and the `classify.py --json`
@@ -66,7 +67,8 @@ the measured recovery cost in
 
 ### Reproducing
 
-Analysis needs Python 3.10 or later and nothing else:
+Analysis needs Python 3.10 or later and nothing else; `figures.py` needs the matplotlib
+pinned in `requirements.txt`:
 
 ```
 python3 -m tests.synthetic /tmp/syn.pcap && python3 -m analysis.classify /tmp/syn.pcap
@@ -80,6 +82,7 @@ and `tcpdump` installed:
 capture/run_llamacpp.sh 600                 # ~25 min; writes captures/llamacpp/<stamp>.pcap + timeline + requests
 RECOVERY=../distributed-inference-recovery capture/run_exo.sh 600    # hours on CPU: exo decodes at 2.4 s/token
 python3 -m analysis.classify captures/llamacpp/<stamp>.pcap --timeline captures/llamacpp/<stamp>.timeline.csv --json captures/llamacpp/<stamp>.report.json
+python3 figures.py                          # from the committed reports; no pcap needed
 
 # background, on the same bridge with the swarm down, then once more with it up
 capture/capture.sh start llama-net captures/background/<stamp>.pcap

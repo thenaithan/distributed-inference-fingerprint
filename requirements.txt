@@ -1,1 +1,2 @@
-# standard library only; nothing to install for the analysis
+# analysis/ is standard library only; figures.py needs:
+matplotlib==3.11.2
