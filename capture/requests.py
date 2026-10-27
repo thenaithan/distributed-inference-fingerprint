@@ -27,6 +27,7 @@ def one(base: str, model: str, prompt: str, max_tokens: int, thinking: bool, tim
                                  headers={"Content-Type": "application/json"})
     t_req, t_first, n = time.time(), None, 0
     t_last = t_req
+    timings = None
     with urllib.request.urlopen(req, timeout=timeout) as r:
         for raw in r:
             # the socket timeout only fires when no bytes arrive; llama-server keeps a stalled
@@ -43,13 +44,15 @@ def one(base: str, model: str, prompt: str, max_tokens: int, thinking: bool, tim
                 obj = json.loads(p)
             except json.JSONDecodeError:
                 continue
+            if obj.get("timings"):                 # llama-server: server-side timings in the last chunk
+                timings = obj["timings"]
             ch = (obj.get("choices") or [{}])[0].get("delta", {})
             if ch.get("content") or ch.get("reasoning_content"):
                 n += 1
                 t_last = time.time()
                 if t_first is None:
                     t_first = t_last
-    return dict(t_request=t_req, t_first_token=t_first, t_end=time.time(), tokens=n)
+    return dict(t_request=t_req, t_first_token=t_first, t_end=time.time(), tokens=n, timings=timings)
 
 
 def main() -> None:

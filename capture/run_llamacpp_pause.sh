@@ -37,5 +37,8 @@ python3 capture/requests.py --base http://localhost:8080 --n 1 --max-tokens 30 -
 sleep 5
 mark done ""
 capture/capture.sh stop
+# container logs next to the pcap before the containers go: llama-server's per-request
+# timings (the server-side rate for prediction 7) and its prompt-cache lines live there
+for c in main $(podman ps -a --format '{{.Names}}' | grep '^rpc-' || true); do podman logs "$c" > "$dir/$stamp.$c.log" 2>&1 || true; done
 llamacpp/cluster.sh down >/dev/null
 echo "wrote $pcap"; echo "analyse: python3 -m analysis.classify $pcap --timeline $tl"

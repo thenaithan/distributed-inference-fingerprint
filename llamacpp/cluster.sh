@@ -31,7 +31,7 @@ start_main() {
   n=$(n_rpc)
   rpc=""; ts=""
   for i in $(seq 0 $((n-1))); do rpc="${rpc:+$rpc,}rpc-$i:$RPC_PORT"; ts="${ts:+$ts,}1"; done
-  podman rm -f main >/dev/null 2>&1 || true
+  podman rm -f -t 1 main >/dev/null 2>&1 || true
   date +%s.%N
   podman run -d --name main --network "$NET" -v "$VOL:/models" -p "$API_PORT:8080" "$IMG" \
     llama-server -hf "$MODEL" --host 0.0.0.0 --port 8080 -ngl 99 --rpc "$rpc" -ts "$ts,0" \
@@ -42,14 +42,14 @@ case "$cmd" in
   up)
     n=${arg:-$N_DEFAULT}; ensure
     for i in $(seq 0 $((n-1))); do
-      podman ps -a --format '{{.Names}}' | grep -qx "rpc-$i" && podman rm -f "rpc-$i" >/dev/null
+      podman ps -a --format '{{.Names}}' | grep -qx "rpc-$i" && podman rm -f -t 1 "rpc-$i" >/dev/null
       podman run -d --name "rpc-$i" --network "$NET" -v "$VOL:/models" "$IMG" \
         ggml-rpc-server --host 0.0.0.0 -p $RPC_PORT -t "$THREADS" >/dev/null
       echo "started rpc-$i"
     done
     start_main >/dev/null; echo "started main (llama-server) on http://localhost:$API_PORT" ;;
   main)     start_main ;;
-  down)     for c in main $(podman ps -a --format '{{.Names}}' | grep '^rpc-' || true); do podman rm -f "$c" >/dev/null 2>&1 || true; done; echo removed ;;
+  down)     for c in main $(podman ps -a --format '{{.Names}}' | grep '^rpc-' || true); do podman rm -f -t 1 "$c" >/dev/null 2>&1 || true; done; echo removed ;;
   logs)     podman logs -f "$arg" ;;
   kill)     date +%s.%N; podman kill -s KILL "rpc-$arg" >/dev/null ;;
   # from the host: the kernel ignores SIGKILL sent to a PID namespace's init from inside it
