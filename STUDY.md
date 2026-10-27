@@ -87,13 +87,13 @@ Numbered so §8 of the results can score them, as in Experiment 3.
    info), 5 s (election heartbeat), 10 s (`GET /node_id`), plus one near 2.5 s from zenoh
    keepalives. Autocorrelation of per-second byte counts on the 52414 flows shows the 1 s
    and 5 s peaks within 60 s of capture.
-4. **exo generation appears as a new pair of TCP flows on ports in 49153–65535 between
+4. **exo generation appears as a new pair of TCP flows on ports in 49153 to 65535 between
    ring neighbours**, silent until a request, then bursts of about 2 KiB per hop at the
    decode rate (0.4 Hz on this CPU), and one JSON message of a few hundred bytes per token
    on 52414. Prefill of a 2048-token prompt is a single burst of about 4 MiB per hop.
 5. **llama.cpp is identified by one TCP segment**: the 33-byte HELLO on port 50052. If the
    capture starts after the connection, every request frame still starts with a command
-   byte 0x00–0x16 and an 8-byte little-endian length, and tensor names (`blk.N.attn_q.weight`
+   byte `0x00` to `0x16` and an 8-byte little-endian length, and tensor names (`blk.N.attn_q.weight`
    style) are readable in the load phase. The rule has no false positives on the background
    set.
 6. **llama.cpp is invisible when idle.** Between the load and the first request, and between
@@ -113,7 +113,7 @@ Numbered so §8 of the results can score them, as in Experiment 3.
    containers shows the §2 llama.cpp signatures unchanged.
 10. **LocalAI's timing signature equals llama.cpp's plus overhead.** The per-token burst
     structure of prediction 7 is visible in the encrypted flows with sizes larger by a
-    roughly constant overlay overhead (Noise and yamux framing, under 10% on the 600 KB leg,
+    near-constant overlay overhead (Noise and yamux framing, under 10% on the 600 KB leg,
     more on the 4 KiB legs). The decode rate is still readable from the burst interval.
 11. **LocalAI's idle periodicities are 10 s, 20 s and 60 s** in the encrypted flows between
     nodes, visible in autocorrelation within 2 minutes of capture; plus mDNS queries and

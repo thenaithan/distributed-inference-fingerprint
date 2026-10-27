@@ -80,7 +80,7 @@ three hides its periodicity.
 - `mx.distributed.init(backend="ring")` (`src/exo/worker/engines/mlx/utils_mlx.py:106-120`).
   Each rank listens on `0.0.0.0:<port>` and connects only to its left and right
   neighbours; non-neighbours get the placeholder `198.51.100.1:0`
-  (`src/exo/master/placement_utils.py:382-426`). The port is random in 49153–65535
+  (`src/exo/master/placement_utils.py:382-426`). The port is random in 49153 to 65535
   (`src/exo/utils/ports.py:4-6`), chosen once per instance (`placement.py:399`).
   **[inferred]** plain TCP.
 - Per token: each stage's last layer sends its output to rank `(r+1) % s`, the next stage
@@ -182,7 +182,7 @@ No model download in rpc-server (no libcommon, `rpc-server.cpp:27`). RDMA env va
 - Long-lived plaintext TCP on 50052 with no TLS ClientHello; first client segment exactly
   33 bytes starting `0E 18 00 00 00 00 00 00 00`, reply 36 bytes starting
   `1C 00 … 08 00 01 00`.
-- Every request starts with a byte in 0x00–0x16 followed by an 8-byte LE length, most of
+- Every request starts with a byte in `0x00` to `0x16` followed by an 8-byte LE length, most of
   them the fixed small values above; tensor names in readable ASCII inside 296-byte records.
 - Load: a bulk upload the size of the model slice in frames with ~314-byte headers.
 - Decode: bursts at the token rate of nearly constant size, with a ~600 KB logits return
