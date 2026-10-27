@@ -24,7 +24,7 @@ case "$cmd" in
     mkdir -p "$(dirname "$out")"
     # -U: write each packet as it arrives, so a kill loses nothing; -n: no name lookups
     podman unshare --rootless-netns tcpdump -i "$ifc" -s 0 -n -U -w "$out" >/dev/null 2>"$out.log" &
-    echo $! > "$PIDFILE"
+    echo $! > "$PIDFILE"; echo "$out" > "$PIDFILE.out"
     sleep 1
     kill -0 "$(cat "$PIDFILE")" 2>/dev/null || { echo "tcpdump did not start:"; cat "$out.log"; exit 1; }
     echo "capturing $ifc ($net) -> $out  (pid $(cat "$PIDFILE"))" ;;
@@ -35,6 +35,14 @@ case "$cmd" in
     pkill -INT -P "$pid" 2>/dev/null || true
     kill -INT "$pid" 2>/dev/null || true
     sleep 1
-    rm -f "$PIDFILE"; echo stopped ;;
+    rm -f "$PIDFILE"
+    # STYLE §4: the pcap is not committed; its size and hash go next to it so a regenerated
+    # capture can be told from the original
+    out=$(cat "$PIDFILE.out" 2>/dev/null || true)
+    if [ -n "$out" ] && [ -f "$out" ]; then
+      printf '%s  %s  %s bytes\n' "$(sha256sum "$out" | cut -d" " -f1)" "$(basename "$out")" "$(stat -c %s "$out")" > "$out.sha256"
+      cat "$out.sha256"
+    fi
+    rm -f "$PIDFILE.out"; echo stopped ;;
   *) sed -n 2,13p "$0" ;;
 esac
