@@ -1,0 +1,1348 @@
+{
+ "capture": "captures/llamacpp/25691027-122003.pcap",
+ "sha256": "8baea8e12c0755351b45fe6d2df00e4d847dafbeae231d33e9a5808d347981a8",
+ "packets": 107337,
+ "skipped": 21,
+ "t0": 1793078429.938321,
+ "duration": 274.36800479888916,
+ "hosts": [
+  "10.89.3.1",
+  "10.89.3.10",
+  "10.89.3.11",
+  "10.89.3.5",
+  "10.89.3.6",
+  "10.89.3.7",
+  "10.89.3.8",
+  "10.89.3.9",
+  "18.65.14.85",
+  "18.65.14.87",
+  "18.67.181.36",
+  "::",
+  "fe80::50bd:f2ff:fecd:d6b5",
+  "fe80::88e7:baff:fec3:f493",
+  "fe80::8d0:cdff:fef4:2e68",
+  "fe80::9482:fcff:fe8e:8697",
+  "fe80::b451:92ff:fea5:9450",
+  "fe80::ce0:38ff:fe00:9712",
+  "fe80::d0cf:f3ff:fe6e:d10e",
+  "fe80::e86a:8eff:fe65:5d61",
+  "ff02::16",
+  "ff02::1:ff00:9712",
+  "ff02::1:ff8e:8697",
+  "ff02::1:ffa5:9450",
+  "ff02::1:ffc3:f493",
+  "ff02::2"
+ ],
+ "flows": 147,
+ "matches": [
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.7:54740",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 3.606,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.7:37170",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 3.606,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48914",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 3.934,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48914",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 3.934,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47128",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 3.935,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47128",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 3.935,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48926",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.022,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48926",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.022,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47138",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.023,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47138",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.023,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48934",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.096,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48934",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.096,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47154",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.097,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47154",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.097,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48944",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.097,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48944",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.097,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47156",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.097,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47156",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.097,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48946",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.099,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48946",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.099,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47172",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.099,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47172",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.099,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48958",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.1,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48958",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.1,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47182",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.1,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47182",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.1,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48968",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.104,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48968",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.104,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48970",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.104,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48970",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.104,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48972",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.104,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48972",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.104,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48986",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.105,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48986",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.105,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47194",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.105,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47194",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.105,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47202",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.105,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47202",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.105,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47214",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.105,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47214",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.105,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47224",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.105,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47224",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.105,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48996",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.135,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48996",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.135,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47240",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.136,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47240",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.136,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:49010",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.203,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:49010",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.203,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47252",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.203,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47252",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.203,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:49020",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.203,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:49020",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.203,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47258",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.203,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47258",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.203,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:49034",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.219,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:49034",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.219,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:49040",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.219,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:49040",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.219,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47262",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.22,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47262",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.22,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47268",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.22,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47268",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 5.22,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34454 <-> 10.89.3.9:50052",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO (client, 33 bytes)",
+   "needs": "33 bytes",
+   "strength": "byte",
+   "t": 260.378,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34454 <-> 10.89.3.9:50052",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 260.378,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43224",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 260.378,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43224",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 260.378,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34470 <-> 10.89.3.9:50052",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO (client, 33 bytes)",
+   "needs": "33 bytes",
+   "strength": "byte",
+   "t": 261.59,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34470 <-> 10.89.3.9:50052",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.59,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43232",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 261.591,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43232",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.591,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34476 <-> 10.89.3.9:50052",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO (client, 33 bytes)",
+   "needs": "33 bytes",
+   "strength": "byte",
+   "t": 261.666,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34476 <-> 10.89.3.9:50052",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.666,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43240",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 261.666,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43240",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.666,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34482 <-> 10.89.3.9:50052",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO (client, 33 bytes)",
+   "needs": "33 bytes",
+   "strength": "byte",
+   "t": 261.666,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34482 <-> 10.89.3.9:50052",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.666,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43254",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 261.667,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43254",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.667,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34498 <-> 10.89.3.9:50052",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO (client, 33 bytes)",
+   "needs": "33 bytes",
+   "strength": "byte",
+   "t": 261.669,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34498 <-> 10.89.3.9:50052",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.669,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43268",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 261.669,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43268",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.669,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34512 <-> 10.89.3.9:50052",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO (client, 33 bytes)",
+   "needs": "33 bytes",
+   "strength": "byte",
+   "t": 261.671,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34512 <-> 10.89.3.9:50052",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.671,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43280",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 261.672,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43280",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.672,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34524 <-> 10.89.3.9:50052",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO (client, 33 bytes)",
+   "needs": "33 bytes",
+   "strength": "byte",
+   "t": 261.676,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34524 <-> 10.89.3.9:50052",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.676,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34538 <-> 10.89.3.9:50052",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO (client, 33 bytes)",
+   "needs": "33 bytes",
+   "strength": "byte",
+   "t": 261.676,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34538 <-> 10.89.3.9:50052",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.676,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34552 <-> 10.89.3.9:50052",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO (client, 33 bytes)",
+   "needs": "33 bytes",
+   "strength": "byte",
+   "t": 261.676,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34552 <-> 10.89.3.9:50052",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.676,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34568 <-> 10.89.3.9:50052",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO (client, 33 bytes)",
+   "needs": "33 bytes",
+   "strength": "byte",
+   "t": 261.676,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34568 <-> 10.89.3.9:50052",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.676,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43284",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 261.676,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43284",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.676,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43294",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 261.676,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43294",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.676,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43306",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 261.676,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43306",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.676,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43320",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 261.676,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43320",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.676,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34576 <-> 10.89.3.9:50052",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO (client, 33 bytes)",
+   "needs": "33 bytes",
+   "strength": "byte",
+   "t": 261.709,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34576 <-> 10.89.3.9:50052",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.709,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43322",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 261.709,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43322",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.709,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34582 <-> 10.89.3.9:50052",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO (client, 33 bytes)",
+   "needs": "33 bytes",
+   "strength": "byte",
+   "t": 261.776,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34582 <-> 10.89.3.9:50052",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.776,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43338",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 261.776,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43338",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.776,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34592 <-> 10.89.3.9:50052",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO (client, 33 bytes)",
+   "needs": "33 bytes",
+   "strength": "byte",
+   "t": 261.776,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34592 <-> 10.89.3.9:50052",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.776,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43348",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 261.777,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43348",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.777,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34594 <-> 10.89.3.9:50052",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO (client, 33 bytes)",
+   "needs": "33 bytes",
+   "strength": "byte",
+   "t": 261.794,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34594 <-> 10.89.3.9:50052",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.794,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34604 <-> 10.89.3.9:50052",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO (client, 33 bytes)",
+   "needs": "33 bytes",
+   "strength": "byte",
+   "t": 261.794,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34604 <-> 10.89.3.9:50052",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.794,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43352",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 261.794,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43352",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.794,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43354",
+   "rule": "llama_hello",
+   "stack": "llama.cpp",
+   "what": "ggml RPC HELLO reply (server, v8.0.1)",
+   "needs": "12 bytes",
+   "strength": "byte",
+   "t": 261.794,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43354",
+   "rule": "llama_port",
+   "stack": "llama.cpp",
+   "what": "TCP on ggml rpc-server's default port",
+   "needs": "1 packet",
+   "strength": "port",
+   "t": 261.794,
+   "phase": "recover"
+  }
+ ],
+ "rhythm": [
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48958",
+   "packets": 65,
+   "duration": 0.0,
+   "payload_ab": 172,
+   "payload_ba": 13148,
+   "periods": [],
+   "bursts": {
+    "n": 3,
+    "period_s": 0.002,
+    "period_cv": 0.18,
+    "req_bytes": 46,
+    "resp_bytes": 60,
+    "req_cv": 0.43,
+    "resp_cv": 0.07,
+    "generation_like": false,
+    "t": 5.1,
+    "phase": "load"
+   }
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:49040",
+   "packets": 43598,
+   "duration": 254.7,
+   "payload_ab": 111017304,
+   "payload_ba": 234236458,
+   "periods": [],
+   "bursts": {
+    "n": 3,
+    "period_s": 127.015,
+    "period_cv": 0.52,
+    "req_bytes": 45457939,
+    "resp_bytes": 8508,
+    "req_cv": 1.0,
+    "resp_cv": 1.0,
+    "generation_like": false,
+    "t": 5.2,
+    "phase": "load"
+   }
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47268",
+   "packets": 47529,
+   "duration": 254.8,
+   "payload_ab": 572159345,
+   "payload_ba": 297077550,
+   "periods": [],
+   "bursts": {
+    "n": 32,
+    "period_s": 5.799,
+    "period_cv": 0.0,
+    "req_bytes": 215100,
+    "resp_bytes": 18232560,
+    "req_cv": 0.0,
+    "resp_cv": 0.0,
+    "generation_like": true,
+    "t": 5.2,
+    "phase": "load"
+   }
+  }
+ ],
+ "by_host": {
+  "10.89.3.5": [
+   "llama.cpp"
+  ],
+  "10.89.3.7": [
+   "llama.cpp"
+  ],
+  "10.89.3.6": [
+   "llama.cpp"
+  ],
+  "10.89.3.8": [
+   "llama.cpp"
+  ],
+  "10.89.3.11": [
+   "llama.cpp"
+  ],
+  "10.89.3.9": [
+   "llama.cpp"
+  ],
+  "10.89.3.10": [
+   "llama.cpp"
+  ]
+ },
+ "first_match_s": {
+  "llama_port": 3.606,
+  "llama_hello": 3.934
+ }
+}
