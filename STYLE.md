@@ -17,7 +17,8 @@ Order of sections:
 2. **Introduction**, unheaded, two to four paragraphs, first person. What the question
    is, where it came from (the essay, an article, a previous experiment, a hunch), who
    it is written for, what the scope is and is not, and the one-sentence outcome. The
-   last paragraph says who did what (see §6) and where the numbers come from.
+   last paragraph says in one clause who did what (the full sentence is the
+   acknowledgement, §6) and where the numbers come from.
 3. **Numbered sections** (`## 1.`, `## 2.`, ...): what was measured, one section per
    experiment or result, the method, the limitations, related work. Cross-reference
    them as `§3`, never "above" or "below". Subsections are `###` and unnumbered.
@@ -43,9 +44,10 @@ rest stays.
   ("very", "extremely"), no "interestingly".
 - A negative result is stated as plainly as a positive one, in the same place and at
   the same length.
-- Predictions are written down before the measurement and left as written; a later
-  section scores them (right / wrong / partially) and says what the mechanism turned
-  out to be.
+- Predictions are written down before the measurement and left as written: in
+  `STUDY.md` when the repo has one, else in the README section before the measurement.
+  A later section scores them with three verdicts only (right / wrong / partially) and
+  says what the mechanism turned out to be.
 - No em dashes. Use a comma, a colon, a semicolon, or parentheses.
 
 ## 3. Spelling and units
@@ -65,6 +67,10 @@ rest stays.
   decimals down a column; the winning cell is **bold** when there is one.
 - Code, file names, flags, environment variables and identifiers in backticks:
   `analyze.py`, `--mode kill`, `VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS`, `RunnerIdle`.
+- Bytes and hex in backticks, two digits per byte, spaces between bytes, `0x` only for a
+  single value: `0x0E`, `45 58 4F 00`; a range of values uses "to": `0x00` to `0x16`.
+  Ports, addresses and multicast groups as they would appear in a filter:
+  `[ff12::e0a1:de89]:52413`, `224.0.0.251:5353`.
 
 ## 4. Numbers and provenance
 
@@ -72,6 +78,10 @@ rest stays.
   record. The introduction says which script. If a number needs something that is not
   committed (a checkpoint, a model download), the README says so where the number
   appears.
+- Raw data too large to commit (packet captures, token streams) is replaced by the
+  script's derived report, committed next to where the raw file would be, carrying the
+  raw file's size and SHA-256 so a regenerated file can be told apart from the original.
+  The README's numbers then come from the report, and the README says so.
 - Raw records are committed: `trials.jsonl`, `runs/*.json`, `out/*.csv`. Checkpoints,
   token streams, downloaded corpora and model weights are not; `.gitignore` lists them
   with a comment saying which script regenerates each.
@@ -82,8 +92,21 @@ rest stays.
   documentation.
 - Figures are rendered by `figures.py` from the same records and committed as PNG in
   `figures/` (or `out/` where the simulation writes its own). Rerunning the script
-  must reproduce the committed files byte for byte. One hue per system or strategy,
-  fixed across all figures in the repo; no default matplotlib palette.
+  must reproduce the committed figures: the same picture, and the same bytes when the
+  pinned matplotlib version is used and `savefig` is called with
+  `metadata={"Software": None}` so no version string or timestamp lands in the file.
+- One hue per system or strategy, fixed across the series, not only the repo; no default
+  matplotlib palette. Phases and background in neutral or secondary colours.
+
+  | system | hex |
+  |---|---|
+  | exo | `#2a78d6` |
+  | vLLM | `#eb6834` |
+  | llama.cpp (and LocalAI's plaintext path) | `#1baf7a` |
+  | LocalAI P2P | `#eda100` |
+  | background, ink, grid | `#52514e`, `#0b0b0b`, `#e6e5e1` |
+
+  A new system takes the next free hue and is added here.
 - A result that depends on an assumption (a regime conversion, a derived figure from
   someone else's paper) is labelled "derived" or "assumption, not measurement" where
   it is stated.
@@ -102,7 +125,8 @@ analyze.py           records → the numbers in the README
 figures.py           records → figures/
 figures/ or out/     committed figures and small outputs
 runs/ or */trials.jsonl   committed raw records
-tests/               when there is a simulator or a library worth testing
+tests/               when there is a simulator or a library worth testing; fixtures
+                     (synthetic inputs) check the code and are never cited as a result
 NOTES.md, RESULTS.md, STUDY.md, FINDINGS-*.md
                      only when the README would otherwise exceed what one reading
                      holds: derivations, full tables, pre-registered predictions,
@@ -118,7 +142,11 @@ never depend on the working directory beyond the repo root. A `Containerfile` an
 - Commits are authored `Naithan Weigh <me@naithanweigh.com>`, never a tool, and
   carry no `Co-Authored-By` or session trailers. Commit messages are one line, present
   tense, saying what changed and, if it is not obvious, why: `fix: llamacpp cut gives
-  the main-only restart 600 s and records the rpc host's connection log`.
+  the main-only restart 600 s and records the rpc host's connection log`. The
+  `fix:` / `docs:` / `style:` / `harness:` prefix is optional; when used it is one of
+  those four.
+- Work produced together with Claude is committed on a branch; I rebase, sign and merge
+  it into `main` myself. Nothing lands on `main` unsigned.
 - Claude's part is acknowledged once, in the `## Acknowledgement` section, and named
   in the introduction's last paragraph: which parts were developed together (the
   harness, the analysis, the figures) and which are mine (the questions, the framing,
@@ -130,7 +158,8 @@ never depend on the working directory beyond the repo root. A `Containerfile` an
 
 - A repo goes public when the README has its conclusion, every number reproduces, the
   figures regenerate unchanged, no path or file is referenced that is not in the tree,
-  and there are no leftover branches. Private staging repos are used for work in
+  no record carries a path, username or address from my machine, and there are no
+  leftover branches (a merged branch is deleted on the remote the day it is merged). Private staging repos are used for work in
   progress; the public repo is not pushed to directly while an experiment is open.
 - Follow-on experiments that would grow a public README past one reading get their own
   repo, named `<series>-<subject>`, which links back to the series in its introduction
