@@ -12,11 +12,15 @@ stamp=$(date +%Y%m%d-%H%M%S); dir=captures/llamacpp; pcap=$dir/$stamp.pcap; tl=$
 mkdir -p "$dir"
 mark() { capture/phase.sh "$tl" "$@"; }
 
+# the bridge exists only while a container is attached, so: cluster up, capture, then
+# restart the main host alone so the HELLO and the weight upload happen on the capture
 llamacpp/cluster.sh down >/dev/null 2>&1 || true
-podman network exists llama-net || podman network create llama-net >/dev/null
-capture/capture.sh start llama-net "$pcap"
-mark load "cluster.sh up 2: rpc hosts then main; weights move now"
 llamacpp/cluster.sh up 2
+until curl -sf http://localhost:8080/health >/dev/null; do sleep 1; done
+capture/capture.sh start llama-net "$pcap"
+sleep 5
+mark load "cluster.sh main: the main host reconnects to both rpc hosts and uploads the slices"
+llamacpp/cluster.sh main >/dev/null
 until curl -sf http://localhost:8080/health >/dev/null; do sleep 1; done
 mark idle "model loaded, no requests for $IDLE s"
 sleep "$IDLE"
