@@ -26,8 +26,14 @@ def one(base: str, model: str, prompt: str, max_tokens: int, thinking: bool, tim
     req = urllib.request.Request(base + "/v1/chat/completions", data=json.dumps(body).encode(),
                                  headers={"Content-Type": "application/json"})
     t_req, t_first, n = time.time(), None, 0
+    t_last = t_req
     with urllib.request.urlopen(req, timeout=timeout) as r:
         for raw in r:
+            # the socket timeout only fires when no bytes arrive; llama-server keeps a stalled
+            # stream alive with a small send every ~25 s, so the deadline is counted from the
+            # last token, not the last byte
+            if time.time() - t_last > timeout:
+                raise TimeoutError(f"no token for {timeout:.0f} s ({n} received)")
             if not raw.startswith(b"data:"):
                 continue
             p = raw[5:].strip()
@@ -40,8 +46,9 @@ def one(base: str, model: str, prompt: str, max_tokens: int, thinking: bool, tim
             ch = (obj.get("choices") or [{}])[0].get("delta", {})
             if ch.get("content") or ch.get("reasoning_content"):
                 n += 1
+                t_last = time.time()
                 if t_first is None:
-                    t_first = time.time()
+                    t_first = t_last
     return dict(t_request=t_req, t_first_token=t_first, t_end=time.time(), tokens=n)
 
 
