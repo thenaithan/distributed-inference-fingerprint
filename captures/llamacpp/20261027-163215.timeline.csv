@@ -1,0 +1,8 @@
+# t,phase,note
+1793093545.845327882,load,cluster.sh main: the main host reconnects to both rpc hosts and uploads the slices
+1793093548.470654378,warm,one 30-token request so the pause request is not the first
+1793093554.510195764,pause,pause rpc-1 0.5 s into a 300-token request; client gives up after 20 s without a token
+1793093575.090428814,hold,rpc-1 stays paused for 60 s with the request abandoned
+1793093635.095533519,resume,cluster.sh resume 1: what the main host does with the late reply
+1793093655.145894942,probe,one 30-token request after the resume: does the cluster still answer?
+1793093666.004923859,done,
