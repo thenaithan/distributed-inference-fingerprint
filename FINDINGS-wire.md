@@ -25,7 +25,7 @@ three hides its periodicity.
 | data transport | MLX ring, TCP on random ports 49153–65535, neighbours only | TCP 50052, plaintext, star through the main host | the same RPC, inside the overlay |
 | encryption | none | none | all but the handshake |
 | idle periodicity | 1 s beacon, 1 s node info, 5 s election heartbeat, ~10 s `GET /node_id`, ~2.5 s zenoh keepalive [inferred] | none: silent when idle | 10 s ledger sync, 20 s worker announce, 60 s service announce, 10 s discovery |
-| leaves the LAN | Hugging Face downloads only | nothing | DHT bootstrap (public IPFS nodes unless disabled) [inferred], AutoNAT/relay, gallery hosts |
+| leaves the LAN | Hugging Face downloads only | nothing from rpc-server; `llama-server -hf` checks the Hugging Face CDN at every start (capture, below) | DHT bootstrap (public IPFS nodes unless disabled) [inferred], AutoNAT/relay, gallery hosts |
 
 ## 1. exo (bc412e2)
 
@@ -189,6 +189,41 @@ No model download in rpc-server (no libcommon, `rpc-server.cpp:27`). RDMA env va
   from the last host on every token, and an asymmetric star: the main host talks to each
   RPC host in turn, the RPC hosts never to each other.
 - Idle: nothing at all. A connected but idle cluster is invisible on the wire.
+
+### Corrected by the first capture (2026-10-27), with the source behind each
+- **Every RPC message is three TCP segments, of 1, 8 and n bytes.** `send_rpc_cmd` issues
+  three `send_data` calls for the command byte, the length and the body
+  (`ggml-rpc.cpp:372-386`), and `TCP_NODELAY` is set, so each becomes its own segment. The
+  HELLO is on the wire as 1 + 8 + 24 bytes, not one 33-byte segment. The triplet is a
+  stronger signature than the HELLO bytes: it holds for every message on every connection
+  and survives a port change.
+- **The main host opens many short connections per rpc host at load, not one.** The
+  dispatcher cache holds connections by `weak_ptr` (`ggml-rpc.cpp:708-723`); a probe such as
+  `get_device_memory` (`:1374-1385`) drops its reference on return, the dispatcher is
+  destroyed and the socket closed, and the next probe reconnects with a new HELLO. The
+  capture showed about 15 connections per rpc host within 1.3 s, then one long-lived
+  working connection.
+- **The slice split is uneven.** With `-ts 1,1,0` the layers split evenly but the tied
+  embedding/output matrix sits on the last host: 251 MB to rpc-0 and 384 MB to rpc-1 for
+  Qwen3-0.6B Q8_0 (the whole file), not 320 MB each.
+- **Per token, the small legs are larger than n_embd × 4.** Each token carries seven
+  SET_TENSOR messages, one graph command and one GET_TENSOR per host: about 16 KB to the
+  first host (embedding input plus positions and the KQ mask) and 7 KB to the second, with
+  4 KB of hidden state and 607 744 B of logits (n_vocab × 4) coming back.
+- **llama-server's prompt cache moves KV state over the wire.** `prompt_save` pulls a slot's
+  KV state into host RAM with `llama_state_seq_get_data_ext`
+  (`tools/server/server-context.cpp:342-370`), on by default with `cache_ram_mib = 8192`
+  (`common/common.h:642`). On an RPC split that state lives on the rpc hosts, so a prompt
+  change after a 2048-token prompt made the rpc hosts send 130 MB and 144 MB to the main
+  host. A long prompt costs its prefill once and its KV state again on every slot change.
+- **`llama-server -hf` leaves the LAN at every start**: two TLS connections of 6 KB and
+  8 KB to Hugging Face's CDN (CloudFront, `18.65.0.0/16`) before the first RPC connection,
+  even with the model cached. The "nothing" in the table at the top is wrong for the
+  `-hf` form; `-m <file>` is expected to send nothing (not yet captured).
+- **A killed rpc-server process closes with FIN, not RST**, when no request is in flight:
+  the kernel closes the socket in order. A RST needs unread data in the receive buffer, i.e.
+  a request in flight, which the first capture did not have (the injection came after the
+  request had finished).
 
 ## 3. LocalAI P2P, worker mode (35224b8)
 

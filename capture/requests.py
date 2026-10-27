@@ -56,13 +56,17 @@ def main() -> None:
     ap.add_argument("--thinking", action="store_true")
     ap.add_argument("--timeout", type=float, default=900.0)
     ap.add_argument("--out", default="requests.jsonl")
+    ap.add_argument("--same-prompt", action="store_true",
+                    help="send the identical prompt every time (llama-server's prompt cache then serves "
+                         "the prefill from RAM after the first request; by default a per-request prefix defeats it)")
     a = ap.parse_args()
-    prompt = PROMPT
-    if a.prompt_tokens:
-        prompt = FILLER * max(1, a.prompt_tokens // 10) + PROMPT
     with open(a.out, "a") as fh:
         for i in range(a.n):
-            rec = dict(i=i, base=a.base, prompt_tokens_requested=a.prompt_tokens, max_tokens=a.max_tokens)
+            prompt = PROMPT if a.same_prompt else f"Request {i} of {a.n}. " + PROMPT
+            if a.prompt_tokens:
+                prompt = ("" if a.same_prompt else f"Request {i}. ") + FILLER * max(1, a.prompt_tokens // 10) + PROMPT
+            rec = dict(i=i, base=a.base, prompt_tokens_requested=a.prompt_tokens, max_tokens=a.max_tokens,
+                       same_prompt=a.same_prompt)
             try:
                 rec.update(one(a.base, a.model, prompt, a.max_tokens, a.thinking, a.timeout))
             except Exception as e:                      # noqa: BLE001

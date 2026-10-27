@@ -73,10 +73,18 @@ def analyse(path: str, timeline: Optional[str] = None, min_packets: int = 20) ->
         out.setdefault("flow_table", []).append({
             "flow": f.endpoints(), "t": round(f.t_first - t0, 3), "duration": round(f.duration, 1),
             "packets": f.packets, "bytes_ab": f.bytes_ab, "bytes_ba": f.bytes_ba,
-            "payload_ab": f.payload_ab, "payload_ba": f.payload_ba, "phase": phase_at(tl, f.t_first)})
+            "payload_ab": f.payload_ab, "payload_ba": f.payload_ba,
+            "expected_ab": f.expected_ab, "expected_ba": f.expected_ba, "dropped": f.dropped,
+            "fin": None if f.fin_at is None else round(f.fin_at - t0, 3),
+            "rst": None if f.rst_at is None else round(f.rst_at - t0, 3),
+            "phase": phase_at(tl, f.t_first)})
         if f.packets >= min_packets and (f.series_ab or f.series_ba):
             per = rhythm.periodicities(f)
             scales = rhythm.burst_scales(f)
+            tb = rhythm.turns(f)
+            if tb and not any(abs(b.period_s - tb.period_s) / max(tb.period_s, 1e-9) < 0.2 for b in scales):
+                scales.insert(0, tb)
+                scales.sort(key=lambda b: b.period_s)
             if per or scales:
                 out["rhythm"].append({
                     "flow": f.endpoints(), "packets": f.packets, "duration": round(f.duration, 1),
@@ -89,6 +97,7 @@ def analyse(path: str, timeline: Optional[str] = None, min_packets: int = 20) ->
                         "generation_like": b.looks_like_generation(),
                         "t": round(b.t_start - t0, 1), "phase": phase_at(tl, b.t_start)} for b in scales]})
     out["by_host"] = {h: sorted(s) for h, s in out["by_host"].items()}
+    out["dropped_bytes"] = sum(f["dropped"] for f in out.get("flow_table", []))
     out["first_match_s"] = {r: round(t, 3) for r, t in sorted(first_by_rule.items(), key=lambda x: x[1])}
     return out
 
@@ -105,6 +114,9 @@ def main() -> None:
         print(r); return
     print(f"{r['capture']}: {r['packets']} packets ({r['skipped']} non-IP skipped), {r['flows']} flows, "
           f"{r['duration']:.1f} s, hosts: {', '.join(r['hosts'])}")
+    if r.get("dropped_bytes"):
+        print(f"  capture dropped {r['dropped_bytes']} payload bytes (by TCP sequence accounting); "
+              f"byte figures below use expected_* where it matters")
     print("\nfirst match per rule (s from capture start):")
     for rule, t in r["first_match_s"].items():
         print(f"  {t:8.3f}  {rule}")

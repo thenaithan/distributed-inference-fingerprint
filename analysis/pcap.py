@@ -35,6 +35,7 @@ class Packet:
     payload: bytes
     wire_len: int
     ip_len: int = 0          # IP total length (v4) or payload length + 40 (v6)
+    seq: int = 0             # tcp sequence number, 0 for udp
 
     @property
     def key(self):
@@ -91,7 +92,8 @@ def _l4(buf: bytes, proto: int, src: str, dst: str, t: float, wire_len: int, ip_
     if proto == 6 and len(buf) >= 20:
         sport, dport = struct.unpack_from("!HH", buf, 0)
         off = (buf[12] >> 4) * 4
-        return Packet(t, src, dst, "tcp", sport, dport, buf[13], buf[off:], wire_len, ip_len)
+        seq = struct.unpack_from("!I", buf, 4)[0]
+        return Packet(t, src, dst, "tcp", sport, dport, buf[13], buf[off:], wire_len, ip_len, seq)
     if proto == 17 and len(buf) >= 8:
         sport, dport = struct.unpack_from("!HH", buf, 0)
         return Packet(t, src, dst, "udp", sport, dport, 0, buf[8:], wire_len, ip_len)

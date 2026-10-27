@@ -144,6 +144,28 @@ def burst_scales(f: Flow, max_cands: int = 400) -> List[Bursts]:
     return out
 
 
+def turns(f: Flow) -> Optional[Bursts]:
+    """Exchanges delimited by direction change: one starts at the first client segment
+    after a server segment. For a request/response protocol this is the token scale even
+    when the server's compute time exceeds the gaps between the client's own segments,
+    which defeats the quiet-gap split (seen on the first llama.cpp capture). The client
+    side is whichever direction sends first."""
+    ev = sorted([(t, n, "ab") for t, n in f.series_ab] + [(t, n, "ba") for t, n in f.series_ba])
+    if len(ev) < 20:
+        return None
+    client = ev[0][2]
+    groups: List[List[tuple]] = [[ev[0]]]
+    prev = ev[0][2]
+    for e in ev[1:]:
+        if e[2] == client and prev != client:
+            groups.append([e])
+        else:
+            groups[-1].append(e)
+        prev = e[2]
+    b = _measure(groups, 0.0)
+    return b if b and b.n >= 10 else None
+
+
 def bursts(f: Flow, gap: Optional[float] = None) -> Optional[Bursts]:
     """The finest regular grouping (the token scale when there is one); see burst_scales."""
     if gap is not None:

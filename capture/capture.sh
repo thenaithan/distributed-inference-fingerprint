@@ -25,8 +25,11 @@ case "$cmd" in
     podman unshare --rootless-netns ip link show "$ifc" >/dev/null 2>&1 || {
       echo "bridge $ifc is not up: no container is attached to $net yet (start the cluster first)" >&2; exit 1; }
     mkdir -p "$(dirname "$out")"
-    # -U: write each packet as it arrives, so a kill loses nothing; -n: no name lookups
-    podman unshare --rootless-netns tcpdump -i "$ifc" -s 0 -n -U -w "$out" >/dev/null 2>"$out.log" &
+    # -U: write each packet as it arrives, so a kill loses nothing; -n: no name lookups;
+    # -B 524288: a 512 MiB kernel buffer, because a slice upload runs at several Gbit/s on
+    # the bridge and the default 2 MiB buffer dropped 7% of packets (20% of bytes) in the
+    # first capture
+    podman unshare --rootless-netns tcpdump -i "$ifc" -s 0 -n -U -B 524288 -w "$out" >/dev/null 2>"$out.log" &
     echo $! > "$PIDFILE"; echo "$out" > "$PIDFILE.out"
     sleep 1
     kill -0 "$(cat "$PIDFILE")" 2>/dev/null || { echo "tcpdump did not start:"; cat "$out.log"; exit 1; }
