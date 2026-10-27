@@ -159,8 +159,9 @@ never depend on the working directory beyond the repo root. A `Containerfile` an
 - A repo goes public when the README has its conclusion, every number reproduces, the
   figures regenerate unchanged, no path or file is referenced that is not in the tree,
   no record carries a path, username or address from my machine, and there are no
-  leftover branches (a merged branch is deleted on the remote the day it is merged). Private staging repos are used for work in
-  progress; the public repo is not pushed to directly while an experiment is open.
+  leftover branches (a merged branch is deleted on the remote the day it is merged).
+  Private staging repos are used for work in progress; the public repo is not pushed to
+  directly while an experiment is open.
 - Follow-on experiments that would grow a public README past one reading get their own
   repo, named `<series>-<subject>`, which links back to the series in its introduction
   and whose measured constants are merged into the earlier repo where they apply.
