@@ -50,7 +50,13 @@ def analyse(path: str, timeline: Optional[str] = None, min_packets: int = 20) ->
         return {"error": "no IP packets", "packets": stats.packets}
     t0 = min(f.t_first for f in flows.values())
     tl = load_timeline(timeline)
-    out = {"capture": path, "packets": stats.packets, "skipped": stats.skipped,
+    sha = None
+    try:
+        with open(path + ".sha256") as fh:
+            sha = fh.read().split()[0]
+    except OSError:
+        pass
+    out = {"capture": path, "sha256": sha, "packets": stats.packets, "skipped": stats.skipped,
            "t0": t0, "duration": max(f.t_last for f in flows.values()) - t0,
            "hosts": hosts(flows), "flows": len(flows), "matches": [], "rhythm": [], "by_host": {}}
     first_by_rule: Dict[str, float] = {}

@@ -12,7 +12,7 @@ cd "$(dirname "$0")/.."
 IDLE=${1:-600}
 RECOVERY=${RECOVERY:-../distributed-inference-recovery}
 MODEL=mlx-community/Qwen3-0.6B-8bit
-stamp=$(date +%Y%m%d-%H%M%S); dir=captures/exo; pcap=$dir/$stamp.pcap; tl=$dir/$stamp.timeline.csv; rq=$dir/$stamp.requests.jsonl
+stamp=$(LC_ALL=C date +%Y%m%d-%H%M%S); dir=captures/exo; pcap=$dir/$stamp.pcap; tl=$dir/$stamp.timeline.csv; rq=$dir/$stamp.requests.jsonl
 mkdir -p "$dir"
 mark() { capture/phase.sh "$tl" "$@"; }
 

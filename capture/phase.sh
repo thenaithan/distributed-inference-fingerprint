@@ -9,4 +9,4 @@ set -euo pipefail
 f=$1; phase=$2; note=${3:-}
 mkdir -p "$(dirname "$f")"
 [ -s "$f" ] || echo "# t,phase,note" > "$f"
-printf '%s,%s,%s\n' "$(date +%s.%N)" "$phase" "$note" >> "$f"
+printf '%s,%s,%s\n' "$(LC_ALL=C date +%s.%N)" "$phase" "$note" >> "$f"
