@@ -29,7 +29,7 @@ case "$cmd" in
     # -B 524288: a 512 MiB kernel buffer, because a slice upload runs at several Gbit/s on
     # the bridge and the default 2 MiB buffer dropped 7% of packets (20% of bytes) in the
     # first capture
-    podman unshare --rootless-netns tcpdump -i "$ifc" -s 0 -n -U -B 524288 -w "$out" >/dev/null 2>"$out.log" &
+    setsid podman unshare --rootless-netns tcpdump -i "$ifc" -s 0 -n -U -B 524288 -w "$out" >/dev/null 2>"$out.log" &
     echo $! > "$PIDFILE"; echo "$out" > "$PIDFILE.out"
     sleep 1
     kill -0 "$(cat "$PIDFILE")" 2>/dev/null || { echo "tcpdump did not start:"; cat "$out.log"; exit 1; }
@@ -37,7 +37,8 @@ case "$cmd" in
   stop)
     [ -f "$PIDFILE" ] || { echo "no capture running"; exit 0; }
     pid=$(cat "$PIDFILE")
-    # the pid is the `podman unshare` wrapper; tcpdump is its child. INT lets tcpdump flush.
+    # the pid is the `podman unshare` wrapper (its own session, via setsid, so a Ctrl-C on a
+    # run script does not take the capture down); tcpdump is its child. INT lets tcpdump flush.
     pkill -INT -P "$pid" 2>/dev/null || true
     kill -INT "$pid" 2>/dev/null || true
     sleep 1
