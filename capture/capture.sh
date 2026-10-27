@@ -21,6 +21,9 @@ case "$cmd" in
     [ -n "$net" ] && [ -n "$out" ] || { echo "usage: capture.sh start <network> <out.pcap>" >&2; exit 2; }
     podman network exists "$net" || { echo "network $net does not exist; start the cluster first" >&2; exit 1; }
     ifc=$(iface "$net")
+    # the bridge exists only while a container is attached to the network
+    podman unshare --rootless-netns ip link show "$ifc" >/dev/null 2>&1 || {
+      echo "bridge $ifc is not up: no container is attached to $net yet (start the cluster first)" >&2; exit 1; }
     mkdir -p "$(dirname "$out")"
     # -U: write each packet as it arrives, so a kill loses nothing; -n: no name lookups
     podman unshare --rootless-netns tcpdump -i "$ifc" -s 0 -n -U -w "$out" >/dev/null 2>"$out.log" &
