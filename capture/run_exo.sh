@@ -18,7 +18,12 @@ mark() { capture/phase.sh "$tl" "$@"; }
 
 exo/cluster.sh down >/dev/null 2>&1 || true
 podman network exists exo-net || podman network create --ipv6 exo-net >/dev/null
+# the bridge exists only while a container is attached; an idle anchor holds it up so the
+# capture is running before the first exo node starts (beacons, zenoh links, election)
+podman rm -f anchor >/dev/null 2>&1 || true
+podman run -d --rm --name anchor --network exo-net docker.io/library/alpine:3.20 sleep infinity >/dev/null
 capture/capture.sh start exo-net "$pcap"
+sleep 3
 mark start "cluster.sh up 3: discovery beacons, zenoh links, election"
 exo/cluster.sh up 3
 sleep 30
@@ -35,4 +40,5 @@ python3 "$RECOVERY/exo/trial.py" --nodes 3 --fail-worker --mode kill --out "$dir
 mark done ""
 capture/capture.sh stop
 exo/cluster.sh down >/dev/null
+podman rm -f anchor >/dev/null 2>&1 || true
 echo "wrote $pcap"; echo "analyse: python3 -m analysis.classify $pcap --timeline $tl"
