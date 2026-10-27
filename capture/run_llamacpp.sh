@@ -8,7 +8,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 IDLE=${1:-600}
-stamp=$(LC_ALL=C date +%Y%m%d-%H%M%S)     # LC_ALL=C: a Thai locale prints the Buddhist year; dir=captures/llamacpp; pcap=$dir/$stamp.pcap; tl=$dir/$stamp.timeline.csv; rq=$dir/$stamp.requests.jsonl
+stamp=$(LC_ALL=C date +%Y%m%d-%H%M%S)     # LC_ALL=C: a Thai locale prints the Buddhist year
+dir=captures/llamacpp; pcap=$dir/$stamp.pcap; tl=$dir/$stamp.timeline.csv; rq=$dir/$stamp.requests.jsonl
 mkdir -p "$dir"
 mark() { capture/phase.sh "$tl" "$@"; }
 
