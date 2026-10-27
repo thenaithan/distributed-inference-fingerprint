@@ -70,20 +70,24 @@ def analyse(path: str, timeline: Optional[str] = None, min_packets: int = 20) ->
             if m.stack != "background":
                 for h in (f.a[0], f.b[0]):
                     out["by_host"].setdefault(h, set()).add(m.stack)
+        out.setdefault("flow_table", []).append({
+            "flow": f.endpoints(), "t": round(f.t_first - t0, 3), "duration": round(f.duration, 1),
+            "packets": f.packets, "bytes_ab": f.bytes_ab, "bytes_ba": f.bytes_ba,
+            "payload_ab": f.payload_ab, "payload_ba": f.payload_ba, "phase": phase_at(tl, f.t_first)})
         if f.packets >= min_packets and (f.series_ab or f.series_ba):
             per = rhythm.periodicities(f)
-            b = rhythm.bursts(f)
-            if per or (b and b.n >= 3):
+            scales = rhythm.burst_scales(f)
+            if per or scales:
                 out["rhythm"].append({
                     "flow": f.endpoints(), "packets": f.packets, "duration": round(f.duration, 1),
                     "payload_ab": f.payload_ab, "payload_ba": f.payload_ba,
                     "periods": per,
-                    "bursts": None if not b else {
-                        "n": b.n, "period_s": round(b.period_s, 3), "period_cv": round(b.period_cv, 2),
+                    "scales": [{
+                        "n": b.n, "period_s": round(b.period_s, 4), "period_cv": round(b.period_cv, 2),
                         "req_bytes": round(b.req_bytes), "resp_bytes": round(b.resp_bytes),
                         "req_cv": round(b.req_cv, 2), "resp_cv": round(b.resp_cv, 2),
                         "generation_like": b.looks_like_generation(),
-                        "t": round(b.t_start - t0, 1), "phase": phase_at(tl, b.t_start)}})
+                        "t": round(b.t_start - t0, 1), "phase": phase_at(tl, b.t_start)} for b in scales]})
     out["by_host"] = {h: sorted(s) for h, s in out["by_host"].items()}
     out["first_match_s"] = {r: round(t, 3) for r, t in sorted(first_by_rule.items(), key=lambda x: x[1])}
     return out
@@ -117,12 +121,17 @@ def main() -> None:
         print(f"  {m['t']:8.3f}  {m['strength']:<4} {m['rule']:<18} {m['what']:<48} needs {m['needs']:<16} {m['flow']}  {m['phase']}")
     print("\ntiming (no payload needed):")
     for x in r["rhythm"]:
-        b = x["bursts"]
         per = " ".join(f"{p}s({s})" for p, s in x["periods"]) or "-"
-        bs = ("-" if not b else f"{b['n']} bursts every {b['period_s']} s (cv {b['period_cv']}), "
-              f"{b['req_bytes']} B -> / {b['resp_bytes']} B <- (cv {b['req_cv']}/{b['resp_cv']})"
-              + ("  GENERATION-LIKE" if b["generation_like"] else "") + f"  at {b['t']} s {b['phase']}")
-        print(f"  {x['flow']}\n      {x['packets']} pkts, {x['duration']} s, {x['payload_ab']}/{x['payload_ba']} B; periods: {per}\n      {bs}")
+        print(f"  {x['flow']}\n      {x['packets']} pkts, {x['duration']} s, {x['payload_ab']}/{x['payload_ba']} B; periods: {per}")
+        for b in x["scales"]:
+            print(f"      {b['n']} exchanges every {b['period_s']} s (cv {b['period_cv']}), "
+                  f"{b['req_bytes']} B -> / {b['resp_bytes']} B <- (cv {b['req_cv']}/{b['resp_cv']})"
+                  + ("  GENERATION-LIKE" if b["generation_like"] else "") + f"  from {b['t']} s {b['phase']}")
+    ext = [f for f in r.get("flow_table", []) if not any(h in f["flow"] for h in ("10.", "192.168.", "fe80:", "ff02:", "fd", "172."))]
+    if ext:
+        print("\nflows with an endpoint outside private/link-local ranges (what left the LAN):")
+        for f in ext:
+            print(f"  {f['t']:8.3f}  {f['flow']:<55} {f['packets']} pkts, {f['bytes_ab']}/{f['bytes_ba']} B  {f['phase']}")
     if args.json:
         with open(args.json, "w") as fh:
             json.dump(r, fh, indent=1)

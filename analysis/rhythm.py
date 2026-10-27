@@ -37,7 +37,9 @@ def periodicities(f: Flow, dt: float = 0.1, min_period: float = 0.3, max_period:
     t0, t1 = times[0], times[-1]
     if t1 - t0 < 3 * min_period:
         return []
-    c = _binned(times, t0, t1, dt)
+    # presence (bin has traffic or not), not counts: a load burst of thousands of packets
+    # would otherwise own the variance and hide a 1 Hz heartbeat or a 6 s request cadence
+    c = [1 if x else 0 for x in _binned(times, t0, t1, dt)]
     n = len(c)
     mean = sum(c) / n
     var = sum((x - mean) ** 2 for x in c)
@@ -115,28 +117,37 @@ def _measure(groups, gap) -> Optional[Bursts]:
                   cv(req), cv(resp), starts[0], groups[-1][-1][0], first_dir)
 
 
-def bursts(f: Flow, gap: Optional[float] = None) -> Optional[Bursts]:
-    """Group payload packets into exchanges separated by quiet gaps, then measure them.
-    Without `gap`, every jump in the sorted inter-packet gaps (ratio > 3) is tried as the
-    split threshold and the grouping with the most regular exchanges wins (lowest period
-    spread among groupings with at least 10 exchanges, else the one with most exchanges).
-    A flow that holds a load phase and then decode is thus measured at the decode scale."""
+def burst_scales(f: Flow, max_cands: int = 400) -> List[Bursts]:
+    """All regular groupings of a flow's payload packets, finest first. A flow that carries
+    decode tokens inside requests shows two: the token scale (tens of ms) and the request
+    scale (seconds). Every jump in the sorted inter-packet gaps (ratio > 3) is tried as the
+    split threshold; groupings with at least 10 exchanges and a period spread under 0.35
+    are kept, deduplicated by their exchange count."""
     ev = sorted([(t, n, "ab") for t, n in f.series_ab] + [(t, n, "ba") for t, n in f.series_ba])
     if len(ev) < 20:
-        return None
-    if gap is not None:
-        return _measure(_group(ev, gap), gap)
+        return []
     gaps = sorted(set(ev[i + 1][0] - ev[i][0] for i in range(len(ev) - 1)))
     cands = [(gaps[i] + gaps[i + 1]) / 2 for i in range(len(gaps) - 1)
              if gaps[i] > 0 and gaps[i + 1] / gaps[i] > 3 and gaps[i + 1] > 1e-3]
-    best: Optional[Bursts] = None
-    for g in cands[:50]:
+    if len(cands) > max_cands:                      # thin evenly on the log scale
+        step = len(cands) / max_cands
+        cands = [cands[int(i * step)] for i in range(max_cands)]
+    out: List[Bursts] = []
+    seen = set()
+    for g in cands:
         b = _measure(_group(ev, g), g)
-        if b is None:
+        if b is None or b.n < 10 or b.period_cv >= 0.35 or b.n in seen:
             continue
-        if best is None:
-            best = b; continue
-        if (b.n >= 10 and best.n >= 10 and b.period_cv < best.period_cv) or \
-           (b.n >= 10 > best.n) or (b.n < 10 and best.n < 10 and b.n > best.n):
-            best = b
-    return best
+        seen.add(b.n)
+        out.append(b)
+    out.sort(key=lambda b: b.period_s)
+    return out
+
+
+def bursts(f: Flow, gap: Optional[float] = None) -> Optional[Bursts]:
+    """The finest regular grouping (the token scale when there is one); see burst_scales."""
+    if gap is not None:
+        ev = sorted([(t, n, "ab") for t, n in f.series_ab] + [(t, n, "ba") for t, n in f.series_ba])
+        return _measure(_group(ev, gap), gap) if len(ev) >= 20 else None
+    sc = burst_scales(f)
+    return sc[0] if sc else None
