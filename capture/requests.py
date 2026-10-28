@@ -61,6 +61,7 @@ def main() -> None:
     ap.add_argument("--model", default="")
     ap.add_argument("--n", type=int, default=20)
     ap.add_argument("--max-tokens", type=int, default=30)
+    ap.add_argument("--prompt", default=PROMPT, help="the user message; exo at CPU speed needs a short one, its runner is killed after 90 s without a token")
     ap.add_argument("--prompt-tokens", type=int, default=0, help="pad the prompt to about this many tokens")
     ap.add_argument("--gap", type=float, default=5.0, help="seconds between requests")
     ap.add_argument("--thinking", action="store_true")
@@ -72,9 +73,9 @@ def main() -> None:
     a = ap.parse_args()
     with open(a.out, "a") as fh:
         for i in range(a.n):
-            prompt = PROMPT if a.same_prompt else f"Request {i} of {a.n}. " + PROMPT
+            prompt = a.prompt if a.same_prompt else f"Request {i} of {a.n}. " + a.prompt
             if a.prompt_tokens:
-                prompt = ("" if a.same_prompt else f"Request {i}. ") + FILLER * max(1, a.prompt_tokens // 10) + PROMPT
+                prompt = ("" if a.same_prompt else f"Request {i}. ") + FILLER * max(1, a.prompt_tokens // 10) + a.prompt
             rec = dict(i=i, base=a.base, prompt_tokens_requested=a.prompt_tokens, max_tokens=a.max_tokens,
                        same_prompt=a.same_prompt)
             try:
