@@ -9,12 +9,13 @@
 #   download   nginx serving a 50 MB file, curl fetching it at 10 MB/s every 30 s  (bulk, like a model load)
 #   stream     ffmpeg pushing a test pattern as MPEG-TS over UDP at a fixed rate (steady, like decode)
 #   ssh-ish    two alpine containers exchanging a 64-byte UDP ping every 2 s   (heartbeat-like)
-#   mdns       an avahi container announcing a fake service                   (multicast beacon)
+#   mdns       background/mdns.py announcing a fake printer every 2 s           (multicast beacon)
 #   iperf      iperf3 at 200 Mbit/s for 30 s in the middle                     (a busy LAN flow)
 #
 # Rates are LAN-like on purpose: unthrottled, the bridge runs at tens of Gbit/s, the first
 # background capture grew to 55 GB and tcpdump dropped 81% of its packets.
 set -euo pipefail
+cd "$(dirname "$0")/.."
 NET=${1:?network}; DUR=${2:-600}
 A=docker.io/library/alpine:3.20
 run() { podman run -d --rm --network "$NET" "$@" >/dev/null; }
@@ -26,7 +27,7 @@ run --name bg-stream-rx $A sh -c "apk add -q socat; socat -u UDP-RECV:5004 /dev/
 run --name bg-stream-tx docker.io/linuxserver/ffmpeg:latest -re -f lavfi -i testsrc=size=640x480:rate=25 -c:v libx264 -b:v 2M -f mpegts udp://bg-stream-rx:5004?pkt_size=1316
 run --name bg-ping-b $A sh -c "apk add -q socat; socat -u UDP-RECV:9000 /dev/null"
 run --name bg-ping-a $A sh -c "apk add -q socat; while true; do head -c 64 /dev/zero | socat -u - UDP-SENDTO:bg-ping-b:9000; sleep 2; done"
-run --name bg-mdns $A sh -c "apk add -q avahi dbus; mkdir -p /run/dbus; dbus-daemon --system; avahi-daemon --no-drop-root --no-chroot -D; avahi-publish -s printer _ipp._tcp 631 pdl=application/pdf"
+run --name bg-mdns -v "$PWD/background/mdns.py:/mdns.py:ro" docker.io/library/python:3.12-alpine python3 /mdns.py 2
 run --name bg-iperf-s $A sh -c "apk add -q iperf3; iperf3 -s"
 sleep $((DUR / 2))
 podman run --rm --network "$NET" --name bg-iperf-c $A sh -c "apk add -q iperf3; iperf3 -c bg-iperf-s -t 30 -b 200M" >/dev/null || true
@@ -34,5 +35,5 @@ sleep $((DUR / 2 - 30))
 # what each generator did, before the containers go (a generator that failed to start shows here)
 podman ps -a --filter name=bg- --format '{{.Names}} {{.Status}}'
 for c in bg-curl bg-nginx bg-stream-tx bg-stream-rx bg-ping-a bg-ping-b bg-mdns bg-iperf-s; do podman logs --tail 3 "$c" 2>&1 | sed "s/^/[$c] /"; done
-for c in bg-curl bg-nginx bg-stream-tx bg-stream-rx bg-ping-a bg-ping-b bg-mdns bg-iperf-s; do podman rm -f "$c" >/dev/null 2>&1 || true; done
+for c in bg-curl bg-nginx bg-stream-tx bg-stream-rx bg-ping-a bg-ping-b bg-mdns bg-iperf-s; do podman rm -f -t 1 "$c" >/dev/null 2>&1 || true; done
 echo done
