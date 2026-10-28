@@ -1,0 +1,4 @@
+# t,phase,note
+1793148360.570516779,background,background/run.sh llama-net 600: download, stream, ping, mdns, iperf halfway
+1793149967.689451790,done,manual: teardown hung after the 
+  generators

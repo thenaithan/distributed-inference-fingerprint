@@ -34,6 +34,6 @@ podman run --rm --network "$NET" --name bg-iperf-c $A sh -c "apk add -q iperf3; 
 sleep $((DUR / 2 - 30))
 # what each generator did, before the containers go (a generator that failed to start shows here)
 podman ps -a --filter name=bg- --format '{{.Names}} {{.Status}}'
-for c in bg-curl bg-nginx bg-stream-tx bg-stream-rx bg-ping-a bg-ping-b bg-mdns bg-iperf-s; do podman logs --tail 3 "$c" 2>&1 | sed "s/^/[$c] /"; done
+for c in bg-curl bg-nginx bg-stream-tx bg-stream-rx bg-ping-a bg-ping-b bg-mdns bg-iperf-s; do { podman logs --tail 3 "$c" 2>&1 || true; } | sed "s/^/[$c] /"; done
 for c in bg-curl bg-nginx bg-stream-tx bg-stream-rx bg-ping-a bg-ping-b bg-mdns bg-iperf-s; do podman rm -f -t 1 "$c" >/dev/null 2>&1 || true; done
 echo done
