@@ -1,5 +1,5 @@
 {
- "capture": "captures/llamacpp/20261027-163215.pcap",
+ "capture": "/workspace/captures/llamacpp/20261027-163215.pcap",
  "sha256": "e5464a922c62358a54dbcb0eebdb0a6951810ad9c746ad8f60751367469754e7",
  "packets": 22063,
  "skipped": 15,
@@ -656,6 +656,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "load",
      "n": 11,
      "period_s": 0.0001,
      "period_cv": 0.59,
@@ -664,8 +665,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 6.6,
-     "phase": "load"
+     "t": 6.6
     }
    ]
   },
@@ -683,16 +683,64 @@
    ],
    "scales": [
     {
-     "n": 105,
-     "period_s": 0.0242,
-     "period_cv": 0.08,
+     "phase": "load",
+     "n": 18,
+     "period_s": 0.0006,
+     "period_cv": 0.91,
+     "req_bytes": 3269,
+     "resp_bytes": 16,
+     "req_cv": 0.99,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 6.7
+    },
+    {
+     "phase": "warm",
+     "n": 38,
+     "period_s": 0.0241,
+     "period_cv": 0.13,
      "req_bytes": 15994,
      "resp_bytes": 4104,
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": true,
-     "t": 6.7,
-     "phase": "load"
+     "t": 7.7
+    },
+    {
+     "phase": "pause",
+     "n": 60,
+     "period_s": 0.0053,
+     "period_cv": 0.27,
+     "req_bytes": 312,
+     "resp_bytes": 0,
+     "req_cv": 1.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 13.7
+    },
+    {
+     "phase": "pause",
+     "n": 20,
+     "period_s": 0.0242,
+     "period_cv": 0.02,
+     "req_bytes": 15994,
+     "resp_bytes": 4104,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": true,
+     "t": 13.7
+    },
+    {
+     "phase": "probe",
+     "n": 30,
+     "period_s": 0.0249,
+     "period_cv": 0.05,
+     "req_bytes": 15994,
+     "resp_bytes": 4104,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": true,
+     "t": 114.4
     }
    ]
   },
@@ -705,16 +753,76 @@
    "periods": [],
    "scales": [
     {
-     "n": 105,
-     "period_s": 0.0242,
-     "period_cv": 0.07,
+     "phase": "load",
+     "n": 20,
+     "period_s": 0.0001,
+     "period_cv": 0.74,
+     "req_bytes": 3269,
+     "resp_bytes": 16,
+     "req_cv": 0.72,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 6.7
+    },
+    {
+     "phase": "warm",
+     "n": 36,
+     "period_s": 0.0249,
+     "period_cv": 0.06,
      "req_bytes": 7170,
      "resp_bytes": 607752,
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": true,
-     "t": 6.7,
-     "phase": "load"
+     "t": 7.7
+    },
+    {
+     "phase": "pause",
+     "n": 59,
+     "period_s": 0.0097,
+     "period_cv": 0.11,
+     "req_bytes": 312,
+     "resp_bytes": 0,
+     "req_cv": 1.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 13.7
+    },
+    {
+     "phase": "pause",
+     "n": 20,
+     "period_s": 0.0241,
+     "period_cv": 0.02,
+     "req_bytes": 7170,
+     "resp_bytes": 607752,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": true,
+     "t": 13.7
+    },
+    {
+     "phase": "probe",
+     "n": 90,
+     "period_s": 0.0097,
+     "period_cv": 0.21,
+     "req_bytes": 312,
+     "resp_bytes": 0,
+     "req_cv": 1.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 114.4
+    },
+    {
+     "phase": "probe",
+     "n": 30,
+     "period_s": 0.0249,
+     "period_cv": 0.05,
+     "req_bytes": 7170,
+     "resp_bytes": 607752,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": true,
+     "t": 114.4
     }
    ]
   }
@@ -1917,6 +2025,30 @@
    "fin": null,
    "rst": null,
    "phase": "load"
+  }
+ ],
+ "pair_periods": [
+  {
+   "pair": "tcp 10.89.3.19 <-> 10.89.3.22",
+   "flows": 15,
+   "packets": 7275,
+   "periods": [
+    [
+     1.3,
+     0.24
+    ]
+   ]
+  },
+  {
+   "pair": "tcp 10.89.3.20 <-> 10.89.3.22",
+   "flows": 15,
+   "packets": 9313,
+   "periods": [
+    [
+     1.3,
+     0.28
+    ]
+   ]
   }
  ],
  "dropped_bytes": 0,

@@ -1,5 +1,5 @@
 {
- "capture": "captures/background/20261028-081447.pcap",
+ "capture": "/workspace/captures/background/20261028-081447.pcap",
  "sha256": "e4ebe4ab129e49a36ef55b2e7952e0565f98c60ef33b8099b22e97459bb96acb",
  "packets": 93592,
  "skipped": 223,
@@ -68,6 +68,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 34,
      "period_s": 0.0389,
      "period_cv": 0.02,
@@ -76,10 +77,10 @@
      "req_cv": 1.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 9.1,
-     "phase": "background"
+     "t": 9.1
     },
     {
+     "phase": "background",
      "n": 14,
      "period_s": 0.0798,
      "period_cv": 0.01,
@@ -88,8 +89,7 @@
      "req_cv": 0.01,
      "resp_cv": 0.98,
      "generation_like": false,
-     "t": 9.1,
-     "phase": "background"
+     "t": 9.1
     }
    ]
   },
@@ -116,6 +116,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 490,
      "period_s": 0.0101,
      "period_cv": 0.0,
@@ -124,8 +125,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 11.0,
-     "phase": "background"
+     "t": 11.0
     }
    ]
   },
@@ -138,6 +138,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 15170,
      "period_s": 0.04,
      "period_cv": 0.0,
@@ -146,8 +147,7 @@
      "req_cv": 0.1,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 11.2,
-     "phase": "background"
+     "t": 11.2
     }
    ]
   },
@@ -174,6 +174,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 15,
      "period_s": 0.0397,
      "period_cv": 0.04,
@@ -182,8 +183,7 @@
      "req_cv": 1.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 14.6,
-     "phase": "background"
+     "t": 14.6
     }
    ]
   },
@@ -196,6 +196,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 492,
      "period_s": 0.0101,
      "period_cv": 0.0,
@@ -204,8 +205,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 45.8,
-     "phase": "background"
+     "t": 45.8
     }
    ]
   },
@@ -218,6 +218,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 491,
      "period_s": 0.0101,
      "period_cv": 0.0,
@@ -226,8 +227,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 80.5,
-     "phase": "background"
+     "t": 80.5
     }
    ]
   },
@@ -240,6 +240,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 491,
      "period_s": 0.0101,
      "period_cv": 0.0,
@@ -248,8 +249,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 150.1,
-     "phase": "background"
+     "t": 150.1
     }
    ]
   },
@@ -262,6 +262,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 528,
      "period_s": 0.0091,
      "period_cv": 0.0,
@@ -270,8 +271,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 184.8,
-     "phase": "background"
+     "t": 184.8
     }
    ]
   },
@@ -284,6 +284,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 529,
      "period_s": 0.0091,
      "period_cv": 0.0,
@@ -292,8 +293,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 219.6,
-     "phase": "background"
+     "t": 219.6
     }
    ]
   },
@@ -306,6 +306,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 492,
      "period_s": 0.0101,
      "period_cv": 0.0,
@@ -314,8 +315,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 289.1,
-     "phase": "background"
+     "t": 289.1
     }
    ]
   },
@@ -328,6 +328,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 15,
      "period_s": 0.0395,
      "period_cv": 0.03,
@@ -336,8 +337,7 @@
      "req_cv": 1.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 314.7,
-     "phase": "background"
+     "t": 314.7
     }
    ]
   },
@@ -350,6 +350,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 5722,
      "period_s": 0.005,
      "period_cv": 0.0,
@@ -358,8 +359,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 315.5,
-     "phase": "background"
+     "t": 315.5
     }
    ]
   },
@@ -372,6 +372,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 491,
      "period_s": 0.0101,
      "period_cv": 0.0,
@@ -380,8 +381,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 323.9,
-     "phase": "background"
+     "t": 323.9
     }
    ]
   },
@@ -394,6 +394,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 491,
      "period_s": 0.0101,
      "period_cv": 0.0,
@@ -402,8 +403,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 358.7,
-     "phase": "background"
+     "t": 358.7
     }
    ]
   },
@@ -416,6 +416,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 490,
      "period_s": 0.0101,
      "period_cv": 0.0,
@@ -424,8 +425,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 393.4,
-     "phase": "background"
+     "t": 393.4
     }
    ]
   },
@@ -438,6 +438,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 491,
      "period_s": 0.0101,
      "period_cv": 0.0,
@@ -446,8 +447,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 428.2,
-     "phase": "background"
+     "t": 428.2
     }
    ]
   },
@@ -460,6 +460,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 491,
      "period_s": 0.0101,
      "period_cv": 0.0,
@@ -468,8 +469,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 463.0,
-     "phase": "background"
+     "t": 463.0
     }
    ]
   },
@@ -482,6 +482,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 491,
      "period_s": 0.0101,
      "period_cv": 0.0,
@@ -490,8 +491,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 532.5,
-     "phase": "background"
+     "t": 532.5
     }
    ]
   },
@@ -504,6 +504,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 491,
      "period_s": 0.0101,
      "period_cv": 0.0,
@@ -512,8 +513,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 567.3,
-     "phase": "background"
+     "t": 567.3
     }
    ]
   },
@@ -526,6 +526,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "background",
      "n": 491,
      "period_s": 0.0101,
      "period_cv": 0.0,
@@ -534,8 +535,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 602.0,
-     "phase": "background"
+     "t": 602.0
     }
    ]
   }
@@ -11677,6 +11677,56 @@
    "fin": null,
    "rst": null,
    "phase": "background"
+  }
+ ],
+ "pair_periods": [
+  {
+   "pair": "udp 10.89.3.1 <-> 10.89.3.14",
+   "flows": 19,
+   "packets": 76,
+   "periods": [
+    [
+     104.3,
+     0.74
+    ],
+    [
+     34.8,
+     0.58
+    ]
+   ]
+  },
+  {
+   "pair": "udp 10.89.3.1 <-> 10.89.3.18",
+   "flows": 304,
+   "packets": 1224,
+   "periods": [
+    [
+     2.0,
+     0.97
+    ]
+   ]
+  },
+  {
+   "pair": "udp 10.89.3.17 <-> 10.89.3.18",
+   "flows": 304,
+   "packets": 305,
+   "periods": [
+    [
+     2.0,
+     0.98
+    ]
+   ]
+  },
+  {
+   "pair": "tcp 10.89.3.13 <-> 10.89.3.14",
+   "flows": 18,
+   "packets": 14784,
+   "periods": [
+    [
+     34.8,
+     0.94
+    ]
+   ]
   }
  ],
  "dropped_bytes": 0,

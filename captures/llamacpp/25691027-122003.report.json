@@ -1,5 +1,5 @@
 {
- "capture": "captures/llamacpp/25691027-122003.pcap",
+ "capture": "/workspace/captures/llamacpp/25691027-122003.pcap",
  "sha256": "8baea8e12c0755351b45fe6d2df00e4d847dafbeae231d33e9a5808d347981a8",
  "packets": 107337,
  "skipped": 21,
@@ -1266,6 +1266,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "load",
      "n": 11,
      "period_s": 0.0001,
      "period_cv": 0.58,
@@ -1274,8 +1275,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 5.1,
-     "phase": "load"
+     "t": 5.1
     }
    ]
   },
@@ -1293,16 +1293,64 @@
    ],
    "scales": [
     {
-     "n": 897,
-     "period_s": 0.0266,
-     "period_cv": 0.06,
+     "phase": "load",
+     "n": 18,
+     "period_s": 0.0005,
+     "period_cv": 0.95,
+     "req_bytes": 3269,
+     "resp_bytes": 16,
+     "req_cv": 0.99,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 5.2
+    },
+    {
+     "phase": "generate",
+     "n": 608,
+     "period_s": 0.0262,
+     "period_cv": 0.03,
      "req_bytes": 15994,
      "resp_bytes": 4104,
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": true,
-     "t": 5.2,
-     "phase": "load"
+     "t": 66.2
+    },
+    {
+     "phase": "generate",
+     "n": 20,
+     "period_s": 5.7993,
+     "period_cv": 0.0,
+     "req_bytes": 479820,
+     "resp_bytes": 123120,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": true,
+     "t": 66.2
+    },
+    {
+     "phase": "generate-long",
+     "n": 188,
+     "period_s": 0.048,
+     "period_cv": 0.03,
+     "req_bytes": 20090,
+     "resp_bytes": 4104,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": true,
+     "t": 182.5
+    },
+    {
+     "phase": "kill",
+     "n": 83,
+     "period_s": 0.0268,
+     "period_cv": 0.06,
+     "req_bytes": 20090,
+     "resp_bytes": 4104,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": true,
+     "t": 221.9
     }
    ]
   },
@@ -1320,28 +1368,88 @@
    ],
    "scales": [
     {
-     "n": 887,
-     "period_s": 0.0266,
-     "period_cv": 0.05,
+     "phase": "load",
+     "n": 20,
+     "period_s": 0.0001,
+     "period_cv": 0.82,
+     "req_bytes": 3269,
+     "resp_bytes": 16,
+     "req_cv": 0.99,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 5.2
+    },
+    {
+     "phase": "generate",
+     "n": 1797,
+     "period_s": 0.0106,
+     "period_cv": 0.15,
+     "req_bytes": 312,
+     "resp_bytes": 0,
+     "req_cv": 1.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 66.2
+    },
+    {
+     "phase": "generate",
+     "n": 606,
+     "period_s": 0.0262,
+     "period_cv": 0.03,
      "req_bytes": 7170,
      "resp_bytes": 607752,
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": true,
-     "t": 5.2,
-     "phase": "load"
+     "t": 66.2
     },
     {
-     "n": 32,
-     "period_s": 5.7993,
+     "phase": "generate",
+     "n": 22,
+     "period_s": 5.7941,
      "period_cv": 0.0,
      "req_bytes": 215100,
      "resp_bytes": 18232560,
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": true,
-     "t": 5.2,
-     "phase": "load"
+     "t": 66.2
+    },
+    {
+     "phase": "generate",
+     "n": 20,
+     "period_s": 5.7988,
+     "period_cv": 0.0,
+     "req_bytes": 215100,
+     "resp_bytes": 18232560,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": true,
+     "t": 66.2
+    },
+    {
+     "phase": "generate-long",
+     "n": 183,
+     "period_s": 0.048,
+     "period_cv": 0.03,
+     "req_bytes": 11266,
+     "resp_bytes": 607752,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": true,
+     "t": 182.5
+    },
+    {
+     "phase": "kill",
+     "n": 79,
+     "period_s": 0.0268,
+     "period_cv": 0.05,
+     "req_bytes": 11266,
+     "resp_bytes": 607752,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": true,
+     "t": 221.9
     }
    ]
   },
@@ -1354,6 +1462,7 @@
    "periods": [],
    "scales": [
     {
+     "phase": "recover",
      "n": 11,
      "period_s": 0.0001,
      "period_cv": 0.49,
@@ -1362,8 +1471,7 @@
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": false,
-     "t": 261.7,
-     "phase": "recover"
+     "t": 261.7
     }
    ]
   },
@@ -1385,16 +1493,28 @@
    ],
    "scales": [
     {
-     "n": 78,
-     "period_s": 0.0263,
-     "period_cv": 0.04,
+     "phase": "recover",
+     "n": 18,
+     "period_s": 0.0004,
+     "period_cv": 0.79,
+     "req_bytes": 3269,
+     "resp_bytes": 16,
+     "req_cv": 0.99,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 261.8
+    },
+    {
+     "phase": "pause",
+     "n": 61,
+     "period_s": 0.0265,
+     "period_cv": 0.02,
      "req_bytes": 15994,
      "resp_bytes": 4104,
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": true,
-     "t": 261.8,
-     "phase": "recover"
+     "t": 262.7
     }
    ]
   },
@@ -1412,16 +1532,40 @@
    ],
    "scales": [
     {
-     "n": 78,
-     "period_s": 0.0263,
-     "period_cv": 0.05,
+     "phase": "recover",
+     "n": 20,
+     "period_s": 0.0001,
+     "period_cv": 0.89,
+     "req_bytes": 3269,
+     "resp_bytes": 16,
+     "req_cv": 0.72,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 261.8
+    },
+    {
+     "phase": "pause",
+     "n": 160,
+     "period_s": 0.0109,
+     "period_cv": 0.09,
+     "req_bytes": 312,
+     "resp_bytes": 0,
+     "req_cv": 1.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 262.7
+    },
+    {
+     "phase": "pause",
+     "n": 59,
+     "period_s": 0.0265,
+     "period_cv": 0.03,
      "req_bytes": 7170,
      "resp_bytes": 607752,
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": true,
-     "t": 261.8,
-     "phase": "recover"
+     "t": 262.7
     }
    ]
   }
@@ -3801,6 +3945,52 @@
    "fin": null,
    "rst": null,
    "phase": "recover"
+  }
+ ],
+ "pair_periods": [
+  {
+   "pair": "tcp 10.89.3.5 <-> 10.89.3.8",
+   "flows": 15,
+   "packets": 32594,
+   "periods": [
+    [
+     5.8,
+     0.69
+    ]
+   ]
+  },
+  {
+   "pair": "tcp 10.89.3.6 <-> 10.89.3.8",
+   "flows": 15,
+   "packets": 35614,
+   "periods": [
+    [
+     5.8,
+     0.7
+    ]
+   ]
+  },
+  {
+   "pair": "tcp 10.89.3.11 <-> 10.89.3.9",
+   "flows": 15,
+   "packets": 5345,
+   "periods": [
+    [
+     0.5,
+     0.52
+    ]
+   ]
+  },
+  {
+   "pair": "tcp 10.89.3.10 <-> 10.89.3.11",
+   "flows": 15,
+   "packets": 6451,
+   "periods": [
+    [
+     0.3,
+     0.58
+    ]
+   ]
   }
  ],
  "dropped_bytes": 435613455,
