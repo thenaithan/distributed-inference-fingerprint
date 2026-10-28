@@ -80,23 +80,33 @@ def analyse(path: str, timeline: Optional[str] = None, min_packets: int = 20) ->
             "phase": phase_at(tl, f.t_first)})
         if f.packets >= min_packets and (f.series_ab or f.series_ba):
             per = rhythm.periodicities(f)
-            scales = rhythm.burst_scales(f)
-            tb = rhythm.turns(f)
-            if tb and not any(abs(b.period_s - tb.period_s) / max(tb.period_s, 1e-9) < 0.2 for b in scales):
-                scales.insert(0, tb)
-                scales.sort(key=lambda b: b.period_s)
-            if per or scales:
-                out["rhythm"].append({
-                    "flow": f.endpoints(), "packets": f.packets, "duration": round(f.duration, 1),
-                    "payload_ab": f.payload_ab, "payload_ba": f.payload_ba,
-                    "periods": per,
-                    "scales": [{
-                        "n": b.n, "period_s": round(b.period_s, 4), "period_cv": round(b.period_cv, 2),
+            # exchanges are judged per harness phase: a flow that carries a load, short
+            # requests, long prefills and a hang in turn has no single exchange shape
+            entry = {"flow": f.endpoints(), "packets": f.packets, "duration": round(f.duration, 1),
+                     "payload_ab": f.payload_ab, "payload_ba": f.payload_ba, "periods": per, "scales": []}
+            for ph, pf in rhythm.by_phase(f, tl):
+                scales = rhythm.burst_scales(pf)
+                tb = rhythm.turns(pf)
+                if tb and not any(abs(b.period_s - tb.period_s) / max(tb.period_s, 1e-9) < 0.2 for b in scales):
+                    scales.insert(0, tb)
+                    scales.sort(key=lambda b: b.period_s)
+                for b in scales:
+                    entry["scales"].append({
+                        "phase": ph, "n": b.n, "period_s": round(b.period_s, 4), "period_cv": round(b.period_cv, 2),
                         "req_bytes": round(b.req_bytes), "resp_bytes": round(b.resp_bytes),
                         "req_cv": round(b.req_cv, 2), "resp_cv": round(b.resp_cv, 2),
-                        "generation_like": b.looks_like_generation(),
-                        "t": round(b.t_start - t0, 1), "phase": phase_at(tl, b.t_start)} for b in scales]})
+                        "generation_like": b.looks_like_generation(), "t": round(b.t_start - t0, 1)})
+            if per or entry["scales"]:
+                out["rhythm"].append(entry)
     out["by_host"] = {h: sorted(s) for h, s in out["by_host"].items()}
+    # periodicity per host pair, across all its flows: a heartbeat that opens a socket per
+    # beat is hundreds of one-packet flows and invisible per flow (background set, 2026-10-28)
+    out["pair_periods"] = []
+    for (proto, h1, h2), (times, nflows) in rhythm.pair_series(flows).items():
+        per = rhythm.periodicities_of(times)
+        if per and nflows > 1:
+            out["pair_periods"].append({"pair": f"{proto} {h1} <-> {h2}", "flows": nflows,
+                                        "packets": len(times), "periods": per})
     out["dropped_bytes"] = sum(f["dropped"] for f in out.get("flow_table", []))
     out["first_match_s"] = {r: round(t, 3) for r, t in sorted(first_by_rule.items(), key=lambda x: x[1])}
     return out
@@ -136,9 +146,14 @@ def main() -> None:
         per = " ".join(f"{p}s({s})" for p, s in x["periods"]) or "-"
         print(f"  {x['flow']}\n      {x['packets']} pkts, {x['duration']} s, {x['payload_ab']}/{x['payload_ba']} B; periods: {per}")
         for b in x["scales"]:
-            print(f"      {b['n']} exchanges every {b['period_s']} s (cv {b['period_cv']}), "
+            print(f"      [{b['phase'] or '-'}] {b['n']} exchanges every {b['period_s']} s (cv {b['period_cv']}), "
                   f"{b['req_bytes']} B -> / {b['resp_bytes']} B <- (cv {b['req_cv']}/{b['resp_cv']})"
-                  + ("  GENERATION-LIKE" if b["generation_like"] else "") + f"  from {b['t']} s {b['phase']}")
+                  + ("  GENERATION-LIKE" if b["generation_like"] else "") + f"  from {b['t']} s")
+    if r.get("pair_periods"):
+        print("\nperiodicity per host pair, across flows:")
+        for x in r["pair_periods"]:
+            print(f"  {x['pair']:<50} {x['flows']} flows, {x['packets']} pkts: "
+                  + " ".join(f"{p}s({s})" for p, s in x["periods"]))
     ext = [f for f in r.get("flow_table", []) if not any(h in f["flow"] for h in ("10.", "192.168.", "fe80:", "ff02:", "fd", "172."))]
     if ext:
         print("\nflows with an endpoint outside private/link-local ranges (what left the LAN):")

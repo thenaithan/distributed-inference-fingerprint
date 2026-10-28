@@ -26,12 +26,50 @@ def _binned(times: List[float], t0: float, t1: float, dt: float) -> List[int]:
     return c
 
 
+def by_phase(f: Flow, timeline: List[tuple]) -> List[Tuple[str, Flow]]:
+    """The flow cut into one sub-flow per harness phase (timeline rows (t, phase, note));
+    the whole flow under phase "" when there is no timeline. Only the payload series are
+    carried over, which is all the rhythm rules read."""
+    if not timeline:
+        return [("", f)]
+    bounds = [(t, ph) for t, ph, _ in timeline]
+    out = []
+    for i, (t, ph) in enumerate(bounds):
+        t1 = bounds[i + 1][0] if i + 1 < len(bounds) else float("inf")
+        ab = [(x, n) for x, n in f.series_ab if t <= x < t1]
+        ba = [(x, n) for x, n in f.series_ba if t <= x < t1]
+        if len(ab) + len(ba) >= 20:
+            sub = Flow(f.proto, f.a, f.b, min((ab + ba), key=lambda e: e[0])[0], max((ab + ba), key=lambda e: e[0])[0])
+            sub.series_ab, sub.series_ba = ab, ba
+            out.append((ph, sub))
+    return out or [("", f)]
+
+
+def pair_series(flows) -> dict:
+    """{(proto, host1, host2): (sorted payload-packet times over all the pair's flows, flow count)}."""
+    acc: dict = {}
+    for f in flows.values():
+        if f.proto not in ("tcp", "udp"):
+            continue
+        key = (f.proto, min(f.a[0], f.b[0]), max(f.a[0], f.b[0]))
+        times, n = acc.get(key, ([], 0))
+        times.extend(t for t, _ in f.series_ab)
+        times.extend(t for t, _ in f.series_ba)
+        acc[key] = (times, n + 1)
+    return {k: (sorted(v[0]), v[1]) for k, v in acc.items()}
+
+
 def periodicities(f: Flow, dt: float = 0.1, min_period: float = 0.3, max_period: float = 120.0,
                   top: int = 4) -> List[Tuple[float, float]]:
-    """Dominant periods of payload-packet arrivals (both directions), by autocorrelation of
-    the per-bin count series. Score is the normalised autocorrelation at that lag (1 = exact
+    """Dominant periods of a flow's payload-packet arrivals (both directions)."""
+    return periodicities_of(sorted(t for t, _ in f.series_ab + f.series_ba), dt, min_period, max_period, top)
+
+
+def periodicities_of(times: List[float], dt: float = 0.1, min_period: float = 0.3, max_period: float = 120.0,
+                     top: int = 4) -> List[Tuple[float, float]]:
+    """Dominant periods of a sorted list of arrival times, by autocorrelation of the per-bin
+    presence series. Score is the normalised autocorrelation at that lag (1 = exact
     repetition). Needs at least ~3 periods of capture to show a period."""
-    times = sorted(t for t, _ in f.series_ab + f.series_ba)
     if len(times) < 6:
         return []
     t0, t1 = times[0], times[-1]
@@ -80,10 +118,13 @@ class Bursts:
     direction: str               # which side sends first: "ab" or "ba"
 
     def looks_like_generation(self) -> bool:
-        """Stable exchange sizes at a stable rate, for at least ten exchanges, with a
-        return leg: the shape predicted for decode (STUDY.md predictions 7, 10, 13)."""
-        return (self.n >= 10 and self.period_cv < 0.35 and self.req_cv < 0.5
-                and self.resp_cv < 0.5 and self.resp_bytes > 0 and 0.01 <= self.period_s <= 60)
+        """Stable exchange sizes at a stable rate, for at least ten exchanges, with data in
+        both directions and at least one activation-sized leg: the shape predicted for
+        decode (STUDY.md predictions 7, 10, 13). The size floor keeps a heartbeat with a
+        small acknowledgement (exo's 5 s election messages) out."""
+        return (self.n >= 10 and self.period_cv < 0.35 and self.req_cv < 0.5 and self.resp_cv < 0.5
+                and min(self.req_bytes, self.resp_bytes) >= 256
+                and max(self.req_bytes, self.resp_bytes) >= 2048 and 0.01 <= self.period_s <= 60)
 
 
 def _group(ev, gap):

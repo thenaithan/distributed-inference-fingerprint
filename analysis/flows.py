@@ -37,10 +37,13 @@ class Flow:
     rst_at: Optional[float] = None
     syn_at: Optional[float] = None
     fin_at: Optional[float] = None
-    # tcp sequence tracking per direction: (first seq, highest seq+len), so bytes the
-    # capture dropped are still counted (expected_ab/expected_ba)
-    seq_ab: Optional[Tuple[int, int]] = None
-    seq_ba: Optional[Tuple[int, int]] = None
+    # tcp sequence tracking per direction: the highest seq+len seen and the bytes
+    # accumulated as it advances, so bytes the capture dropped are still counted
+    # (expected_ab/expected_ba) and a 32-bit wrap, any number of times, is harmless
+    seq_end_ab: Optional[int] = None
+    seq_end_ba: Optional[int] = None
+    exp_ab: int = 0
+    exp_ba: int = 0
 
     @property
     def key(self):
@@ -53,21 +56,15 @@ class Flow:
     def endpoints(self) -> str:
         return f"{self.proto} {self.a[0]}:{self.a[1]} <-> {self.b[0]}:{self.b[1]}"
 
-    @staticmethod
-    def _span(sp: Optional[Tuple[int, int]]) -> int:
-        if sp is None:
-            return 0
-        return (sp[1] - sp[0]) & 0xFFFFFFFF
-
     @property
     def expected_ab(self) -> int:
         """Payload bytes a->b according to TCP sequence numbers (SYN/FIN not counted);
         equals payload_ab when nothing was dropped. 0 for udp."""
-        return self._span(self.seq_ab)
+        return self.exp_ab
 
     @property
     def expected_ba(self) -> int:
-        return self._span(self.seq_ba)
+        return self.exp_ba
 
     @property
     def dropped(self) -> int:
@@ -100,21 +97,27 @@ class Flow:
                 self.fin_at = p.t
             if p.flags & pcap.TCP_SYN and not p.flags & pcap.TCP_ACK and self.syn_at is None:
                 self.syn_at = p.t
-            # sequence span per direction; a SYN consumes one sequence number
+            # sequence accounting per direction; a SYN consumes one sequence number
             if n or p.flags & pcap.TCP_SYN:
                 start = (p.seq + 1) & 0xFFFFFFFF if p.flags & pcap.TCP_SYN else p.seq
                 end = (start + n) & 0xFFFFFFFF
-                cur = self.seq_ab if p.forward else self.seq_ba
+                cur = self.seq_end_ab if p.forward else self.seq_end_ba
                 if cur is None:
-                    cur = (start, end)
+                    adv = n
                 else:
-                    # highest end seen, allowing for a wrap; the first start is kept
-                    if ((end - cur[1]) & 0xFFFFFFFF) < 0x80000000:
-                        cur = (cur[0], end)
+                    # how far the highest end advanced (modulo 2^32); a retransmission or
+                    # an out-of-order segment behind it advances by nothing
+                    adv = (end - cur) & 0xFFFFFFFF
+                    if adv >= 0x80000000:
+                        adv = 0
                 if p.forward:
-                    self.seq_ab = cur
+                    self.exp_ab += adv
+                    if cur is None or adv:
+                        self.seq_end_ab = end
                 else:
-                    self.seq_ba = cur
+                    self.exp_ba += adv
+                    if cur is None or adv:
+                        self.seq_end_ba = end
 
 
 def build(path: str, t_end: Optional[float] = None, stats: Optional[pcap.Stats] = None) -> Dict[tuple, Flow]:
