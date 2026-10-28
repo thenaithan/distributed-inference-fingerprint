@@ -1,0 +1,3 @@
+# t,phase,note
+1793150094.097549247,background,background/run.sh llama-net 600: download, stream, ping, mdns, iperf halfway
+1793150709.501556393,done,
