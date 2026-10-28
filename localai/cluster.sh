@@ -35,9 +35,12 @@ case "$cmd" in
     n=${arg:-2}; ensure
     podman rm -f main >/dev/null 2>&1 || true
     # shellcheck disable=SC2046
+    # the model goes in through LOCALAI_MODELS: the positional form (`local-ai run <uri>`)
+    # exists in the pinned source but not in every image build ("unexpected argument")
     podman run -d --name main --network "$NET" -v "$VOL:/models" -p "$API_PORT:8080" \
-      -e LOCALAI_P2P=true $(dht_env) -e LOCALAI_P2P_LOGLEVEL=debug "$IMG" \
-      local-ai run --p2p "$MODEL" >/dev/null
+      -e LOCALAI_P2P=true $(dht_env) -e LOCALAI_P2P_LOGLEVEL=debug -e LOCALAI_MODELS="$MODEL" "$IMG" \
+      local-ai run --p2p >/dev/null
+    echo "image $(podman image inspect "$IMG" --format '{{.Digest}}')"
     echo "started main; waiting for its token"
     for _ in $(seq 60); do t=$(token || true); [ -n "$t" ] && break; sleep 2; done
     [ -n "${t:-}" ] || { echo "no token from main (podman logs main)"; exit 1; }
