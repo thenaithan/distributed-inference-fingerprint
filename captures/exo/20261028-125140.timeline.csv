@@ -1,0 +1,8 @@
+# t,phase,note
+1793166704.888356406,start,cluster.sh up 3: discovery beacons, zenoh links, election
+1793166735.627705393,place,place_instance over 3 nodes: load, warmup (50 tokens), one request
+1793167065.891969980,idle,instance ready, no requests for 60 s
+1793167125.896654931,generate,20 x 30 tokens, ~20-token prompt (2.4 s/token: ~25 min)
+1793170192.955957795,generate-long,1 x 30 tokens, ~2048-token prompt (expected: cancelled by exo's 90 s watchdog, instance rebuilt)
+1793170295.372929922,kill,kill worker node 1 during a request; exo detects at 15 s, re-places (~275 s)
+1793170847.138494128,done,
