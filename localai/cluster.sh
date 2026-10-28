@@ -19,7 +19,10 @@
 # DHT is off by default here (LOCALAI_P2P_DISABLE_DHT=true) so nothing leaves the LAN;
 # set DHT=1 for the prediction-12 run.
 set -euo pipefail
-NET=localai-net; IMG=${LOCALAI_IMAGE:-docker.io/localai/localai:latest-cpu}; VOL=localai-models
+NET=localai-net; VOL=localai-models
+# LocalAI v3.0.0 (built from f9b968e), the `latest-cpu` of 2026-10-28, pinned by digest; the
+# wire findings were read at 35224b8 (master, 2026-10-27)
+IMG=${LOCALAI_IMAGE:-docker.io/localai/localai@sha256:b9fb7ed9888ef401d49002dc3227686d39339b7f487ee5ff40cd2bd82191f271}
 MODEL=${LOCALAI_MODEL:-huggingface://ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q8_0.gguf}
 API_PORT=${LOCALAI_API_PORT:-8080}
 DHT=${DHT:-0}
@@ -35,11 +38,12 @@ case "$cmd" in
     n=${arg:-2}; ensure
     podman rm -f main >/dev/null 2>&1 || true
     # shellcheck disable=SC2046
-    # the model goes in through LOCALAI_MODELS: the positional form (`local-ai run <uri>`)
-    # exists in the pinned source but not in every image build ("unexpected argument")
+    # the image's entrypoint already execs ./local-ai, so the command starts at the
+    # subcommand (`run`, `worker`); a leading `local-ai` becomes a stray argument and the
+    # parser rejects whatever comes last. The model goes in through LOCALAI_MODELS.
     podman run -d --name main --network "$NET" -v "$VOL:/models" -p "$API_PORT:8080" \
       -e LOCALAI_P2P=true $(dht_env) -e LOCALAI_P2P_LOGLEVEL=debug -e LOCALAI_MODELS="$MODEL" "$IMG" \
-      local-ai run --p2p >/dev/null
+      run --p2p >/dev/null
     echo "image $(podman image inspect "$IMG" --format '{{.Digest}}')"
     echo "started main; waiting for its token"
     for _ in $(seq 60); do t=$(token || true); [ -n "$t" ] && break; sleep 2; done
@@ -49,7 +53,7 @@ case "$cmd" in
       # shellcheck disable=SC2046
       podman run -d --name "worker-$i" --network "$NET" -v "$VOL:/models" \
         -e TOKEN="$t" $(dht_env) -e LOCALAI_P2P_LOGLEVEL=debug "$IMG" \
-        local-ai worker p2p-llama-cpp-rpc >/dev/null
+        worker p2p-llama-cpp-rpc >/dev/null
       echo "started worker-$i"
     done
     echo "token: $t"; echo "API on http://localhost:$API_PORT; workers appear under /p2p (or the Swarm page)" ;;
