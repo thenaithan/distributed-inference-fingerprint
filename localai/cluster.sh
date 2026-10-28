@@ -31,7 +31,7 @@ cmd=${1:-}; arg=${2:-}
 ensure() { podman network exists "$NET" 2>/dev/null || podman network create "$NET" >/dev/null
            podman volume exists "$VOL" 2>/dev/null || podman volume create "$VOL" >/dev/null; }
 dht_env() { [ "$DHT" = 1 ] && echo "-e LOCALAI_P2P_DISABLE_DHT=false" || echo "-e LOCALAI_P2P_DISABLE_DHT=true"; }
-token() { curl -sf "http://localhost:$API_PORT/p2p/token"; }
+token() { curl -sf "http://localhost:$API_PORT/api/p2p/token"; }
 
 case "$cmd" in
   up)
@@ -56,7 +56,7 @@ case "$cmd" in
         worker p2p-llama-cpp-rpc >/dev/null
       echo "started worker-$i"
     done
-    echo "token: $t"; echo "API on http://localhost:$API_PORT; workers appear under /p2p (or the Swarm page)" ;;
+    echo "token: $t"; echo "API on http://localhost:$API_PORT; workers appear under /api/p2p (JSON) or /p2p (the Swarm page)" ;;
   token) token; echo ;;
   down)  for c in main $(podman ps -a --format '{{.Names}}' | grep '^worker-' || true); do podman rm -f "$c" >/dev/null 2>&1 || true; done; echo removed ;;
   logs)  podman logs -f "$arg" ;;
