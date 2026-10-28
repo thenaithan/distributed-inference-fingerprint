@@ -33,8 +33,10 @@ mark idle "instance ready, no requests for $IDLE s"
 sleep "$IDLE"
 mark generate "20 x 30 tokens, 33-token prompt (2.4 s/token: ~25 min)"
 python3 capture/requests.py --base http://localhost:52415 --model "$MODEL" --n 20 --max-tokens 30 --gap 10 --out "$rq"
-mark generate-long "2 x 30 tokens, ~2048-token prompt (prefill ~90 min each at 2.6 s/token; cut --n if short of time)"
-python3 capture/requests.py --base http://localhost:52415 --model "$MODEL" --n 2 --max-tokens 30 --prompt-tokens 2048 --out "$rq"
+# one long request (the plan cut this phase to one); its prefill runs ~90 min at 2.6 s/token
+# with no token to show for it, so the no-token deadline must outlast it
+mark generate-long "1 x 30 tokens, ~2048-token prompt (prefill ~90 min at 2.6 s/token)"
+python3 capture/requests.py --base http://localhost:52415 --model "$MODEL" --n 1 --max-tokens 30 --prompt-tokens 2048 --timeout 10800 --out "$rq"
 mark kill "kill worker node 1 during a request; exo detects at 15 s, re-places (~275 s)"
 python3 "$RECOVERY/exo/trial.py" --nodes 3 --fail-worker --mode kill --out "$dir/$stamp.kill.jsonl" || true
 mark done ""
