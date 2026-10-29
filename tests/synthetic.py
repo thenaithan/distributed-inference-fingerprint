@@ -111,6 +111,13 @@ def main(path: str) -> None:
     q = b"\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x05_http\x04_tcp\x05local\x00\x00\x0c\x00\x01"
     for k in range(10):
         w.frame(t0 + 60 + k * 10, eth(31, 0x33, 0x0800, ip4("10.0.2.2", "224.0.0.251", 17, udp(5353, 5353, q))))
+    # LocalAI: a short mDNS query, then answers whose TXT record carries a libp2p multiaddr
+    # past the first 64 payload bytes (the real one is at offset 183)
+    w.frame(t0 + 70, eth(40, 0x33, 0x0800, ip4("10.0.3.1", "224.0.0.251", 17, udp(5353, 5353, q))))
+    for k in range(5):
+        ans = (b"\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x01" + bytes(170)
+               + b"Ydnsaddr=/ip4/10.0.3.1/udp/4001/quic-v1/p2p/12D3KooW" + rng.randbytes(40))
+        w.frame(t0 + 71 + k * 23.3, eth(40, 0x33, 0x0800, ip4("10.0.3.1", "224.0.0.251", 17, udp(5353, 5353, ans))))
     w.close()
 
 

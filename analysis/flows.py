@@ -9,11 +9,17 @@ bytes per direction, TCP flags seen).
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Set, Tuple
 
 from . import pcap
 
 FIRST_BYTES = 64          # payload prefix kept per direction, for static signatures
+# byte markers looked for anywhere in a flow's first SCAN_PACKETS payload packets, for the
+# signatures that sit past FIRST_BYTES: a libp2p multiaddr in an mDNS TXT record (LocalAI:
+# offset 183, in the second packet after a short query) and ggml tensor names in SET_TENSOR
+# (offset 528 on LocalAI's loopback, after HELLO and the buffer allocations)
+MARKERS = (b"dnsaddr=", b"/p2p/", b"blk.", b"token_embd", b"output_norm")
+SCAN_PACKETS = 256
 
 
 @dataclass
@@ -34,6 +40,7 @@ class Flow:
     first_ab: bytes = b""
     first_ba: bytes = b""
     flags: int = 0            # OR of TCP flags seen
+    markers: Set[bytes] = field(default_factory=set)   # MARKERS seen in the first packets
     rst_at: Optional[float] = None
     syn_at: Optional[float] = None
     fin_at: Optional[float] = None
@@ -75,6 +82,8 @@ class Flow:
         self.packets += 1
         self.t_last = max(self.t_last, p.t)
         n = len(p.payload)
+        if n and len(self.series_ab) + len(self.series_ba) < SCAN_PACKETS:
+            self.markers.update(m for m in MARKERS if m in p.payload)
         if p.forward:
             self.bytes_ab += p.wire_len
             self.payload_ab += n

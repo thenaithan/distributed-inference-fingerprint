@@ -135,11 +135,10 @@ def llama_port(f: Flow) -> Optional[Match]:
 
 
 def llama_tensor_names(f: Flow) -> Optional[Match]:
-    """Readable ggml tensor names ('blk.N.', 'token_embd', 'output.weight') in the first bytes."""
-    head = f.first_ab + f.first_ba
-    if f.proto == "tcp" and (b"blk." in head or b"token_embd" in head or b"output_norm" in head):
+    """Readable ggml tensor names ('blk.N.', 'token_embd', 'output_norm') in the first packets."""
+    if f.proto == "tcp" and f.markers & {b"blk.", b"token_embd", b"output_norm"}:
         series = f.series_ab or f.series_ba
-        return Match("llama_tensor_names", "llama.cpp", "ggml tensor name in plaintext", "first bytes",
+        return Match("llama_tensor_names", "llama.cpp", "ggml tensor name in plaintext", "first packets",
                      series[0][0], "byte")
     return None
 
@@ -166,10 +165,9 @@ def mdns(f: Flow) -> Optional[Match]:
         return None
     if not ({MDNS_GROUP_V4, MDNS_GROUP_V6} & {f.a[0], f.b[0]}):
         return None
-    head = f.first_ab + f.first_ba
     series = f.series_ab or f.series_ba
     t0 = series[0][0] if series else f.t_first
-    if b"/p2p/" in head or b"dnsaddr" in head:
+    if f.markers & {b"dnsaddr=", b"/p2p/"}:
         return Match("mdns_libp2p", "libp2p", "mDNS record advertising a libp2p multiaddr", "1 packet", t0, "byte")
     return Match("mdns", "background", "mDNS (ordinary)", "1 packet", t0, "port")
 
