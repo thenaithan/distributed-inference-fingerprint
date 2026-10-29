@@ -1,0 +1,651 @@
+CPU info:
+model name	: Intel(R) Core(TM) i5-14600K
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb intel_pt sha_ni xsaveopt xsavec xgetbv1 xsaves split_lock_detect user_shstk avx_vnni dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req hfi vnmi umip pku ospke waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize pconfig arch_lbr ibt flush_l1d arch_capabilities
+CPU:    AVX    found OK
+CPU:    AVX2   found OK
+CPU: no AVX512 found
+[90mOct 29 07:28:19[0m [90mDEBUG[0m GPU vendor detected via ghw [36mvendor[0m="nvidia" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/xsysinfo/gpu.go"  [36mcaller.L[0m=242 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m GPU vendor [36mgpuVendor[0m="nvidia" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/system/state.go"  [36mcaller.L[0m=111 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m Total available VRAM [36mvram[0m=0 [36mcaller[0m={[36mcaller.file[0m="/build/pkg/system/state.go"  [36mcaller.L[0m=113 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m Using forced capability run file [36mcapabilityRunFile[0m="/run/localai/capability" [36mcapability[0m="default\n" [36menv[0m="" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/system/capabilities.go"  [36mcaller.L[0m=358 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m P2P mode enabled [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=539 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m No token provided, generating one [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=544 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m Generated Token: [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=546 } 
+<redacted>
+[90mOct 29 07:28:19[0m [34mINFO [0m To use the token, you can run the following command in another node or terminal: [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=549 } 
+export TOKEN="<redacted>"
+local-ai worker p2p-llama-cpp-rpc
+[90mOct 29 07:28:19[0m [90mDEBUG[0m runtime_settings.json not found, using defaults [36mcaller[0m={[36mcaller.file[0m="/build/core/application/startup.go"  [36mcaller.L[0m=654 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m Starting LocalAI [36mthreads[0m=10 [36mmodelsPath[0m="//models" [36mcaller[0m={[36mcaller.file[0m="/build/core/application/startup.go"  [36mcaller.L[0m=69 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m LocalAI version [36mversion[0m="v4.12.1 (ec9274027eadd552d56f2c6c1fe86cd9216a991a)" [36mcaller[0m={[36mcaller.file[0m="/build/core/application/startup.go"  [36mcaller.L[0m=70 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m LocalAI Assistant in-memory MCP server initialised [36mtools[0m=43 [36mread_only[0m=false [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/mcp/localai_assistant.go"  [36mcaller.L[0m=78 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m CPU capabilities [36mcapabilities[0m=[3dnowprefetch abm acpi adx aes aperfmperf apic arat arch_capabilities arch_lbr arch_perfmon art avx avx2 avx_vnni bmi1 bmi2 bts clflush clflushopt clwb cmov constant_tsc cpuid cpuid_fault cx16 cx8 de ds_cpl dtes64 dtherm dts epb ept ept_ad erms est f16c flexpriority flush_l1d fma fpu fsgsbase fsrm fxsr gfni hfi ht hwp hwp_act_window hwp_epp hwp_notify hwp_pkg_req ibpb ibrs ibrs_enhanced ibt ida intel_pt invpcid lahf_lm lm mca mce md_clear mmx monitor movbe movdir64b movdiri msr mtrr nonstop_tsc nopl nx ospke pae pat pbe pcid pclmulqdq pconfig pdcm pdpe1gb pebs pge pku pln pni popcnt pse pse36 pts rdpid rdrand rdseed rdtscp rep_good sdbg sep serialize sha_ni smap smep smx split_lock_detect ss ssbd sse sse2 sse4_1 sse4_2 ssse3 stibp syscall tm tm2 tpr_shadow tsc tsc_adjust tsc_deadline_timer tsc_known_freq umip user_shstk vaes vme vmx vnmi vpclmulqdq vpid waitpkg x2apic xgetbv1 xsave xsavec xsaveopt xsaves xtopology xtpr] [36mcaller[0m={[36mcaller.file[0m="/build/core/application/startup.go"  [36mcaller.L[0m=78 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m GPU count [36mcount[0m=1 [36mcaller[0m={[36mcaller.file[0m="/build/core/application/startup.go"  [36mcaller.L[0m=82 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m GPU [36mgpu[0m="card #1 @0000:01:00.0 -> driver: 'nvidia' class: 'Display controller' vendor: 'NVIDIA Corporation' product: 'AD104 [GeForce RTX 4070 Ti]'" [36mcaller[0m={[36mcaller.file[0m="/build/core/application/startup.go"  [36mcaller.L[0m=84 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m stats: using in-memory ring buffer (no-auth single-user mode) [36mcaller[0m={[36mcaller.file[0m="/build/core/application/startup.go"  [36mcaller.L[0m=221 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m stats: fallback user wired [36mlocal_user_id[0m="2b9e885c-ca77-48b7-b0b0-e14d81ad9013" [36mcaller[0m={[36mcaller.file[0m="/build/core/application/startup.go"  [36mcaller.L[0m=231 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m agent_tasks.json not found, starting with empty tasks [36mcaller[0m={[36mcaller.file[0m="/build/core/services/agentpool/job_persister_file.go"  [36mcaller.L[0m=88 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m Loaded tasks from persister [36mcount[0m=0 [36mcaller[0m={[36mcaller.file[0m="/build/core/services/agentpool/agent_jobs.go"  [36mcaller.L[0m=193 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m agent_jobs.json not found, starting with empty jobs [36mcaller[0m={[36mcaller.file[0m="/build/core/services/agentpool/job_persister_file.go"  [36mcaller.L[0m=121 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m Loaded jobs from persister [36mcount[0m=0 [36mcaller[0m={[36mcaller.file[0m="/build/core/services/agentpool/agent_jobs.go"  [36mcaller.L[0m=172 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m AgentJobService started [36mretention_days[0m=30 [36mcaller[0m={[36mcaller.file[0m="/build/core/services/agentpool/agent_jobs.go"  [36mcaller.L[0m=1475 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m GGUF header cache: no file yet [36mpath[0m="/data/header-cache.json" [36mcaller[0m={[36mcaller.file[0m="/build/core/config/header_cache.go"  [36mcaller.L[0m=474 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m [inference_defaults] applying defaults for model [36mmodelID[0m="Qwen3-0.6B-Q8_0.gguf" [36mfamily[0m=map[min_p:0 repeat_penalty:1 temperature:0.6 top_k:20 top_p:0.95] [36mcaller[0m={[36mcaller.file[0m="/build/core/config/inference_defaults.go"  [36mcaller.L[0m=90 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m [serving_defaults] enabling cross-request prefix cache [36mcache_reuse[0m=256 [36mcaller[0m={[36mcaller.file[0m="/build/core/config/serving_defaults.go"  [36mcaller.L[0m=39 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m [gguf] guessDefaultsFromFile: NGPULayers set [36mNGPULayers[0m=0x6357ac743c8 [36mmodelName[0m="Qwen3-0.6B" [36mcaller[0m={[36mcaller.file[0m="/build/core/config/gguf.go"  [36mcaller.L[0m=102 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m [gguf] guessDefaultsFromFile: template already set [36mname[0m="Qwen3-0.6B-Q8_0.gguf" [36mmodelName[0m="Qwen3-0.6B" [36mcaller[0m={[36mcaller.file[0m="/build/core/config/gguf.go"  [36mcaller.L[0m=122 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m GPU vendor detected via ghw [36mvendor[0m="nvidia" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/xsysinfo/gpu.go"  [36mcaller.L[0m=242 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m No system backends found [36mcaller[0m={[36mcaller.file[0m="/build/core/gallery/backends.go"  [36mcaller.L[0m=697 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m Registering backend [36mname[0m="llama-cpp" [36mrunFile[0m="/backends/llama-cpp/run.sh" [36mcaller[0m={[36mcaller.file[0m="/build/core/gallery/backends.go"  [36mcaller.L[0m=854 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m Preloading models [36mpath[0m="//models" [36mcaller[0m={[36mcaller.file[0m="/build/core/config/model_config_loader.go"  [36mcaller.L[0m=755 } 
+
+[38;5;252;1m[0m[38;5;252;1m[0m  [38;5;252;1mModel name[0m[38;5;252m: [0m[38;5;252;3mQwen3-0.6B-Q8_[0m[38;5;252;3m0.gguf[0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m
+
+
+
+[38;5;252m[0m[38;5;252m[0m  [38;5;252mImported from huggingface://ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q8_[0m[38;5;252m0.gguf[0m[38;5;252m [0m[38;5;252m [0m[38;5;252m [0m
+
+
+[90mOct 29 07:28:19[0m [90mDEBUG[0m Model [36mname[0m="Qwen3-0.6B-Q8_0.gguf" [36mconfig[0m={/models/Qwen3-0.6B-Q8_0.gguf.yaml {%- if tools %}
+    {{- '<|im_start|>system\n' }}
+    {%- if messages[0].role == 'system' %}
+        {{- messages[0].content + '\n\n' }}
+    {%- endif %}
+    {{- "# Tools\n\nYou may call one or more functions to assist with the user query.\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>" }}
+    {%- for tool in tools %}
+        {{- "\n" }}
+        {{- tool | tojson }}
+    {%- endfor %}
+    {{- "\n</tools>\n\nFor each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:\n<tool_call>\n{\"name\": <function-name>, \"arguments\": <args-json-object>}\n</tool_call><|im_end|>\n" }}
+{%- else %}
+    {%- if messages[0].role == 'system' %}
+        {{- '<|im_start|>system\n' + messages[0].content + '<|im_end|>\n' }}
+    {%- endif %}
+{%- endif %}
+{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}
+{%- for message in messages[::-1] %}
+    {%- set index = (messages|length - 1) - loop.index0 %}
+    {%- if ns.multi_step_tool and message.role == "user" and message.content is string and not(message.content.startswith('<tool_response>') and message.content.endswith('</tool_response>')) %}
+        {%- set ns.multi_step_tool = false %}
+        {%- set ns.last_query_index = index %}
+    {%- endif %}
+{%- endfor %}
+{%- for message in messages %}
+    {%- if message.content is string %}
+        {%- set content = message.content %}
+    {%- else %}
+        {%- set content = '' %}
+    {%- endif %}
+    {%- if (message.role == "user") or (message.role == "system" and not loop.first) %}
+        {{- '<|im_start|>' + message.role + '\n' + content + '<|im_end|>' + '\n' }}
+    {%- elif message.role == "assistant" %}
+        {%- set reasoning_content = '' %}
+        {%- if message.reasoning_content is string %}
+            {%- set reasoning_content = message.reasoning_content %}
+        {%- else %}
+            {%- if '</think>' in content %}
+                {%- set reasoning_content = content.split('</think>')[0].rstrip('\n').split('<think>')[-1].lstrip('\n') %}
+                {%- set content = content.split('</think>')[-1].lstrip('\n') %}
+            {%- endif %}
+        {%- endif %}
+        {%- if loop.index0 > ns.last_query_index %}
+            {%- if loop.last or (not loop.last and reasoning_content) %}
+                {{- '<|im_start|>' + message.role + '\n<think>\n' + reasoning_content.strip('\n') + '\n</think>\n\n' + content.lstrip('\n') }}
+            {%- else %}
+                {{- '<|im_start|>' + message.role + '\n' + content }}
+            {%- endif %}
+        {%- else %}
+            {{- '<|im_start|>' + message.role + '\n' + content }}
+        {%- endif %}
+        {%- if message.tool_calls %}
+            {%- for tool_call in message.tool_calls %}
+                {%- if (loop.first and content) or (not loop.first) %}
+                    {{- '\n' }}
+                {%- endif %}
+                {%- if tool_call.function %}
+                    {%- set tool_call = tool_call.function %}
+                {%- endif %}
+                {{- '<tool_call>\n{"name": "' }}
+                {{- tool_call.name }}
+                {{- '", "arguments": ' }}
+                {%- if tool_call.arguments is string %}
+                    {{- tool_call.arguments }}
+                {%- else %}
+                    {{- tool_call.arguments | tojson }}
+                {%- endif %}
+                {{- '}\n</tool_call>' }}
+            {%- endfor %}
+        {%- endif %}
+        {{- '<|im_end|>\n' }}
+    {%- elif message.role == "tool" %}
+        {%- if loop.first or (messages[loop.index0 - 1].role != "tool") %}
+            {{- '<|im_start|>user' }}
+        {%- endif %}
+        {{- '\n<tool_response>\n' }}
+        {{- content }}
+        {{- '\n</tool_response>' }}
+        {%- if loop.last or (messages[loop.index0 + 1].role != "tool") %}
+            {{- '<|im_end|>\n' }}
+        {%- endif %}
+    {%- endif %}
+{%- endfor %}
+{%- if add_generation_prompt %}
+    {{- '<|im_start|>assistant\n' }}
+    {%- if enable_thinking is defined and enable_thinking is false %}
+        {{- '<think>\n\n</think>\n\n' }}
+    {%- endif %}
+{%- endif %} {false } 1b4e23e5e4bd46cfb5c9cf4b90949a367b980db142d0b5d4e3d0184ef020c72c  {{Qwen3-0.6B-Q8_0.gguf}  false 0 0x6357b7e6838 0x6357b7e6830 0x6357b7e6810 0x6357b7e6818 0x6357c149738 <nil> false 0 false 1 0 0 0 0 0x6357c149730 0x6357c149728 0x6357c149740 {false} <nil> map[]  0 0 0 0    0} Qwen3-0.6B-Q8_0.gguf []  { {  false}  {false }} <nil> 0x6357c1495e8 0x6357c1495f8 0x6357c149748 map[] 0x6357c1496eb llama-cpp {     true  <nil>  } [FLAG_CHAT] 0x6357ac74678 [] [] {     0 0 false  {<nil> <nil> <nil> <nil>} <nil> <nil> <nil> <nil> {  <nil> 0} <nil> false} [] [] []    map[]  {false {false false false false true  false   []}   [] [] []   [] [] []    <nil> true false <nil>} {<nil> <nil> <nil> [] []} {false 0 0 0  }  map[] map[] map[] {   0 0  0x6357c1496ea false 0x6357c149720 0x6357c149718 0x6357c149710 0x6357ac743c8 0x6357c1496ea 0x6357c1496eb 0x6357c1496eb 0x6357c1496eb  [] [] [] [] [] 0x6357ac74290 false   [] [] 0 false  0   0 false false 0 0 0 false  {0 0 0} map[]  <nil> false     0 0 0 0 0} {false     false 0   } 0 {0 0} {  <nil> []} false [] Imported from huggingface://ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q8_0.gguf  <nil> <nil> [] [use_jinja:true cache_reuse:256] [] {  false} {0 0 false false false false false 0 0 false}  {<nil> [] false   false} {0  map[] [] [] [] [] [] []} { [] []   0 0   <nil> <nil>} { passthrough     0 false} {[]} {0 0} map[]} [36mcaller[0m={[36mcaller.file[0m="/build/core/application/startup.go"  [36mcaller.L[0m=554 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m reading file for dynamic config update [36mfilename[0m="/configuration/api_keys.json" [36mcaller[0m={[36mcaller.file[0m="/build/core/application/config_file_watcher.go"  [36mcaller.L[0m=66 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m processing api keys runtime update [36mnumKeys[0m=0 [36mcaller[0m={[36mcaller.file[0m="/build/core/application/config_file_watcher.go"  [36mcaller.L[0m=139 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m no API keys discovered from dynamic config file [36mcaller[0m={[36mcaller.file[0m="/build/core/application/config_file_watcher.go"  [36mcaller.L[0m=153 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m total api keys after processing [36mnumKeys[0m=0 [36mcaller[0m={[36mcaller.file[0m="/build/core/application/config_file_watcher.go"  [36mcaller.L[0m=156 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m reading file for dynamic config update [36mfilename[0m="/configuration/external_backends.json" [36mcaller[0m={[36mcaller.file[0m="/build/core/application/config_file_watcher.go"  [36mcaller.L[0m=66 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m processing external_backends.json [36mcaller[0m={[36mcaller.file[0m="/build/core/application/config_file_watcher.go"  [36mcaller.L[0m=165 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m external backends loaded from external_backends.json [36mcaller[0m={[36mcaller.file[0m="/build/core/application/config_file_watcher.go"  [36mcaller.L[0m=182 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m reading file for dynamic config update [36mfilename[0m="/configuration/runtime_settings.json" [36mcaller[0m={[36mcaller.file[0m="/build/core/application/config_file_watcher.go"  [36mcaller.L[0m=66 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m processing runtime_settings.json [36mcaller[0m={[36mcaller.file[0m="/build/core/application/config_file_watcher.go"  [36mcaller.L[0m=190 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m core/startup process completed! [36mcaller[0m={[36mcaller.file[0m="/build/core/application/startup.go"  [36mcaller.L[0m=613 } 
+[90mOct 29 07:28:19[0m [90mDEBUG[0m Enabling CSRF middleware (Sec-Fetch-Site mode) [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=462 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m LocalAI is started and running [36maddress[0m=":8080" [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=892 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m Starting P2P server discovery... [36mcaller[0m={[36mcaller.file[0m="/build/core/application/p2p.go"  [36mcaller.L[0m=103 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m Starting MLX P2P worker discovery... [36mcaller[0m={[36mcaller.file[0m="/build/core/application/p2p.go"  [36mcaller.L[0m=121 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m Agent pool started (standalone/LocalAGI mode) [36mstateDir[0m="//data" [36mapiURL[0m="http://127.0.0.1:8080" [36mcaller[0m={[36mcaller.file[0m="/build/core/services/agentpool/agent_pool.go"  [36mcaller.L[0m=372 } 
+[90mOct 29 07:28:19[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/api/p2p/token" [36mstatus[0m=200 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:20[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:21[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:21[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:21[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:21[0m [90mDEBUG[0m GGUF header cache: no file yet [36mpath[0m="/data/header-cache.json" [36mcaller[0m={[36mcaller.file[0m="/build/core/config/header_cache.go"  [36mcaller.L[0m=474 } 
+[90mOct 29 07:28:21[0m [90mDEBUG[0m GGUF header cache saved [36mpath[0m="/data/header-cache.json" [36mentries[0m=1 [36mcaller[0m={[36mcaller.file[0m="/build/core/config/header_cache.go"  [36mcaller.L[0m=462 } 
+[90mOct 29 07:28:22[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:22[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:22[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:22[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:23[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:24[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:24[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:24[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:24[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:24[0m [90mDEBUG[0m Ledger data [36mdata[0m=map[healthcheck:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:"2026-10-29T07:28:24Z" 12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg:"2026-10-29T07:28:19Z"] services:map[NmhYSfqkHL:{"PeerID":"12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg","Name":"NmhYSfqkHL"}] worker:map[NmhYSfqkHL:{"Name":"NmhYSfqkHL","ID":"7365c7b1cfe9-NmhYSfqkHL","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:22.753338686Z"} ajgszwlSCq:{"Name":"ajgszwlSCq","ID":"3ea6a16f6a11-ajgszwlSCq","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:22.8245149Z"}]] [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=233 } 
+[90mOct 29 07:28:24[0m [90mDEBUG[0m Ledger data [36mdata[0m=map[healthcheck:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:"2026-10-29T07:28:24Z" 12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg:"2026-10-29T07:28:19Z"] services:map[NmhYSfqkHL:{"PeerID":"12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg","Name":"NmhYSfqkHL"}] worker:map[NmhYSfqkHL:{"Name":"NmhYSfqkHL","ID":"7365c7b1cfe9-NmhYSfqkHL","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:22.753338686Z"} ajgszwlSCq:{"Name":"ajgszwlSCq","ID":"3ea6a16f6a11-ajgszwlSCq","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:22.8245149Z"}]] [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=233 } 
+[90mOct 29 07:28:24[0m [90mDEBUG[0m Starting service [36mservice[0m="NmhYSfqkHL" [36maddress[0m="127.0.0.1:42707" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=289 } 
+[90mOct 29 07:28:24[0m [34mINFO [0m Allocating service [36mservice[0m="NmhYSfqkHL" [36maddress[0m="127.0.0.1:42707" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=134 } 
+[90mOct 29 07:28:24[0m [90mDEBUG[0m Starting service [36mservice[0m="ajgszwlSCq" [36maddress[0m="127.0.0.1:35917" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=289 } 
+[90mOct 29 07:28:24[0m [34mINFO [0m Allocating service [36mservice[0m="ajgszwlSCq" [36maddress[0m="127.0.0.1:35917" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=134 } 
+[90mOct 29 07:28:24[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:24[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:24[0m [90mDEBUG[0m setting LLAMACPP_GRPC_SERVERS [36mvalue[0m="127.0.0.1:42707" [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=368 } 
+[90mOct 29 07:28:24[0m [90mDEBUG[0m setting LLAMACPP_GRPC_SERVERS [36mvalue[0m="127.0.0.1:35917,127.0.0.1:42707" [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=368 } 
+[90mOct 29 07:28:25[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:25[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:25[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:26[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:26[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:26[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:26[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:27[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:27[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:27[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:27[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:28[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:28[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:28[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:28[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:29[0m [90mDEBUG[0m No system backends found [36mcaller[0m={[36mcaller.file[0m="/build/core/gallery/backends.go"  [36mcaller.L[0m=697 } 
+[90mOct 29 07:28:29[0m [90mDEBUG[0m No system backends found [36mcaller[0m={[36mcaller.file[0m="/build/core/gallery/backends.go"  [36mcaller.L[0m=697 } 
+[90mOct 29 07:28:29[0m [90mDEBUG[0m Ledger data [36mdata[0m=map[healthcheck:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:"2026-10-29T07:28:24Z" 12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp:"2026-10-29T07:28:27Z" 12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg:"2026-10-29T07:28:24Z"] services:map[NmhYSfqkHL:{"PeerID":"12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg","Name":"NmhYSfqkHL"} ajgszwlSCq:{"PeerID":"12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp","Name":"ajgszwlSCq"}] users:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:{"PeerID":"12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN","Timestamp":"2026-10-29 07:28:27.956398471 +0000 UTC m=+8.648576646"}] worker:map[NmhYSfqkHL:{"Name":"NmhYSfqkHL","ID":"7365c7b1cfe9-NmhYSfqkHL","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:28.4590211Z"} ajgszwlSCq:{"Name":"ajgszwlSCq","ID":"3ea6a16f6a11-ajgszwlSCq","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:22.8245149Z"}]] [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=233 } 
+[90mOct 29 07:28:29[0m [90mDEBUG[0m Ledger data [36mdata[0m=map[healthcheck:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:"2026-10-29T07:28:24Z" 12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp:"2026-10-29T07:28:27Z" 12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg:"2026-10-29T07:28:24Z"] services:map[NmhYSfqkHL:{"PeerID":"12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg","Name":"NmhYSfqkHL"} ajgszwlSCq:{"PeerID":"12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp","Name":"ajgszwlSCq"}] users:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:{"PeerID":"12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN","Timestamp":"2026-10-29 07:28:27.956398471 +0000 UTC m=+8.648576646"}] worker:map[NmhYSfqkHL:{"Name":"NmhYSfqkHL","ID":"7365c7b1cfe9-NmhYSfqkHL","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:28.4590211Z"} ajgszwlSCq:{"Name":"ajgszwlSCq","ID":"3ea6a16f6a11-ajgszwlSCq","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:22.8245149Z"}]] [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=233 } 
+[90mOct 29 07:28:29[0m [90mDEBUG[0m setting LLAMACPP_GRPC_SERVERS [36mvalue[0m="127.0.0.1:35917,127.0.0.1:42707" [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=368 } 
+[90mOct 29 07:28:29[0m [90mDEBUG[0m setting LLAMACPP_GRPC_SERVERS [36mvalue[0m="127.0.0.1:35917,127.0.0.1:42707" [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=368 } 
+[90mOct 29 07:28:29[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:30[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:30[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:30[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:30[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:30[0m [90mDEBUG[0m All backends up to date [36mcaller[0m={[36mcaller.file[0m="/build/core/application/upgrade_checker.go"  [36mcaller.L[0m=185 } 
+[90mOct 29 07:28:31[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:31[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:31[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:31[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:32[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:32[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:32[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:32[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:33[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:33[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:33[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:33[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:34[0m [90mDEBUG[0m Ledger data [36mdata[0m=map[healthcheck:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:"2026-10-29T07:28:31Z" 12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp:"2026-10-29T07:28:27Z" 12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg:"2026-10-29T07:28:24Z"] services:map[NmhYSfqkHL:{"PeerID":"12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg","Name":"NmhYSfqkHL"} ajgszwlSCq:{"PeerID":"12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp","Name":"ajgszwlSCq"}] users:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:{"PeerID":"12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN","Timestamp":"2026-10-29 07:28:34.199143193 +0000 UTC m=+14.891321363"}] worker:map[NmhYSfqkHL:{"Name":"NmhYSfqkHL","ID":"7365c7b1cfe9-NmhYSfqkHL","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:28.4590211Z"} ajgszwlSCq:{"Name":"ajgszwlSCq","ID":"3ea6a16f6a11-ajgszwlSCq","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:22.8245149Z"}]] [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=233 } 
+[90mOct 29 07:28:34[0m [90mDEBUG[0m Ledger data [36mdata[0m=map[healthcheck:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:"2026-10-29T07:28:31Z" 12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp:"2026-10-29T07:28:27Z" 12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg:"2026-10-29T07:28:24Z"] services:map[NmhYSfqkHL:{"PeerID":"12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg","Name":"NmhYSfqkHL"} ajgszwlSCq:{"PeerID":"12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp","Name":"ajgszwlSCq"}] users:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:{"PeerID":"12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN","Timestamp":"2026-10-29 07:28:34.199143193 +0000 UTC m=+14.891321363"}] worker:map[NmhYSfqkHL:{"Name":"NmhYSfqkHL","ID":"7365c7b1cfe9-NmhYSfqkHL","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:28.4590211Z"} ajgszwlSCq:{"Name":"ajgszwlSCq","ID":"3ea6a16f6a11-ajgszwlSCq","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:22.8245149Z"}]] [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=233 } 
+[90mOct 29 07:28:34[0m [90mDEBUG[0m setting LLAMACPP_GRPC_SERVERS [36mvalue[0m="127.0.0.1:35917,127.0.0.1:42707" [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=368 } 
+[90mOct 29 07:28:34[0m [90mDEBUG[0m setting LLAMACPP_GRPC_SERVERS [36mvalue[0m="127.0.0.1:35917,127.0.0.1:42707" [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=368 } 
+[90mOct 29 07:28:34[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:34[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:34[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:34[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:35[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:35[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:35[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:35[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:36[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:36[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:36[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:36[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:37[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:37[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:37[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:38[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:38[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:38[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:38[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:39[0m [90mDEBUG[0m Ledger data [36mdata[0m=map[healthcheck:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:"2026-10-29T07:28:31Z" 12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp:"2026-10-29T07:28:38Z" 12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg:"2026-10-29T07:28:37Z"] services:map[NmhYSfqkHL:{"PeerID":"12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg","Name":"NmhYSfqkHL"} ajgszwlSCq:{"PeerID":"12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp","Name":"ajgszwlSCq"}] users:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:{"PeerID":"12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN","Timestamp":"2026-10-29 07:28:37.747668506 +0000 UTC m=+18.439846679"}] worker:map[NmhYSfqkHL:{"Name":"NmhYSfqkHL","ID":"7365c7b1cfe9-NmhYSfqkHL","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:28.4590211Z"} ajgszwlSCq:{"Name":"ajgszwlSCq","ID":"3ea6a16f6a11-ajgszwlSCq","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:36.867735222Z"}]] [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=233 } 
+[90mOct 29 07:28:39[0m [90mDEBUG[0m Ledger data [36mdata[0m=map[healthcheck:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:"2026-10-29T07:28:31Z" 12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp:"2026-10-29T07:28:38Z" 12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg:"2026-10-29T07:28:37Z"] services:map[NmhYSfqkHL:{"PeerID":"12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg","Name":"NmhYSfqkHL"} ajgszwlSCq:{"PeerID":"12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp","Name":"ajgszwlSCq"}] users:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:{"PeerID":"12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN","Timestamp":"2026-10-29 07:28:37.747668506 +0000 UTC m=+18.439846679"}] worker:map[NmhYSfqkHL:{"Name":"NmhYSfqkHL","ID":"7365c7b1cfe9-NmhYSfqkHL","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:28.4590211Z"} ajgszwlSCq:{"Name":"ajgszwlSCq","ID":"3ea6a16f6a11-ajgszwlSCq","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:36.867735222Z"}]] [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=233 } 
+[90mOct 29 07:28:39[0m [90mDEBUG[0m setting LLAMACPP_GRPC_SERVERS [36mvalue[0m="127.0.0.1:35917,127.0.0.1:42707" [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=368 } 
+[90mOct 29 07:28:39[0m [90mDEBUG[0m setting LLAMACPP_GRPC_SERVERS [36mvalue[0m="127.0.0.1:35917,127.0.0.1:42707" [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=368 } 
+[90mOct 29 07:28:39[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:39[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:39[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:39[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:40[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:40[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:40[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:40[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:41[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/api/p2p" [36mstatus[0m=200 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m [inference_defaults] applying defaults for model [36mmodelID[0m="Qwen3-0.6B-Q8_0.gguf" [36mfamily[0m=map[min_p:0 repeat_penalty:1 temperature:0.6 top_k:20 top_p:0.95] [36mcaller[0m={[36mcaller.file[0m="/build/core/config/inference_defaults.go"  [36mcaller.L[0m=90 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m [gguf] guessDefaultsFromFile: NGPULayers set [36mNGPULayers[0m=0x6357ac743c8 [36mmodelName[0m="Qwen3-0.6B" [36mcaller[0m={[36mcaller.file[0m="/build/core/config/gguf.go"  [36mcaller.L[0m=102 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m [gguf] guessDefaultsFromFile: template already set [36mname[0m="Qwen3-0.6B-Q8_0.gguf" [36mmodelName[0m="Qwen3-0.6B" [36mcaller[0m={[36mcaller.file[0m="/build/core/config/gguf.go"  [36mcaller.L[0m=122 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GPU vendor detected via ghw [36mvendor[0m="nvidia" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/xsysinfo/gpu.go"  [36mcaller.L[0m=242 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m input.Input [36minput[0m="<nil>" [36mcaller[0m={[36mcaller.file[0m="/build/core/http/middleware/request.go"  [36mcaller.L[0m=682 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m Chat endpoint configuration read [36mconfig[0m=&{/models/Qwen3-0.6B-Q8_0.gguf.yaml {%- if tools %}
+    {{- '<|im_start|>system\n' }}
+    {%- if messages[0].role == 'system' %}
+        {{- messages[0].content + '\n\n' }}
+    {%- endif %}
+    {{- "# Tools\n\nYou may call one or more functions to assist with the user query.\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>" }}
+    {%- for tool in tools %}
+        {{- "\n" }}
+        {{- tool | tojson }}
+    {%- endfor %}
+    {{- "\n</tools>\n\nFor each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:\n<tool_call>\n{\"name\": <function-name>, \"arguments\": <args-json-object>}\n</tool_call><|im_end|>\n" }}
+{%- else %}
+    {%- if messages[0].role == 'system' %}
+        {{- '<|im_start|>system\n' + messages[0].content + '<|im_end|>\n' }}
+    {%- endif %}
+{%- endif %}
+{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}
+{%- for message in messages[::-1] %}
+    {%- set index = (messages|length - 1) - loop.index0 %}
+    {%- if ns.multi_step_tool and message.role == "user" and message.content is string and not(message.content.startswith('<tool_response>') and message.content.endswith('</tool_response>')) %}
+        {%- set ns.multi_step_tool = false %}
+        {%- set ns.last_query_index = index %}
+    {%- endif %}
+{%- endfor %}
+{%- for message in messages %}
+    {%- if message.content is string %}
+        {%- set content = message.content %}
+    {%- else %}
+        {%- set content = '' %}
+    {%- endif %}
+    {%- if (message.role == "user") or (message.role == "system" and not loop.first) %}
+        {{- '<|im_start|>' + message.role + '\n' + content + '<|im_end|>' + '\n' }}
+    {%- elif message.role == "assistant" %}
+        {%- set reasoning_content = '' %}
+        {%- if message.reasoning_content is string %}
+            {%- set reasoning_content = message.reasoning_content %}
+        {%- else %}
+            {%- if '</think>' in content %}
+                {%- set reasoning_content = content.split('</think>')[0].rstrip('\n').split('<think>')[-1].lstrip('\n') %}
+                {%- set content = content.split('</think>')[-1].lstrip('\n') %}
+            {%- endif %}
+        {%- endif %}
+        {%- if loop.index0 > ns.last_query_index %}
+            {%- if loop.last or (not loop.last and reasoning_content) %}
+                {{- '<|im_start|>' + message.role + '\n<think>\n' + reasoning_content.strip('\n') + '\n</think>\n\n' + content.lstrip('\n') }}
+            {%- else %}
+                {{- '<|im_start|>' + message.role + '\n' + content }}
+            {%- endif %}
+        {%- else %}
+            {{- '<|im_start|>' + message.role + '\n' + content }}
+        {%- endif %}
+        {%- if message.tool_calls %}
+            {%- for tool_call in message.tool_calls %}
+                {%- if (loop.first and content) or (not loop.first) %}
+                    {{- '\n' }}
+                {%- endif %}
+                {%- if tool_call.function %}
+                    {%- set tool_call = tool_call.function %}
+                {%- endif %}
+                {{- '<tool_call>\n{"name": "' }}
+                {{- tool_call.name }}
+                {{- '", "arguments": ' }}
+                {%- if tool_call.arguments is string %}
+                    {{- tool_call.arguments }}
+                {%- else %}
+                    {{- tool_call.arguments | tojson }}
+                {%- endif %}
+                {{- '}\n</tool_call>' }}
+            {%- endfor %}
+        {%- endif %}
+        {{- '<|im_end|>\n' }}
+    {%- elif message.role == "tool" %}
+        {%- if loop.first or (messages[loop.index0 - 1].role != "tool") %}
+            {{- '<|im_start|>user' }}
+        {%- endif %}
+        {{- '\n<tool_response>\n' }}
+        {{- content }}
+        {{- '\n</tool_response>' }}
+        {%- if loop.last or (messages[loop.index0 + 1].role != "tool") %}
+            {{- '<|im_end|>\n' }}
+        {%- endif %}
+    {%- endif %}
+{%- endfor %}
+{%- if add_generation_prompt %}
+    {{- '<|im_start|>assistant\n' }}
+    {%- if enable_thinking is defined and enable_thinking is false %}
+        {{- '<think>\n\n</think>\n\n' }}
+    {%- endif %}
+{%- endif %} {false } 1b4e23e5e4bd46cfb5c9cf4b90949a367b980db142d0b5d4e3d0184ef020c72c  {{Qwen3-0.6B-Q8_0.gguf}  false 0 0x6357b7e6838 0x6357b7e6830 0x6357b7e6810 0x6357bc33708 0x6357bc33700 <nil> false 0 false 1 0 0 0 0 0x6357c149730 0x6357c149728 0x6357c149740 {false} <nil> map[]  0 0 0 0    0} Qwen3-0.6B-Q8_0.gguf []  { {  false}  {false }} <nil> 0x6357c1495e8 0x6357c1495f8 0x6357bc339fc map[] 0x6357c1496eb llama-cpp {     true  <nil>  } [FLAG_CHAT] 0x6357bc33ca8 [] [] {     0 0 false  {<nil> <nil> <nil> <nil>} <nil> <nil> <nil> <nil> {  <nil> 0} <nil> false} [] [] []    map[]  {false {false false false false true  false   []}   [] [] []   [] [] []    <nil> true false <nil>} {<nil> <nil> <nil> [] []} {false 0 0 0  }  map[] map[] map[] {   0 0  0x6357c1496ea false 0x6357c149720 0x6357c149718 0x6357c149710 0x6357ac743c8 0x6357c1496ea 0x6357c1496eb 0x6357c1496eb 0x6357c1496eb  [] [] [] [] [] 0x6357ac74290 false   [] [] 0 false  0   0 false false 0 0 0 false  {0 0 0} map[]  <nil> false     0 0 0 0 0} {false     false 0   } 0 {0 0} {  <nil> []} false [] Imported from huggingface://ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q8_0.gguf  <nil> <nil> [] [use_jinja:true cache_reuse:256] [] {  false} {0 0 false false false false false 0 0 false}  {<nil> [] false   false} {0  map[] [] [] [] [] [] []} { [] []   0 0   <nil> <nil>} { passthrough     0 false} {[]} {0 0} map[]} [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=284 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m Tool call routing decision [36mshouldUseFn[0m=false [36mlen(input.Functions)[0m=0 [36mlen(input.Tools)[0m=0 [36mconfig.ShouldUseFunctions()[0m=true [36mconfig.FunctionToCall()[0m="" [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=408 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m Parameters [36mconfig[0m=&{/models/Qwen3-0.6B-Q8_0.gguf.yaml {%- if tools %}
+    {{- '<|im_start|>system\n' }}
+    {%- if messages[0].role == 'system' %}
+        {{- messages[0].content + '\n\n' }}
+    {%- endif %}
+    {{- "# Tools\n\nYou may call one or more functions to assist with the user query.\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>" }}
+    {%- for tool in tools %}
+        {{- "\n" }}
+        {{- tool | tojson }}
+    {%- endfor %}
+    {{- "\n</tools>\n\nFor each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:\n<tool_call>\n{\"name\": <function-name>, \"arguments\": <args-json-object>}\n</tool_call><|im_end|>\n" }}
+{%- else %}
+    {%- if messages[0].role == 'system' %}
+        {{- '<|im_start|>system\n' + messages[0].content + '<|im_end|>\n' }}
+    {%- endif %}
+{%- endif %}
+{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}
+{%- for message in messages[::-1] %}
+    {%- set index = (messages|length - 1) - loop.index0 %}
+    {%- if ns.multi_step_tool and message.role == "user" and message.content is string and not(message.content.startswith('<tool_response>') and message.content.endswith('</tool_response>')) %}
+        {%- set ns.multi_step_tool = false %}
+        {%- set ns.last_query_index = index %}
+    {%- endif %}
+{%- endfor %}
+{%- for message in messages %}
+    {%- if message.content is string %}
+        {%- set content = message.content %}
+    {%- else %}
+        {%- set content = '' %}
+    {%- endif %}
+    {%- if (message.role == "user") or (message.role == "system" and not loop.first) %}
+        {{- '<|im_start|>' + message.role + '\n' + content + '<|im_end|>' + '\n' }}
+    {%- elif message.role == "assistant" %}
+        {%- set reasoning_content = '' %}
+        {%- if message.reasoning_content is string %}
+            {%- set reasoning_content = message.reasoning_content %}
+        {%- else %}
+            {%- if '</think>' in content %}
+                {%- set reasoning_content = content.split('</think>')[0].rstrip('\n').split('<think>')[-1].lstrip('\n') %}
+                {%- set content = content.split('</think>')[-1].lstrip('\n') %}
+            {%- endif %}
+        {%- endif %}
+        {%- if loop.index0 > ns.last_query_index %}
+            {%- if loop.last or (not loop.last and reasoning_content) %}
+                {{- '<|im_start|>' + message.role + '\n<think>\n' + reasoning_content.strip('\n') + '\n</think>\n\n' + content.lstrip('\n') }}
+            {%- else %}
+                {{- '<|im_start|>' + message.role + '\n' + content }}
+            {%- endif %}
+        {%- else %}
+            {{- '<|im_start|>' + message.role + '\n' + content }}
+        {%- endif %}
+        {%- if message.tool_calls %}
+            {%- for tool_call in message.tool_calls %}
+                {%- if (loop.first and content) or (not loop.first) %}
+                    {{- '\n' }}
+                {%- endif %}
+                {%- if tool_call.function %}
+                    {%- set tool_call = tool_call.function %}
+                {%- endif %}
+                {{- '<tool_call>\n{"name": "' }}
+                {{- tool_call.name }}
+                {{- '", "arguments": ' }}
+                {%- if tool_call.arguments is string %}
+                    {{- tool_call.arguments }}
+                {%- else %}
+                    {{- tool_call.arguments | tojson }}
+                {%- endif %}
+                {{- '}\n</tool_call>' }}
+            {%- endfor %}
+        {%- endif %}
+        {{- '<|im_end|>\n' }}
+    {%- elif message.role == "tool" %}
+        {%- if loop.first or (messages[loop.index0 - 1].role != "tool") %}
+            {{- '<|im_start|>user' }}
+        {%- endif %}
+        {{- '\n<tool_response>\n' }}
+        {{- content }}
+        {{- '\n</tool_response>' }}
+        {%- if loop.last or (messages[loop.index0 + 1].role != "tool") %}
+            {{- '<|im_end|>\n' }}
+        {%- endif %}
+    {%- endif %}
+{%- endfor %}
+{%- if add_generation_prompt %}
+    {{- '<|im_start|>assistant\n' }}
+    {%- if enable_thinking is defined and enable_thinking is false %}
+        {{- '<think>\n\n</think>\n\n' }}
+    {%- endif %}
+{%- endif %} {false } 1b4e23e5e4bd46cfb5c9cf4b90949a367b980db142d0b5d4e3d0184ef020c72c  {{Qwen3-0.6B-Q8_0.gguf}  false 0 0x6357b7e6838 0x6357b7e6830 0x6357b7e6810 0x6357bc33708 0x6357bc33700 <nil> false 0 false 1 0 0 0 0 0x6357c149730 0x6357c149728 0x6357c149740 {false} <nil> map[]  0 0 0 0    0} Qwen3-0.6B-Q8_0.gguf []  { {  false}  {false }} <nil> 0x6357c1495e8 0x6357c1495f8 0x6357bc339fc map[] 0x6357c1496eb llama-cpp {     true  <nil>  } [FLAG_CHAT] 0x6357bc33ca8 [] [] {     0 0 false  {<nil> <nil> <nil> <nil>} <nil> <nil> <nil> <nil> {  <nil> 0} <nil> false} [] [] []    map[]  {false {false false false false true  false   []}   [] [] []   [] [] []    <nil> true false <nil>} {<nil> <nil> <nil> [] []} {false 0 0 0  }  map[] map[] map[] {   0 0  0x6357c1496ea false 0x6357c149720 0x6357c149718 0x6357c149710 0x6357ac743c8 0x6357c1496ea 0x6357c1496eb 0x6357c1496eb 0x6357c1496eb  [] [] [] [] [] 0x6357ac74290 false   [] [] 0 false  0   0 false false 0 0 0 false  {0 0 0} map[]  <nil> false     0 0 0 0 0} {false     false 0   } 0 {0 0} {  <nil> []} false [] Imported from huggingface://ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q8_0.gguf  <nil> <nil> [] [use_jinja:true cache_reuse:256] [] {  false} {0 0 false false false false false 0 0 false}  {<nil> [] false   false} {0  map[] [] [] [] [] [] []} { [] []   0 0   <nil> <nil>} { passthrough     0 false} {[]} {0 0} map[]} [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=532 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m Stream request received [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=550 } 
+[90mOct 29 07:28:41[0m [34mINFO [0m BackendLoader starting [36mmodelID[0m="Qwen3-0.6B-Q8_0.gguf" [36mbackend[0m="llama-cpp" [36mmodel[0m="Qwen3-0.6B-Q8_0.gguf" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/initializers.go"  [36mcaller.L[0m=327 } 
+[90mOct 29 07:28:41[0m [34mINFO [0m effective runtime tuning (override in the model YAML; LOCALAI_DISABLE_HARDWARE_DEFAULTS=true disables hardware auto-tuning) [36mmodelID[0m="Qwen3-0.6B-Q8_0.gguf" [36mcontext[0m=8192 [36mn_batch[0m=512 [36mn_gpu_layers[0m=99999999 [36mparallel[0m="1" [36mflash_attention[0m="auto" [36mf16[0m=false [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/initializers.go"  [36mcaller.L[0m=340 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m Loading model in memory from file [36mfile[0m="/models/Qwen3-0.6B-Q8_0.gguf" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/loader.go"  [36mcaller.L[0m=599 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m Loading Model with gRPC [36mmodelID[0m="Qwen3-0.6B-Q8_0.gguf" [36mfile[0m="/models/Qwen3-0.6B-Q8_0.gguf" [36mbackend[0m="llama-cpp" [36moptions[0m={llama-cpp Qwen3-0.6B-Q8_0.gguf  Qwen3-0.6B-Q8_0.gguf 1b4e23e5e4bd46cfb5c9cf4b90949a367b980db142d0b5d4e3d0184ef020c72c 0x6357a8dccc0 0x6357bb14908 map[] 20 2 true 804753632 map[]} [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/initializers.go"  [36mcaller.L[0m=78 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m Loading external backend [36muri[0m="/backends/llama-cpp/run.sh" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/initializers.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m external backend is file [36mfile[0m=&{run.sh 3952 493 {0 63928266399 0xc1242e0} {52 99152860 1 33261 0 0 0 0 3952 4096 8 {1792669599 0} {1792669599 0} {1793253989 410537521} [0 0 0]}} [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/initializers.go"  [36mcaller.L[0m=157 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m Loading GRPC Process [36mprocess[0m="/backends/llama-cpp/run.sh" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=262 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC Service will be running [36mid[0m="Qwen3-0.6B-Q8_0.gguf" [36maddress[0m="127.0.0.1:40017" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=264 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC Service state dir [36mdir[0m="/tmp/localai-0/backend-runtime/process-1326495435" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=322 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC Service Started [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/initializers.go"  [36mcaller.L[0m=169 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m Wait for the service to start up [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/initializers.go"  [36mcaller.L[0m=182 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m Options [36moptions[0m=ContextSize:8192 Seed:2040005366 NBatch:512 MMap:true NGPULayers:99999999 Threads:10 FlashAttention:"auto" Options:"use_jinja:true" Options:"cache_reuse:256" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/initializers.go"  [36mcaller.L[0m=183 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+++ realpath run.sh" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="++ dirname /backends/llama-cpp/run.sh" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ CURDIR=/backends/llama-cpp" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ cd /" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ echo 'CPU info:'" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stdout [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="CPU info:" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=359 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ head -1" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ grep -e 'model\\sname' /proc/cpuinfo" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stdout [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="model name\t: Intel(R) Core(TM) i5-14600K" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=359 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ grep -e flags /proc/cpuinfo" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ head -1" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stdout [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="flags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb intel_pt sha_ni xsaveopt xsavec xgetbv1 xsaves split_lock_detect user_shstk avx_vnni dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req hfi vnmi umip pku ospke waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize pconfig arch_lbr ibt flush_l1d arch_capabilities" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=359 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ BINARY=llama-cpp-fallback" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ '[' -e /backends/llama-cpp/llama-cpp-cpu-all ']'" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ BINARY=llama-cpp-cpu-all" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ '[' -n 127.0.0.1:35917,127.0.0.1:42707 ']'" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ '[' -e /backends/llama-cpp/llama-cpp-grpc ']'" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ BINARY=llama-cpp-grpc" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="++ uname" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ '[' Linux == Darwin ']'" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ export LD_LIBRARY_PATH=/backends/llama-cpp/lib:" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ LD_LIBRARY_PATH=/backends/llama-cpp/lib:" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ '[' -d /backends/llama-cpp/lib/rocblas/library ']'" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ '[' -d /backends/llama-cpp/lib/hipblaslt/library ']'" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ '[' -e /backends/llama-cpp/lib/libze_loader.so.1 ']'" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ '[' -f /backends/llama-cpp/lib/ld.so ']'" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ echo 'Using lib/ld.so'" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ echo 'Using binary: llama-cpp-grpc'" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stdout [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="Using lib/ld.so" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=359 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stdout [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="Using binary: llama-cpp-grpc" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=359 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="+ exec /backends/llama-cpp/lib/ld.so /backends/llama-cpp/llama-cpp-grpc --addr 127.0.0.1:40017" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="WARNING: All log messages before absl::InitializeLog() is called are written to STDERR" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="I0000 00:00:1793258921.258898      39 config.cc:230] gRPC experiments enabled: call_status_override_on_cancellation, event_engine_dns, event_engine_listener, http2_stats_fix, monitoring_experiment, pick_first_new, trace_record_callops, work_serializer_clears_time_cache, work_serializer_dispatch" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="I0000 00:00:1793258921.259198      39 ev_epoll1_linux.cc:125] grpc epoll fd: 3" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="I0000 00:00:1793258921.259379      39 server_builder.cc:392] Synchronous server. Num CQs: 1, Min pollers: 1, Max Pollers: 2, CQ timeout (msec): 10000" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="I0000 00:00:1793258921.260747      39 ev_epoll1_linux.cc:359] grpc epoll fd: 5" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="I0000 00:00:1793258921.261164      39 tcp_socket_utils.cc:634] TCP_USER_TIMEOUT is available. TCP_USER_TIMEOUT will be used thereafter" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stdout [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="Server listening on 127.0.0.1:40017" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=359 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="start_llama_server: starting llama server" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="start_llama_server: waiting for model to be loaded" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:41[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:41[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:41[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:41[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:42[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:42[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:42[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:42[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m GRPC Service Ready [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/initializers.go"  [36mcaller.L[0m=190 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m GRPC: Loading model with options [36moptions[0m=Model:"Qwen3-0.6B-Q8_0.gguf" ContextSize:8192 Seed:2040005366 NBatch:512 MMap:true NGPULayers:99999999 Threads:10 ModelFile:"/models/Qwen3-0.6B-Q8_0.gguf" FlashAttention:"auto" ModelPath:"//models" Options:"use_jinja:true" Options:"cache_reuse:256" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/initializers.go"  [36mcaller.L[0m=215 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:35917" [36mto[0m="/ip4/10.89.4.33/udp/38479/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:42707" [36mto[0m="/ip4/10.89.4.34/udp/36245/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.01.974.643 I system info: n_threads = 10, n_threads_batch = 10, total_threads = 20" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.01.974.645 I " [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.01.974.670 I system_info: n_threads = 10 (n_threads_batch = 10) / 20 | CPU : SSE3 = 1 | SSSE3 = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | " [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.01.974.671 I " [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.01.974.727 I srv    load_model: loading model '/models/Qwen3-0.6B-Q8_0.gguf'" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:35917" [36mto[0m="/ip4/10.89.4.33/udp/38479/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:42707" [36mto[0m="/ip4/10.89.4.34/udp/36245/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:35917" [36mto[0m="/ip4/10.89.4.33/udp/38479/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:42707" [36mto[0m="/ip4/10.89.4.34/udp/36245/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:35917" [36mto[0m="/ip4/10.89.4.33/udp/38479/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:42707" [36mto[0m="/ip4/10.89.4.34/udp/36245/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:35917" [36mto[0m="/ip4/10.89.4.33/udp/38479/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:42707" [36mto[0m="/ip4/10.89.4.34/udp/36245/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:35917" [36mto[0m="/ip4/10.89.4.33/udp/38479/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:42707" [36mto[0m="/ip4/10.89.4.34/udp/36245/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:35917" [36mto[0m="/ip4/10.89.4.33/udp/38479/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:42707" [36mto[0m="/ip4/10.89.4.34/udp/36245/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:35917" [36mto[0m="/ip4/10.89.4.33/udp/38479/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:35917" [36mto[0m="/ip4/10.89.4.33/udp/38479/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:35917" [36mto[0m="/ip4/10.89.4.33/udp/38479/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:35917" [36mto[0m="/ip4/10.89.4.33/udp/38479/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:42707" [36mto[0m="/ip4/10.89.4.34/udp/36245/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:42707" [36mto[0m="/ip4/10.89.4.34/udp/36245/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:42707" [36mto[0m="/ip4/10.89.4.34/udp/36245/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:42707" [36mto[0m="/ip4/10.89.4.34/udp/36245/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:35917" [36mto[0m="/ip4/10.89.4.33/udp/38479/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:42707" [36mto[0m="/ip4/10.89.4.34/udp/36245/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.02.213.562 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:35917" [36mto[0m="/ip4/10.89.4.33/udp/38479/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:42707" [36mto[0m="/ip4/10.89.4.34/udp/36245/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:35917" [36mto[0m="/ip4/10.89.4.33/udp/38479/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:42707" [36mto[0m="/ip4/10.89.4.34/udp/36245/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:35917" [36mto[0m="/ip4/10.89.4.33/udp/38479/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:35917" [36mto[0m="/ip4/10.89.4.33/udp/38479/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:42707" [36mto[0m="/ip4/10.89.4.34/udp/36245/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [90mDEBUG[0m New for connection [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=154 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m Redirecting [36mfrom[0m="127.0.0.1:42707" [36mto[0m="/ip4/10.89.4.34/udp/36245/quic-v1" [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=123 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:43[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m Ledger data [36mdata[0m=map[healthcheck:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:"2026-10-29T07:28:31Z" 12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp:"2026-10-29T07:28:38Z" 12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg:"2026-10-29T07:28:37Z"] services:map[NmhYSfqkHL:{"PeerID":"12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg","Name":"NmhYSfqkHL"} ajgszwlSCq:{"PeerID":"12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp","Name":"ajgszwlSCq"}] users:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:{"PeerID":"12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN","Timestamp":"2026-10-29 07:28:42.477772527 +0000 UTC m=+23.169950702"}] worker:map[NmhYSfqkHL:{"Name":"NmhYSfqkHL","ID":"7365c7b1cfe9-NmhYSfqkHL","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:28.4590211Z"} ajgszwlSCq:{"Name":"ajgszwlSCq","ID":"3ea6a16f6a11-ajgszwlSCq","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:36.867735222Z"}]] [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=233 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m Ledger data [36mdata[0m=map[healthcheck:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:"2026-10-29T07:28:31Z" 12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp:"2026-10-29T07:28:38Z" 12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg:"2026-10-29T07:28:37Z"] services:map[NmhYSfqkHL:{"PeerID":"12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg","Name":"NmhYSfqkHL"} ajgszwlSCq:{"PeerID":"12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp","Name":"ajgszwlSCq"}] users:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:{"PeerID":"12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN","Timestamp":"2026-10-29 07:28:42.477772527 +0000 UTC m=+23.169950702"}] worker:map[NmhYSfqkHL:{"Name":"NmhYSfqkHL","ID":"7365c7b1cfe9-NmhYSfqkHL","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:28.4590211Z"} ajgszwlSCq:{"Name":"ajgszwlSCq","ID":"3ea6a16f6a11-ajgszwlSCq","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:36.867735222Z"}]] [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=233 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m setting LLAMACPP_GRPC_SERVERS [36mvalue[0m="127.0.0.1:35917,127.0.0.1:42707" [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=368 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m setting LLAMACPP_GRPC_SERVERS [36mvalue[0m="127.0.0.1:35917,127.0.0.1:42707" [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=368 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.03.521.175 I cmn          init: llama threadpool init, n_threads = 10" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:44[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:44[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:44[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:44[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.03.690.268 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'true'" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m Model already loaded in memory [36mmodel[0m="Qwen3-0.6B-Q8_0.gguf" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/loader.go"  [36mcaller.L[0m=721 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m Checking model availability [36mmodel[0m="Qwen3-0.6B-Q8_0.gguf" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/loader.go"  [36mcaller.L[0m=733 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.03.702.671 I start_llama_server: model loaded" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m [gguf] DetectThinkingSupportFromBackend: thinking support detected [36msupports_thinking[0m=true [36mthinking_forced_open[0m=false [36mthinking_start_token[0m="" [36mcaller[0m={[36mcaller.file[0m="/build/core/config/gguf.go"  [36mcaller.L[0m=263 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m [gguf] DetectThinkingSupportFromBackend: tool format markers detected [36mformat_type[0m="json_native" [36msection_start[0m="" [36mfunc_name_prefix[0m="" [36mcaller[0m={[36mcaller.file[0m="/build/core/config/gguf.go"  [36mcaller.L[0m=235 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.03.709.038 I srv  parse_option: [TOOLS DEBUG] parse_options: Checking for tools in proto, tools().empty()=1, tools().size()=0" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.03.709.042 I srv  parse_option: [TOOLS DEBUG] parse_options: No tools received from Go layer (predict->tools() is empty)" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.03.709.043 I srv  parse_option: [TOOLS DEBUG] parse_options: WARNING - Tools NOT in data after extraction!" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.03.709.082 I srv  PredictStrea: [CONTENT DEBUG] PredictStream: Running final safety check on 1 messages" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.03.709.083 I srv  PredictStrea: [CONTENT DEBUG] PredictStream: Safety check message 0: content OK, type=string" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.03.709.088 I srv  PredictStrea: [TOOLS DEBUG] PredictStream: has_grammar_from_go=0, data.contains(\"tools\")=0, data.contains(\"grammar\")=0" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.03.709.089 W srv  PredictStrea: No tools found in data - tool calls will not work without tools field" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.03.709.096 I srv  PredictStrea: [CONTENT DEBUG] PredictStream: Before oaicompat_chat_params_parse - checking 1 messages" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.03.710.035 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:44[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.03.710.095 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m Sending chunk [36mchunk[0m="{\"created\":1793258921,\"object\":\"chat.completion.chunk\",\"id\":\"402a3395-0933-482a-8012-905498497e45\",\"model\":\"Qwen3-0.6B-Q8_0.gguf\",\"choices\":[{\"index\":0,\"finish_reason\":null,\"delta\":{\"role\":\"assistant\",\"content\":null}}]}" [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=649 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m Sending chunk [36mchunk[0m="{\"created\":1793258921,\"object\":\"chat.completion.chunk\",\"id\":\"402a3395-0933-482a-8012-905498497e45\",\"model\":\"Qwen3-0.6B-Q8_0.gguf\",\"choices\":[{\"index\":0,\"finish_reason\":null,\"delta\":{\"content\":null}}]}" [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=649 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m Sending chunk [36mchunk[0m="{\"created\":1793258921,\"object\":\"chat.completion.chunk\",\"id\":\"402a3395-0933-482a-8012-905498497e45\",\"model\":\"Qwen3-0.6B-Q8_0.gguf\",\"choices\":[{\"index\":0,\"finish_reason\":null,\"delta\":{\"content\":null,\"reasoning\":\"Okay\"}}]}" [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=649 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m Sending chunk [36mchunk[0m="{\"created\":1793258921,\"object\":\"chat.completion.chunk\",\"id\":\"402a3395-0933-482a-8012-905498497e45\",\"model\":\"Qwen3-0.6B-Q8_0.gguf\",\"choices\":[{\"index\":0,\"finish_reason\":null,\"delta\":{\"content\":null,\"reasoning\":\",\"}}]}" [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=649 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m Sending chunk [36mchunk[0m="{\"created\":1793258921,\"object\":\"chat.completion.chunk\",\"id\":\"402a3395-0933-482a-8012-905498497e45\",\"model\":\"Qwen3-0.6B-Q8_0.gguf\",\"choices\":[{\"index\":0,\"finish_reason\":null,\"delta\":{\"content\":null,\"reasoning\":\" let\"}}]}" [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=649 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m Sending chunk [36mchunk[0m="{\"created\":1793258921,\"object\":\"chat.completion.chunk\",\"id\":\"402a3395-0933-482a-8012-905498497e45\",\"model\":\"Qwen3-0.6B-Q8_0.gguf\",\"choices\":[{\"index\":0,\"finish_reason\":null,\"delta\":{\"content\":null,\"reasoning\":\"'s\"}}]}" [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=649 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m Sending chunk [36mchunk[0m="{\"created\":1793258921,\"object\":\"chat.completion.chunk\",\"id\":\"402a3395-0933-482a-8012-905498497e45\",\"model\":\"Qwen3-0.6B-Q8_0.gguf\",\"choices\":[{\"index\":0,\"finish_reason\":null,\"delta\":{\"content\":null,\"reasoning\":\" see\"}}]}" [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=649 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m Sending chunk [36mchunk[0m="{\"created\":1793258921,\"object\":\"chat.completion.chunk\",\"id\":\"402a3395-0933-482a-8012-905498497e45\",\"model\":\"Qwen3-0.6B-Q8_0.gguf\",\"choices\":[{\"index\":0,\"finish_reason\":null,\"delta\":{\"content\":null,\"reasoning\":\".\"}}]}" [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=649 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m Sending chunk [36mchunk[0m="{\"created\":1793258921,\"object\":\"chat.completion.chunk\",\"id\":\"402a3395-0933-482a-8012-905498497e45\",\"model\":\"Qwen3-0.6B-Q8_0.gguf\",\"choices\":[{\"index\":0,\"finish_reason\":null,\"delta\":{\"content\":null,\"reasoning\":\" The\"}}]}" [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=649 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.04.257.349 I slot print_timing: id  0 | task 0 | prompt eval time =     281.39 ms /    40 tokens (    7.03 ms per token,   142.15 tokens per second)" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.04.257.350 I slot print_timing: id  0 | task 0 |        eval time =     265.84 ms /    10 tokens (   29.54 ms per token,    33.86 tokens per second)" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.04.257.350 I slot print_timing: id  0 | task 0 |       total time =     547.23 ms /    50 tokens" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.04.257.351 I slot print_timing: id  0 | task 0 |    graphs reused =          9" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m Sending chunk [36mchunk[0m="{\"created\":1793258921,\"object\":\"chat.completion.chunk\",\"id\":\"402a3395-0933-482a-8012-905498497e45\",\"model\":\"Qwen3-0.6B-Q8_0.gguf\",\"choices\":[{\"index\":0,\"finish_reason\":null,\"delta\":{\"content\":null,\"reasoning\":\" user\"}}]}" [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=649 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m Sending chunk [36mchunk[0m="{\"created\":1793258921,\"object\":\"chat.completion.chunk\",\"id\":\"402a3395-0933-482a-8012-905498497e45\",\"model\":\"Qwen3-0.6B-Q8_0.gguf\",\"choices\":[{\"index\":0,\"finish_reason\":null,\"delta\":{\"content\":null}}]}" [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=649 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m Sending chunk [36mchunk[0m="{\"created\":1793258921,\"object\":\"chat.completion.chunk\",\"id\":\"402a3395-0933-482a-8012-905498497e45\",\"model\":\"Qwen3-0.6B-Q8_0.gguf\",\"choices\":[{\"index\":0,\"finish_reason\":null,\"delta\":{\"content\":null}}]}" [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=649 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.04.257.351 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m GRPC stderr [36mid[0m="Qwen3-0.6B-Q8_0.gguf-127.0.0.1:40017" [36mline[0m="0.04.257.368 I slot      release: id  0 | task 0 | stop processing: n_tokens = 49, truncated = 0" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/model/process.go"  [36mcaller.L[0m=346 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m [ChatDeltas] streaming completed, accumulated deltas from C++ autoparser [36mtotal_deltas[0m=8 [36mcaller[0m={[36mcaller.file[0m="/build/core/backend/llm.go"  [36mcaller.L[0m=316 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m No choices in the response, skipping [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=609 } 
+[90mOct 29 07:28:45[0m [90mDEBUG[0m Stream ended [36mcaller[0m={[36mcaller.file[0m="/build/core/http/endpoints/openai/chat.go"  [36mcaller.L[0m=873 } 
+[90mOct 29 07:28:45[0m [34mINFO [0m HTTP request [36mmethod[0m="POST" [36mpath[0m="/v1/chat/completions" [36mstatus[0m=200 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:45[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:45[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:45[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:45[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:46[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/api/p2p" [36mstatus[0m=200 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:46[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:46[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:46[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:46[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:47[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:47[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:47[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:47[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:48[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:48[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:48[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:48[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:49[0m [90mDEBUG[0m Ledger data [36mdata[0m=map[healthcheck:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:"2026-10-29T07:28:31Z" 12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp:"2026-10-29T07:28:38Z" 12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg:"2026-10-29T07:28:37Z"] services:map[NmhYSfqkHL:{"PeerID":"12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg","Name":"NmhYSfqkHL"} ajgszwlSCq:{"PeerID":"12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp","Name":"ajgszwlSCq"}] users:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:{"PeerID":"12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN","Timestamp":"2026-10-29 07:28:49.208243155 +0000 UTC m=+29.900421330"}] worker:map[NmhYSfqkHL:{"Name":"NmhYSfqkHL","ID":"7365c7b1cfe9-NmhYSfqkHL","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:28.4590211Z"} ajgszwlSCq:{"Name":"ajgszwlSCq","ID":"3ea6a16f6a11-ajgszwlSCq","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:36.867735222Z"}]] [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=233 } 
+[90mOct 29 07:28:49[0m [90mDEBUG[0m Ledger data [36mdata[0m=map[healthcheck:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:"2026-10-29T07:28:31Z" 12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp:"2026-10-29T07:28:38Z" 12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg:"2026-10-29T07:28:37Z"] services:map[NmhYSfqkHL:{"PeerID":"12D3KooWHVWH5XGjJDf98UsGHDMSdLsQvuRcGYu8YBJiVbXjYuBg","Name":"NmhYSfqkHL"} ajgszwlSCq:{"PeerID":"12D3KooWFGbC5pxh3jjqkGrCSfZWoUd2iE9hN3LBjmxqyS1fRrkp","Name":"ajgszwlSCq"}] users:map[12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN:{"PeerID":"12D3KooWEj8HF6UFhWzmi4eFuGGrsT9qABwH4H1mZA9FQJ85gXdN","Timestamp":"2026-10-29 07:28:49.208243155 +0000 UTC m=+29.900421330"}] worker:map[NmhYSfqkHL:{"Name":"NmhYSfqkHL","ID":"7365c7b1cfe9-NmhYSfqkHL","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:28.4590211Z"} ajgszwlSCq:{"Name":"ajgszwlSCq","ID":"3ea6a16f6a11-ajgszwlSCq","TunnelAddress":"","ServiceID":"","LastSeen":"2026-10-29T07:28:36.867735222Z"}]] [36mcaller[0m={[36mcaller.file[0m="/build/core/p2p/p2p.go"  [36mcaller.L[0m=233 } 
+[90mOct 29 07:28:49[0m [90mDEBUG[0m setting LLAMACPP_GRPC_SERVERS [36mvalue[0m="127.0.0.1:35917,127.0.0.1:42707" [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=368 } 
+[90mOct 29 07:28:49[0m [90mDEBUG[0m setting LLAMACPP_GRPC_SERVERS [36mvalue[0m="127.0.0.1:35917,127.0.0.1:42707" [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=368 } 
+[90mOct 29 07:28:49[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:50[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:50[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:50[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:50[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:51[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:51[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:51[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-federation" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 
+[90mOct 29 07:28:51[0m [34mINFO [0m HTTP request [36mmethod[0m="GET" [36mpath[0m="/p2p/ui/workers-stats" [36mstatus[0m=404 [36mcaller[0m={[36mcaller.file[0m="/build/core/http/app.go"  [36mcaller.L[0m=349 } 

@@ -1,0 +1,4 @@
+# t,phase,note
+1793258898.940250103,start,cluster.sh up 2 (P2P_LISTEN=default)
+1793258921.112039087,load,first request: the model loads through the tunnels (timeout 600 s)
+1793258930.530228252,done,
