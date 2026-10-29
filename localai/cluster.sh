@@ -52,7 +52,7 @@ case "$cmd" in
       podman rm -f "worker-$i" >/dev/null 2>&1 || true
       # shellcheck disable=SC2046
       podman run -d --name "worker-$i" --network "$NET" -v "$VOL:/models" \
-        -e TOKEN="$t" $(dht_env) -e LOCALAI_P2P_LOGLEVEL=debug "$IMG" \
+        -e TOKEN="$t" $(dht_env) -e LOCALAI_LOG_LEVEL=debug -e LOCALAI_P2P_LOGLEVEL=debug "$IMG" \
         worker p2p-llama-cpp-rpc >/dev/null
       echo "started worker-$i"
     done
