@@ -47,7 +47,8 @@ def one(base: str, model: str, prompt: str, max_tokens: int, thinking: bool, tim
             if obj.get("timings"):                 # llama-server: server-side timings in the last chunk
                 timings = obj["timings"]
             ch = (obj.get("choices") or [{}])[0].get("delta", {})
-            if ch.get("content") or ch.get("reasoning_content"):
+            # thinking tokens: reasoning_content (llama-server), reasoning (LocalAI v4)
+            if ch.get("content") or ch.get("reasoning_content") or ch.get("reasoning"):
                 n += 1
                 t_last = time.time()
                 if t_first is None:
