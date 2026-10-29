@@ -111,7 +111,11 @@ class Flow:
                 start = (p.seq + 1) & 0xFFFFFFFF if p.flags & pcap.TCP_SYN else p.seq
                 end = (start + n) & 0xFFFFFFFF
                 cur = self.seq_end_ab if p.forward else self.seq_end_ba
-                if cur is None:
+                # a SYN starts a new sequence space: libp2p redials a peer from the same
+                # port, so one 5-tuple carries several connections, each with a random ISN
+                # (counted as up to 2 GB of advance before; 2.7 TB "dropped" on the DHT run)
+                if cur is None or p.flags & pcap.TCP_SYN:
+                    cur = None
                     adv = n
                 else:
                     # how far the highest end advanced (modulo 2^32); a retransmission or
