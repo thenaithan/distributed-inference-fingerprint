@@ -42,7 +42,7 @@ case "$cmd" in
     # subcommand (`run`, `worker`); a leading `local-ai` becomes a stray argument and the
     # parser rejects whatever comes last. The model goes in through LOCALAI_MODELS.
     podman run -d --name main --network "$NET" -v "$VOL:/models" -p "$API_PORT:8080" \
-      -e LOCALAI_P2P=true $(dht_env) -e LOCALAI_P2P_LOGLEVEL=debug -e LOCALAI_MODELS="$MODEL" "$IMG" \
+      -e LOCALAI_P2P=true $(dht_env) -e LOCALAI_P2P_LOGLEVEL=debug -e LOCALAI_LOG_LEVEL=debug -e LOCALAI_MODELS="$MODEL" "$IMG" \
       run --p2p >/dev/null
     echo "image $(podman image inspect "$IMG" --format '{{.Digest}}')"
     echo "started main; waiting for its token"
