@@ -1,0 +1,4 @@
+ID            NAME        CPU %       MEM USAGE / LIMIT  MEM %       NET IO             BLOCK IO    PIDS        CPU TIME    AVG CPU %
+85b8a906e69f  main        9.17%       313.6MB / 33.39GB  0.94%       47.45MB / 1.31GB   0B / 0B     55          7.04501s    9.17%
+8553f79524c1  worker-0    29.10%      1.736GB / 33.39GB  5.20%       1.054GB / 47.33MB  0B / 0B     36          22.246343s  29.10%
+65f85b9dbf36  worker-1    9.15%       120.2MB / 33.39GB  0.36%       264.5MB / 5.129MB  0B / 0B     28          6.963232s   9.15%

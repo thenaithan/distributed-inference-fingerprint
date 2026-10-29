@@ -1,0 +1,11 @@
+# t,phase,note
+1793261967.843946146,start,cluster.sh up 2 (DHT=1): mDNS, libp2p handshakes, token, ledger
+1793261979.880991200,idle,workers attached, model not loaded, no requests for 300 s
+1793262279.886549043,load,first request (10 tokens): the model loads through the tunnels
+1793262289.216239839,generate,20 x 30 tokens, 33-token prompt
+1793262412.579462146,generate-long,5 x 30 tokens, ~2048-token prompt
+1793262519.676969352,kill,killproc worker-0 0.5 s into a 300-token request
+1793262618.764766160,recover,cluster.sh up 2 again (new token), then one request to load the model
+1793262639.738953422,pause,pause worker-1 0.5 s into a 300-token request (client gives up after 120 s without a token)
+1793262675.734940410,resume,cluster.sh resume 1, then one 30-token request: does the cluster still answer?
+1793262696.053109588,done,
