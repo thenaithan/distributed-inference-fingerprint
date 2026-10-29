@@ -14,7 +14,8 @@ branch; nothing here is in the README yet.
   pod cannot run containers, tcpdump or `git push`; it sees the checkout as a bind mount and
   runs the analysis and commits. So: the user runs `capture/run_*.sh`, the agent classifies
   what lands and commits, the user signs (`git rebase -f -S main`) and pushes.
-- Node logs for exo are under `exo/logs/` (untracked, not ignored; decide). llama.cpp runs
+- Node logs for exo are under `exo/logs/`, LocalAI's under `localai/logs/` (both untracked,
+  not ignored; decide). llama.cpp runs
   save `podman logs` of each container next to the pcap (`<stamp>.main.log` etc.).
 
 ## 2. Done
@@ -102,29 +103,62 @@ Findings, all from the reports and the ad-hoc checks in the session:
 5. The worker's libp2p host listens on TCP, QUIC, WebTransport and WebRTC-direct at once,
    so overlay traffic may be QUIC/UDP rather than the TCP the findings assumed.
 
-Where it fails: with the workers up and the right model name, the main node's llama.cpp
-backend connects to both workers (the worker logs five accepted connections, the device
-probes), then dies with a Go runtime fatal error (register dump in the debug log) before
-sending any model data. LocalAI then tries every other backend and returns 500.
+6. Model loading is lazy: nothing loads until the first request. `up` returns before the
+   workers are in the ledger (discovery every 10 s), so a request sent straight after `up`
+   finds `LLAMACPP_GRPC_SERVERS` empty and the backend loads the whole model on the main
+   node. That is what the first "working" completion on 2026-10-29 was: worker NET IO
+   745 kB each, main 5.9 GB resident, no `Accepted client connection` on the workers.
+   It does settle one question from the previous handover: the image's llama.cpp backend
+   (build 5700, 8d947136) loads and serves this model on this CPU. The failure is in the
+   P2P/RPC path, not the backend.
+7. With the workers in the ledger first (`up 2`, `sleep 60`, then the request), the RPC path
+   is taken: `using device RPC[127.0.0.1:35987]` and `RPC[127.0.0.1:37935]`,
+   `offloaded 29/29 layers to GPU` (llama.cpp calls every non-CPU device "GPU"; both are
+   CPU rpc-servers, `create_backend: using CPU backend`, backend memory = host RAM; the
+   image is CPU-only), buffers `CPU_Mapped` 157.65 MiB on main (token embeddings) +
+   239.19 MiB on worker-1 + 364.95 MiB on worker-0 = the 761.8 MiB file. Offload to the
+   RPC devices comes from LocalAI's default `gpu_layers`; at 0 the workers get nothing.
+   With workers attached the backend's `system_info` reports `CPU : SSE3 SSSE3 BMI2` (no
+   AVX/AVX2), against AVX2 on the main-only run: LocalAI picks a different llama.cpp build
+   for the RPC case. Worth a sentence in the README; it does not explain the failure.
 
-Not yet done, and the next step: the same request with no workers (`localai/cluster.sh up 0`,
-model name `Qwen3-0.6B-Q8_0.gguf`). If it answers, the crash is specific to the RPC path
-and the backend's own stderr with the workers up is the thing to read:
+Where it fails now (logs of that run in `localai/logs/`, untracked, 05:10–05:39 UTC):
+the weight upload starts with worker-1 (the first RPC device), and worker-1's 20 s
+`NodeData` announce stops at that moment: its last `LastSeen` in the ledger is 05:10:06 and
+never moves again, while its edgevpn healthcheck keeps arriving (last 05:39:21), so the
+node and its connection are alive. About 40 s later the main node's `ensureService`
+(`core/p2p/p2p.go` at v3.0.0: offline if not seen in 40 s, then cancel the tunnel) logs
+`Node 3e0dfe9278ae-cUiMiCEmsC is offline, deleting` and `accept tcp 127.0.0.1:35987: use
+of closed network connection`. The upload dies at ~52 MB of 239 MiB (worker-1 NET IO),
+worker-0 has had ~6 MB, `LLAMACPP_GRPC_SERVERS` shrinks to the one worker, and the
+llama.cpp RPC client waits on the dead connection forever: the HTTP request hangs with no
+error. The upload was also slow, ~1.5 MB/s on a local bridge in the 35 s before the cut, so
+a full load would take minutes, far past the 40 s offline window.
 
-    podman logs main 2>&1 | grep 'GRPC(Qwen3' | grep -i -E 'llama|ggml|rpc|device|load|error|fatal|signal|panic' | grep -v '/root/go\|fp=0x' | head -60
+Not known: why the announce stops when the upload starts (the worker logged at info level,
+the cause is somewhere in edgevpn's ledger), and whether the Go runtime fatal error of the
+earlier attempts is the same failure seen differently. `localai/cluster.sh` now starts the
+workers with `LOCALAI_LOG_LEVEL=debug` so the next run has the worker's side.
 
-If it also fails, the image's backend cannot load this model on this CPU at all (no AVX-512
-here; the "fallback" variant failed the same way), and the options are a different image
-tag, LocalAI's `--backends` gallery install of a newer llama-cpp backend, or a model YAML
-in the volume that sets `backend: llama-cpp` and `gpu_layers` explicitly. If none of those
-works in a bounded effort, the honest outcome for the study is: LocalAI's P2P worker mode
-at v3.0.0 did not run on this host; the discovery and overlay handshake (beacon, token,
-mDNS, tunnels) were captured up to the point of model load. That is most of prediction 9
-and 11 anyway; predictions 10, 12 and 13's LocalAI rows would be reported as not run.
-
-There is no `capture/run_localai.sh` yet. When the cluster serves a completion, write it on
-the pattern of `capture/run_llamacpp.sh` (DHT off, then a second run with `DHT=1` for
-prediction 12), and save `podman logs` of main and workers next to the pcap.
+Next, bounded:
+1. Repeat the run (`up 2`, `sleep 60`, one request) and watch the ledger during the load:
+   `watch -n 5 "curl -s localhost:8080/api/p2p | grep -o '\"LastSeen\":\"[^\"]*\"'"`.
+   Is it reproducible, and is it always the worker being uploaded to? Save
+   `podman logs` of all three into `localai/logs/`.
+2. One newer image (the current `latest-cpu`); this is LocalAI's own P2P code and a later
+   release may behave differently (changelog not checked).
+3. If both fail, the outcome for the study: LocalAI P2P worker mode at v3.0.0 drops the
+   worker it is uploading to during model load on this host. Write `capture/run_localai.sh`
+   anyway, on the pattern of `capture/run_llamacpp.sh` with an anchor container so the
+   capture starts before the nodes (as `run_exo.sh`): discovery, idle 600 s, the load
+   attempt, then `DHT=1` for prediction 12. That covers predictions 9, 11 and 12 and shows
+   how a stalled encrypted upload looks on the wire; 10 and LocalAI's rows in 13 are
+   reported as not run. The script must wait until `/api/p2p` lists every worker before
+   the first request, or it captures a main-only run (item 6).
+   Manual mode (`worker llama-cpp-rpc`, fixed `LLAMACPP_GRPC_SERVERS`) avoids the overlay
+   and is plain llama.cpp RPC again; it tests nothing new.
+   Loopback ground truth (STUDY.md): the image has no tcpdump; the host's can run in a
+   container's namespace, `podman unshare nsenter --net=/proc/<pid>/ns/net tcpdump -i lo`.
 
 ## 5. Harness changes made this week, all merged
 `capture.sh`: 512 MiB buffer, setsid (survives Ctrl-C), size and SHA-256 at stop.
@@ -133,7 +167,7 @@ llama-server's timings. `run_llamacpp.sh`: load captured by restarting the main 
 and pause 0.5 s into a 300-token request; container logs saved. `run_llamacpp_pause.sh`: the
 hang case alone, with resume and a probe. `run_exo.sh`: anchor container, short prompt, one
 long request. `run_background.sh`: anchor + throttled generators + status print.
-`llamacpp/cluster.sh`: 1 s stop grace. `localai/cluster.sh`: as in §4.
+`llamacpp/cluster.sh`: 1 s stop grace. `localai/cluster.sh`: as in §4, workers at debug log level.
 
 ## 6. Still open
 - README: intro and conclusion unwritten; the numbers above are the material.
