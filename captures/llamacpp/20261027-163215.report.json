@@ -1,5 +1,5 @@
 {
- "capture": "/workspace/captures/llamacpp/20261027-163215.pcap",
+ "capture": "captures/llamacpp/20261027-163215.pcap",
  "sha256": "e5464a922c62358a54dbcb0eebdb0a6951810ad9c746ad8f60751367469754e7",
  "packets": 22063,
  "skipped": 15,
@@ -257,6 +257,16 @@
   },
   {
    "flow": "tcp 10.89.3.19:50052 <-> 10.89.3.22:33374",
+   "rule": "llama_tensor_names",
+   "stack": "llama.cpp",
+   "what": "ggml tensor name in plaintext",
+   "needs": "first packets",
+   "strength": "byte",
+   "t": 6.577,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.19:50052 <-> 10.89.3.22:33374",
    "rule": "llama_port",
    "stack": "llama.cpp",
    "what": "TCP on ggml rpc-server's default port",
@@ -271,6 +281,16 @@
    "stack": "llama.cpp",
    "what": "ggml RPC HELLO reply (server, v8.0.1)",
    "needs": "12 bytes",
+   "strength": "byte",
+   "t": 6.577,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.20:50052 <-> 10.89.3.22:51234",
+   "rule": "llama_tensor_names",
+   "stack": "llama.cpp",
+   "what": "ggml tensor name in plaintext",
+   "needs": "first packets",
    "strength": "byte",
    "t": 6.577,
    "phase": "load"
@@ -591,6 +611,16 @@
    "stack": "llama.cpp",
    "what": "ggml RPC HELLO reply (server, v8.0.1)",
    "needs": "12 bytes",
+   "strength": "byte",
+   "t": 6.702,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.19:50052 <-> 10.89.3.22:33464",
+   "rule": "llama_tensor_names",
+   "stack": "llama.cpp",
+   "what": "ggml tensor name in plaintext",
+   "needs": "first packets",
    "strength": "byte",
    "t": 6.702,
    "phase": "load"
@@ -631,6 +661,16 @@
    "stack": "llama.cpp",
    "what": "ggml RPC HELLO reply (server, v8.0.1)",
    "needs": "12 bytes",
+   "strength": "byte",
+   "t": 6.702,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.20:50052 <-> 10.89.3.22:51322",
+   "rule": "llama_tensor_names",
+   "stack": "llama.cpp",
+   "what": "ggml tensor name in plaintext",
+   "needs": "first packets",
    "strength": "byte",
    "t": 6.702,
    "phase": "load"
@@ -2054,6 +2094,7 @@
  "dropped_bytes": 0,
  "first_match_s": {
   "llama_port": 5.078,
-  "llama_hello": 5.43
+  "llama_hello": 5.43,
+  "llama_tensor_names": 6.577
  }
 }

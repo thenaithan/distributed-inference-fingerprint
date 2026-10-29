@@ -1,5 +1,5 @@
 {
- "capture": "/workspace/captures/llamacpp/25691027-122003.pcap",
+ "capture": "captures/llamacpp/25691027-122003.pcap",
  "sha256": "8baea8e12c0755351b45fe6d2df00e4d847dafbeae231d33e9a5808d347981a8",
  "packets": 107337,
  "skipped": 21,
@@ -267,6 +267,16 @@
   },
   {
    "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48958",
+   "rule": "llama_tensor_names",
+   "stack": "llama.cpp",
+   "what": "ggml tensor name in plaintext",
+   "needs": "first packets",
+   "strength": "byte",
+   "t": 5.1,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:48958",
    "rule": "llama_port",
    "stack": "llama.cpp",
    "what": "TCP on ggml rpc-server's default port",
@@ -281,6 +291,16 @@
    "stack": "llama.cpp",
    "what": "ggml RPC HELLO reply (server, v8.0.1)",
    "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.1,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47182",
+   "rule": "llama_tensor_names",
+   "stack": "llama.cpp",
+   "what": "ggml tensor name in plaintext",
+   "needs": "first packets",
    "strength": "byte",
    "t": 5.1,
    "phase": "load"
@@ -601,6 +621,16 @@
    "stack": "llama.cpp",
    "what": "ggml RPC HELLO reply (server, v8.0.1)",
    "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.219,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:49040",
+   "rule": "llama_tensor_names",
+   "stack": "llama.cpp",
+   "what": "ggml tensor name in plaintext",
+   "needs": "first packets",
    "strength": "byte",
    "t": 5.219,
    "phase": "load"
@@ -641,6 +671,16 @@
    "stack": "llama.cpp",
    "what": "ggml RPC HELLO reply (server, v8.0.1)",
    "needs": "12 bytes",
+   "strength": "byte",
+   "t": 5.22,
+   "phase": "load"
+  },
+  {
+   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47268",
+   "rule": "llama_tensor_names",
+   "stack": "llama.cpp",
+   "what": "ggml tensor name in plaintext",
+   "needs": "first packets",
    "strength": "byte",
    "t": 5.22,
    "phase": "load"
@@ -861,6 +901,16 @@
    "stack": "llama.cpp",
    "what": "ggml RPC HELLO (client, 33 bytes)",
    "needs": "33 bytes",
+   "strength": "byte",
+   "t": 261.671,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34512 <-> 10.89.3.9:50052",
+   "rule": "llama_tensor_names",
+   "stack": "llama.cpp",
+   "what": "ggml tensor name in plaintext",
+   "needs": "first packets",
    "strength": "byte",
    "t": 261.671,
    "phase": "recover"
@@ -881,6 +931,16 @@
    "stack": "llama.cpp",
    "what": "ggml RPC HELLO reply (server, v8.0.1)",
    "needs": "12 bytes",
+   "strength": "byte",
+   "t": 261.672,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43280",
+   "rule": "llama_tensor_names",
+   "stack": "llama.cpp",
+   "what": "ggml tensor name in plaintext",
+   "needs": "first packets",
    "strength": "byte",
    "t": 261.672,
    "phase": "recover"
@@ -1201,6 +1261,16 @@
    "stack": "llama.cpp",
    "what": "ggml RPC HELLO (client, 33 bytes)",
    "needs": "33 bytes",
+   "strength": "byte",
+   "t": 261.794,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.11:34604 <-> 10.89.3.9:50052",
+   "rule": "llama_tensor_names",
+   "stack": "llama.cpp",
+   "what": "ggml tensor name in plaintext",
+   "needs": "first packets",
    "strength": "byte",
    "t": 261.794,
    "phase": "recover"
@@ -1241,6 +1311,16 @@
    "stack": "llama.cpp",
    "what": "ggml RPC HELLO reply (server, v8.0.1)",
    "needs": "12 bytes",
+   "strength": "byte",
+   "t": 261.794,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43354",
+   "rule": "llama_tensor_names",
+   "stack": "llama.cpp",
+   "what": "ggml tensor name in plaintext",
+   "needs": "first packets",
    "strength": "byte",
    "t": 261.794,
    "phase": "recover"
@@ -3996,6 +4076,7 @@
  "dropped_bytes": 435613455,
  "first_match_s": {
   "llama_port": 3.606,
-  "llama_hello": 3.934
+  "llama_hello": 3.934,
+  "llama_tensor_names": 5.1
  }
 }
