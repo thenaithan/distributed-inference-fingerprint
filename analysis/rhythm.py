@@ -206,6 +206,10 @@ def turns(f: Flow) -> Optional[Bursts]:
     which defeats the quiet-gap split (seen on the first llama.cpp capture). The client
     side is whichever direction sends first."""
     ev = sorted([(t, n, "ab") for t, n in f.series_ab] + [(t, n, "ba") for t, n in f.series_ba])
+    if f.proto == "udp":
+        # QUIC acknowledgements are UDP datagrams of a few dozen bytes; as payload they
+        # would end every exchange after one packet (LocalAI's tunnels, 2026-10-29)
+        ev = [e for e in ev if e[1] >= 64]
     if len(ev) < 20:
         return None
     client = ev[0][2]
