@@ -84,9 +84,23 @@ def periodicities_of(times: List[float], dt: float = 0.1, min_period: float = 0.
     if var == 0:
         return []
     lo, hi = int(min_period / dt), min(int(max_period / dt), n // 3)
+    # sum over i of (c[i]-m)(c[i+lag]-m) = pairs(lag) - m*(ones in c[:n-lag] + ones in
+    # c[lag:]) + (n-lag)*m^2, where pairs(lag) counts occupied bins lag apart: the cost is
+    # in occupied bins, not in bins x lags (a DHT run has thousands of long sparse flows)
+    ones = [i for i, x in enumerate(c) if x]
+    pairs = [0] * (hi + 1)
+    for a, i in enumerate(ones):
+        for j in ones[a + 1:]:
+            if j - i > hi:
+                break
+            pairs[j - i] += 1
+    prefix = [0]
+    for x in c:
+        prefix.append(prefix[-1] + x)
+    k = prefix[-1]
     scores = []
     for lag in range(lo, hi + 1):
-        s = sum((c[i] - mean) * (c[i + lag] - mean) for i in range(n - lag)) / var
+        s = (pairs[lag] - mean * (prefix[n - lag] + k - prefix[lag]) + (n - lag) * mean * mean) / var
         scores.append((lag * dt, s))
     # local maxima only; a periodic series also peaks at every multiple of its period, so
     # keep the smallest period of each harmonic family (a multiple is dropped when a
