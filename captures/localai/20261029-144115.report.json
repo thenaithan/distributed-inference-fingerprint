@@ -1,0 +1,2256 @@
+{
+ "capture": "captures/localai/20261029-144115.pcap",
+ "sha256": "34a270021e88277f05aeafedc84f5306d6b4bc13286f353c8eba469a70d09bf6",
+ "packets": 398999,
+ "skipped": 363,
+ "t0": 1793259676.708291,
+ "duration": 1034.08154296875,
+ "hosts": [
+  "10.89.4.1",
+  "10.89.4.36",
+  "10.89.4.37",
+  "10.89.4.38",
+  "10.89.4.39",
+  "10.89.4.40",
+  "10.89.4.41",
+  "104.21.80.62",
+  "172.67.174.186",
+  "224.0.0.22",
+  "224.0.0.251",
+  "239.255.255.250",
+  "::",
+  "fe80::2ccf:a5ff:fedd:db78",
+  "fe80::4076:6bff:fe84:301",
+  "fe80::5cb5:35ff:fe20:972a",
+  "fe80::782d:91ff:fec6:c520",
+  "fe80::b0a9:a2ff:feaf:881a",
+  "fe80::b466:94ff:fef8:354c",
+  "fe80::c48c:7bff:fef9:b5bd",
+  "fe80::d0e5:ecff:fe9f:84b5",
+  "ff02::16",
+  "ff02::1:ff20:972a",
+  "ff02::1:ff84:301",
+  "ff02::1:ff9f:84b5",
+  "ff02::1:ffaf:881a",
+  "ff02::1:ffc6:c520",
+  "ff02::1:ffdd:db78",
+  "ff02::1:fff8:354c",
+  "ff02::1:fff9:b5bd",
+  "ff02::2",
+  "ff02::fb"
+ ],
+ "flows": 74,
+ "matches": [
+  {
+   "flow": "udp 10.89.4.36:5353 <-> 224.0.0.251:5353",
+   "rule": "mdns_libp2p",
+   "stack": "libp2p",
+   "what": "mDNS record advertising a libp2p multiaddr",
+   "needs": "1 packet",
+   "strength": "byte",
+   "t": 4.101,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.37:5353 <-> 224.0.0.251:5353",
+   "rule": "mdns_libp2p",
+   "stack": "libp2p",
+   "what": "mDNS record advertising a libp2p multiaddr",
+   "needs": "1 packet",
+   "strength": "byte",
+   "t": 4.428,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.38:5353 <-> 224.0.0.251:5353",
+   "rule": "mdns_libp2p",
+   "stack": "libp2p",
+   "what": "mDNS record advertising a libp2p multiaddr",
+   "needs": "1 packet",
+   "strength": "byte",
+   "t": 4.63,
+   "phase": "start"
+  },
+  {
+   "flow": "udp fe80::b466:94ff:fef8:354c:5353 <-> ff02::fb:5353",
+   "rule": "mdns_libp2p",
+   "stack": "libp2p",
+   "what": "mDNS record advertising a libp2p multiaddr",
+   "needs": "1 packet",
+   "strength": "byte",
+   "t": 5.879,
+   "phase": "start"
+  },
+  {
+   "flow": "udp fe80::2ccf:a5ff:fedd:db78:5353 <-> ff02::fb:5353",
+   "rule": "mdns_libp2p",
+   "stack": "libp2p",
+   "what": "mDNS record advertising a libp2p multiaddr",
+   "needs": "1 packet",
+   "strength": "byte",
+   "t": 6.371,
+   "phase": "start"
+  },
+  {
+   "flow": "udp fe80::c48c:7bff:fef9:b5bd:5353 <-> ff02::fb:5353",
+   "rule": "mdns_libp2p",
+   "stack": "libp2p",
+   "what": "mDNS record advertising a libp2p multiaddr",
+   "needs": "1 packet",
+   "strength": "byte",
+   "t": 6.566,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.39:5353 <-> 224.0.0.251:5353",
+   "rule": "mdns_libp2p",
+   "stack": "libp2p",
+   "what": "mDNS record advertising a libp2p multiaddr",
+   "needs": "1 packet",
+   "strength": "byte",
+   "t": 953.763,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.40:5353 <-> 224.0.0.251:5353",
+   "rule": "mdns_libp2p",
+   "stack": "libp2p",
+   "what": "mDNS record advertising a libp2p multiaddr",
+   "needs": "1 packet",
+   "strength": "byte",
+   "t": 954.088,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.41:5353 <-> 224.0.0.251:5353",
+   "rule": "mdns_libp2p",
+   "stack": "libp2p",
+   "what": "mDNS record advertising a libp2p multiaddr",
+   "needs": "1 packet",
+   "strength": "byte",
+   "t": 954.458,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp fe80::b0a9:a2ff:feaf:881a:5353 <-> ff02::fb:5353",
+   "rule": "mdns_libp2p",
+   "stack": "libp2p",
+   "what": "mDNS record advertising a libp2p multiaddr",
+   "needs": "1 packet",
+   "strength": "byte",
+   "t": 955.581,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp fe80::4076:6bff:fe84:301:5353 <-> ff02::fb:5353",
+   "rule": "mdns_libp2p",
+   "stack": "libp2p",
+   "what": "mDNS record advertising a libp2p multiaddr",
+   "needs": "1 packet",
+   "strength": "byte",
+   "t": 956.016,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp fe80::5cb5:35ff:fe20:972a:5353 <-> ff02::fb:5353",
+   "rule": "mdns_libp2p",
+   "stack": "libp2p",
+   "what": "mDNS record advertising a libp2p multiaddr",
+   "needs": "1 packet",
+   "strength": "byte",
+   "t": 956.244,
+   "phase": "recover"
+  }
+ ],
+ "rhythm": [
+  {
+   "flow": "icmp6 :::0 <-> ff02::16:0",
+   "packets": 22,
+   "duration": 955.1,
+   "payload_ab": 716,
+   "payload_ba": 0,
+   "periods": [
+    [
+     0.7,
+     0.29
+    ]
+   ],
+   "scales": []
+  },
+  {
+   "flow": "udp 10.89.4.36:5353 <-> 224.0.0.251:5353",
+   "packets": 133,
+   "duration": 927.3,
+   "payload_ab": 90615,
+   "payload_ba": 0,
+   "periods": [
+    [
+     60.0,
+     0.69
+    ],
+    [
+     83.3,
+     0.25
+    ],
+    [
+     23.3,
+     0.25
+    ],
+    [
+     12.3,
+     0.23
+    ]
+   ],
+   "scales": [
+    {
+     "phase": "idle",
+     "n": 35,
+     "period_s": 23.2961,
+     "period_cv": 0.05,
+     "req_bytes": 1560,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    },
+    {
+     "phase": "idle",
+     "n": 34,
+     "period_s": 23.2962,
+     "period_cv": 0.05,
+     "req_bytes": 1560,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    },
+    {
+     "phase": "idle",
+     "n": 32,
+     "period_s": 23.2964,
+     "period_cv": 0.05,
+     "req_bytes": 1560,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    }
+   ]
+  },
+  {
+   "flow": "udp 10.89.4.37:5353 <-> 224.0.0.251:5353",
+   "packets": 125,
+   "duration": 843.7,
+   "payload_ab": 89708,
+   "payload_ba": 0,
+   "periods": [
+    [
+     60.0,
+     0.65
+    ],
+    [
+     12.2,
+     0.24
+    ],
+    [
+     35.5,
+     0.22
+    ],
+    [
+     23.3,
+     0.22
+    ]
+   ],
+   "scales": [
+    {
+     "phase": "idle",
+     "n": 35,
+     "period_s": 23.2961,
+     "period_cv": 0.05,
+     "req_bytes": 1644,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    },
+    {
+     "phase": "idle",
+     "n": 34,
+     "period_s": 23.2961,
+     "period_cv": 0.05,
+     "req_bytes": 1644,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    },
+    {
+     "phase": "idle",
+     "n": 32,
+     "period_s": 23.2961,
+     "period_cv": 0.05,
+     "req_bytes": 1644,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    }
+   ]
+  },
+  {
+   "flow": "udp 10.89.4.36:55427 <-> 10.89.4.37:53935",
+   "packets": 150252,
+   "duration": 880.1,
+   "payload_ab": 496428066,
+   "payload_ba": 1128211980,
+   "periods": [
+    [
+     6.1,
+     0.2
+    ]
+   ],
+   "scales": [
+    {
+     "phase": "start",
+     "n": 33,
+     "period_s": 0.0174,
+     "period_cv": 0.99,
+     "req_bytes": 196,
+     "resp_bytes": 1084,
+     "req_cv": 0.84,
+     "resp_cv": 0.88,
+     "generation_like": false,
+     "t": 4.5
+    },
+    {
+     "phase": "idle",
+     "n": 449,
+     "period_s": 0.9205,
+     "period_cv": 0.89,
+     "req_bytes": 115,
+     "resp_bytes": 1565,
+     "req_cv": 0.71,
+     "resp_cv": 0.03,
+     "generation_like": false,
+     "t": 16.6
+    },
+    {
+     "phase": "load",
+     "n": 7422,
+     "period_s": 0.0001,
+     "period_cv": 0.52,
+     "req_bytes": 46802,
+     "resp_bytes": 38,
+     "req_cv": 0.57,
+     "resp_cv": 0.11,
+     "generation_like": false,
+     "t": 615.5
+    },
+    {
+     "phase": "load",
+     "n": 59,
+     "period_s": 0.0262,
+     "period_cv": 0.31,
+     "req_bytes": 540,
+     "resp_bytes": 124,
+     "req_cv": 0.94,
+     "resp_cv": 1.0,
+     "generation_like": false,
+     "t": 615.5
+    },
+    {
+     "phase": "generate",
+     "n": 7331,
+     "period_s": 0.0001,
+     "period_cv": 0.48,
+     "req_bytes": 38,
+     "resp_bytes": 46816,
+     "req_cv": 0.03,
+     "resp_cv": 0.61,
+     "generation_like": false,
+     "t": 625.1
+    },
+    {
+     "phase": "generate-long",
+     "n": 12148,
+     "period_s": 0.0001,
+     "period_cv": 0.38,
+     "req_bytes": 38,
+     "resp_bytes": 33502,
+     "req_cv": 0.03,
+     "resp_cv": 0.6,
+     "generation_like": false,
+     "t": 748.4
+    },
+    {
+     "phase": "kill",
+     "n": 2311,
+     "period_s": 0.0001,
+     "period_cv": 0.35,
+     "req_bytes": 38,
+     "resp_bytes": 46802,
+     "req_cv": 0.0,
+     "resp_cv": 0.43,
+     "generation_like": false,
+     "t": 854.2
+    }
+   ]
+  },
+  {
+   "flow": "udp 10.89.4.38:5353 <-> 224.0.0.251:5353",
+   "packets": 131,
+   "duration": 926.8,
+   "payload_ab": 89975,
+   "payload_ba": 0,
+   "periods": [
+    [
+     60.0,
+     0.68
+    ],
+    [
+     23.3,
+     0.25
+    ],
+    [
+     83.3,
+     0.23
+    ],
+    [
+     35.5,
+     0.23
+    ]
+   ],
+   "scales": [
+    {
+     "phase": "idle",
+     "n": 35,
+     "period_s": 23.296,
+     "period_cv": 0.05,
+     "req_bytes": 1576,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    },
+    {
+     "phase": "idle",
+     "n": 34,
+     "period_s": 23.296,
+     "period_cv": 0.05,
+     "req_bytes": 1576,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    },
+    {
+     "phase": "idle",
+     "n": 32,
+     "period_s": 23.2961,
+     "period_cv": 0.05,
+     "req_bytes": 1576,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    }
+   ]
+  },
+  {
+   "flow": "udp 10.89.4.36:55427 <-> 10.89.4.38:51961",
+   "packets": 123666,
+   "duration": 949.2,
+   "payload_ab": 464456448,
+   "payload_ba": 803751193,
+   "periods": [
+    [
+     6.1,
+     0.22
+    ]
+   ],
+   "scales": [
+    {
+     "phase": "start",
+     "n": 31,
+     "period_s": 0.0126,
+     "period_cv": 0.99,
+     "req_bytes": 1325,
+     "resp_bytes": 204,
+     "req_cv": 0.36,
+     "resp_cv": 0.85,
+     "generation_like": false,
+     "t": 4.7
+    },
+    {
+     "phase": "idle",
+     "n": 454,
+     "period_s": 0.8983,
+     "period_cv": 0.96,
+     "req_bytes": 115,
+     "resp_bytes": 1567,
+     "req_cv": 0.71,
+     "resp_cv": 0.03,
+     "generation_like": false,
+     "t": 16.6
+    },
+    {
+     "phase": "load",
+     "n": 4890,
+     "period_s": 0.0001,
+     "period_cv": 0.49,
+     "req_bytes": 46802,
+     "resp_bytes": 38,
+     "req_cv": 0.43,
+     "resp_cv": 0.05,
+     "generation_like": false,
+     "t": 615.5
+    },
+    {
+     "phase": "load",
+     "n": 50,
+     "period_s": 0.0256,
+     "period_cv": 0.3,
+     "req_bytes": 81,
+     "resp_bytes": 173,
+     "req_cv": 1.0,
+     "resp_cv": 0.92,
+     "generation_like": false,
+     "t": 615.5
+    },
+    {
+     "phase": "generate",
+     "n": 2947,
+     "period_s": 0.0003,
+     "period_cv": 0.85,
+     "req_bytes": 416,
+     "resp_bytes": 4246,
+     "req_cv": 0.91,
+     "resp_cv": 0.99,
+     "generation_like": false,
+     "t": 625.1
+    },
+    {
+     "phase": "generate-long",
+     "n": 13792,
+     "period_s": 0.0001,
+     "period_cv": 0.42,
+     "req_bytes": 38,
+     "resp_bytes": 33488,
+     "req_cv": 0.11,
+     "resp_cv": 0.87,
+     "generation_like": false,
+     "t": 748.4
+    },
+    {
+     "phase": "kill",
+     "n": 2650,
+     "period_s": 0.0001,
+     "period_cv": 0.36,
+     "req_bytes": 38,
+     "resp_bytes": 46802,
+     "req_cv": 0.0,
+     "resp_cv": 0.43,
+     "generation_like": false,
+     "t": 854.1
+    }
+   ]
+  },
+  {
+   "flow": "udp 10.89.4.37:53935 <-> 10.89.4.38:51961",
+   "packets": 2732,
+   "duration": 872.6,
+   "payload_ab": 609639,
+   "payload_ba": 629342,
+   "periods": [],
+   "scales": [
+    {
+     "phase": "start",
+     "n": 34,
+     "period_s": 0.0245,
+     "period_cv": 0.98,
+     "req_bytes": 1346,
+     "resp_bytes": 204,
+     "req_cv": 0.12,
+     "resp_cv": 0.92,
+     "generation_like": false,
+     "t": 4.7
+    },
+    {
+     "phase": "idle",
+     "n": 537,
+     "period_s": 0.5781,
+     "period_cv": 1.0,
+     "req_bytes": 115,
+     "resp_bytes": 115,
+     "req_cv": 0.72,
+     "resp_cv": 0.71,
+     "generation_like": false,
+     "t": 16.6
+    },
+    {
+     "phase": "generate",
+     "n": 124,
+     "period_s": 0.4433,
+     "period_cv": 1.0,
+     "req_bytes": 115,
+     "resp_bytes": 115,
+     "req_cv": 0.71,
+     "resp_cv": 0.71,
+     "generation_like": false,
+     "t": 627.4
+    },
+    {
+     "phase": "generate-long",
+     "n": 92,
+     "period_s": 0.5771,
+     "period_cv": 1.0,
+     "req_bytes": 1498,
+     "resp_bytes": 115,
+     "req_cv": 0.08,
+     "resp_cv": 0.78,
+     "generation_like": false,
+     "t": 748.8
+    }
+   ]
+  },
+  {
+   "flow": "udp fe80::b466:94ff:fef8:354c:5353 <-> ff02::fb:5353",
+   "packets": 125,
+   "duration": 925.6,
+   "payload_ab": 84703,
+   "payload_ba": 0,
+   "periods": [
+    [
+     60.0,
+     0.76
+    ],
+    [
+     83.3,
+     0.27
+    ],
+    [
+     23.3,
+     0.27
+    ],
+    [
+     95.6,
+     0.24
+    ]
+   ],
+   "scales": [
+    {
+     "phase": "idle",
+     "n": 35,
+     "period_s": 23.2961,
+     "period_cv": 0.05,
+     "req_bytes": 1560,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    },
+    {
+     "phase": "idle",
+     "n": 34,
+     "period_s": 23.2962,
+     "period_cv": 0.05,
+     "req_bytes": 1560,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    },
+    {
+     "phase": "idle",
+     "n": 32,
+     "period_s": 23.2964,
+     "period_cv": 0.05,
+     "req_bytes": 1560,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    }
+   ]
+  },
+  {
+   "flow": "udp fe80::2ccf:a5ff:fedd:db78:5353 <-> ff02::fb:5353",
+   "packets": 118,
+   "duration": 841.8,
+   "payload_ab": 84198,
+   "payload_ba": 0,
+   "periods": [
+    [
+     60.0,
+     0.74
+    ],
+    [
+     95.6,
+     0.25
+    ],
+    [
+     83.3,
+     0.25
+    ],
+    [
+     35.6,
+     0.25
+    ]
+   ],
+   "scales": [
+    {
+     "phase": "idle",
+     "n": 35,
+     "period_s": 23.2961,
+     "period_cv": 0.05,
+     "req_bytes": 1644,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    },
+    {
+     "phase": "idle",
+     "n": 34,
+     "period_s": 23.2961,
+     "period_cv": 0.05,
+     "req_bytes": 1644,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    },
+    {
+     "phase": "idle",
+     "n": 32,
+     "period_s": 23.2961,
+     "period_cv": 0.05,
+     "req_bytes": 1644,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    }
+   ]
+  },
+  {
+   "flow": "udp fe80::c48c:7bff:fef9:b5bd:5353 <-> ff02::fb:5353",
+   "packets": 125,
+   "duration": 924.9,
+   "payload_ab": 85559,
+   "payload_ba": 0,
+   "periods": [
+    [
+     60.0,
+     0.76
+    ],
+    [
+     83.3,
+     0.27
+    ],
+    [
+     23.3,
+     0.27
+    ],
+    [
+     95.6,
+     0.24
+    ]
+   ],
+   "scales": [
+    {
+     "phase": "idle",
+     "n": 35,
+     "period_s": 23.296,
+     "period_cv": 0.05,
+     "req_bytes": 1576,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    },
+    {
+     "phase": "idle",
+     "n": 34,
+     "period_s": 23.296,
+     "period_cv": 0.05,
+     "req_bytes": 1576,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    },
+    {
+     "phase": "idle",
+     "n": 32,
+     "period_s": 23.2961,
+     "period_cv": 0.05,
+     "req_bytes": 1576,
+     "resp_bytes": 0,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": false,
+     "t": 16.3
+    }
+   ]
+  },
+  {
+   "flow": "tcp 10.89.4.36:41860 <-> 172.67.174.186:443",
+   "packets": 95,
+   "duration": 91.6,
+   "payload_ab": 2351,
+   "payload_ba": 57283,
+   "periods": [
+    [
+     0.7,
+     0.33
+    ],
+    [
+     1.0,
+     0.22
+    ],
+    [
+     1.2,
+     0.22
+    ]
+   ],
+   "scales": []
+  },
+  {
+   "flow": "udp 10.89.4.39:5353 <-> 224.0.0.251:5353",
+   "packets": 35,
+   "duration": 76.2,
+   "payload_ab": 25939,
+   "payload_ba": 0,
+   "periods": [
+    [
+     0.3,
+     0.28
+    ]
+   ],
+   "scales": []
+  },
+  {
+   "flow": "udp 10.89.4.40:5353 <-> 224.0.0.251:5353",
+   "packets": 34,
+   "duration": 75.9,
+   "payload_ab": 24145,
+   "payload_ba": 0,
+   "periods": [
+    [
+     0.3,
+     0.26
+    ]
+   ],
+   "scales": []
+  },
+  {
+   "flow": "udp 10.89.4.39:47212 <-> 10.89.4.40:51723",
+   "packets": 83497,
+   "duration": 80.0,
+   "payload_ab": 908221702,
+   "payload_ba": 21208279,
+   "periods": [
+    [
+     0.6,
+     0.27
+    ]
+   ],
+   "scales": [
+    {
+     "phase": "recover",
+     "n": 4896,
+     "period_s": 0.0001,
+     "period_cv": 0.43,
+     "req_bytes": 38,
+     "resp_bytes": 46802,
+     "req_cv": 0.03,
+     "resp_cv": 0.43,
+     "generation_like": false,
+     "t": 954.1
+    },
+    {
+     "phase": "pause",
+     "n": 50,
+     "period_s": 0.0253,
+     "period_cv": 0.67,
+     "req_bytes": 1572,
+     "resp_bytes": 54,
+     "req_cv": 0.78,
+     "resp_cv": 0.46,
+     "generation_like": false,
+     "t": 975.2
+    },
+    {
+     "phase": "resume",
+     "n": 12352,
+     "period_s": 0.0001,
+     "period_cv": 0.48,
+     "req_bytes": 38,
+     "resp_bytes": 45016,
+     "req_cv": 0.03,
+     "resp_cv": 0.55,
+     "generation_like": false,
+     "t": 1015.3
+    }
+   ]
+  },
+  {
+   "flow": "udp 10.89.4.41:5353 <-> 224.0.0.251:5353",
+   "packets": 32,
+   "duration": 75.5,
+   "payload_ab": 23088,
+   "payload_ba": 0,
+   "periods": [
+    [
+     0.7,
+     0.22
+    ]
+   ],
+   "scales": []
+  },
+  {
+   "flow": "udp 10.89.4.40:51723 <-> 10.89.4.41:37597",
+   "packets": 263,
+   "duration": 74.1,
+   "payload_ab": 79385,
+   "payload_ba": 45789,
+   "periods": [],
+   "scales": [
+    {
+     "phase": "recover",
+     "n": 49,
+     "period_s": 0.0252,
+     "period_cv": 1.0,
+     "req_bytes": 1076,
+     "resp_bytes": 80,
+     "req_cv": 0.86,
+     "resp_cv": 0.61,
+     "generation_like": false,
+     "t": 954.5
+    }
+   ]
+  },
+  {
+   "flow": "udp 10.89.4.39:47212 <-> 10.89.4.41:37597",
+   "packets": 36893,
+   "duration": 60.8,
+   "payload_ab": 392433447,
+   "payload_ba": 16754744,
+   "periods": [
+    [
+     1.3,
+     0.24
+    ],
+    [
+     0.6,
+     0.23
+    ]
+   ],
+   "scales": [
+    {
+     "phase": "recover",
+     "n": 7624,
+     "period_s": 0.0001,
+     "period_cv": 0.51,
+     "req_bytes": 46802,
+     "resp_bytes": 38,
+     "req_cv": 0.57,
+     "resp_cv": 0.03,
+     "generation_like": false,
+     "t": 954.5
+    },
+    {
+     "phase": "pause",
+     "n": 171,
+     "period_s": 0.0001,
+     "period_cv": 0.48,
+     "req_bytes": 45,
+     "resp_bytes": 46696,
+     "req_cv": 0.18,
+     "resp_cv": 0.57,
+     "generation_like": false,
+     "t": 975.2
+    }
+   ]
+  },
+  {
+   "flow": "udp fe80::5cb5:35ff:fe20:972a:5353 <-> ff02::fb:5353",
+   "packets": 26,
+   "duration": 73.8,
+   "payload_ab": 18592,
+   "payload_ba": 0,
+   "periods": [
+    [
+     8.8,
+     0.33
+    ],
+    [
+     2.2,
+     0.22
+    ],
+    [
+     0.7,
+     0.22
+    ],
+    [
+     1.5,
+     0.22
+    ]
+   ],
+   "scales": []
+  }
+ ],
+ "by_host": {
+  "10.89.4.36": [
+   "libp2p"
+  ],
+  "224.0.0.251": [
+   "libp2p"
+  ],
+  "10.89.4.37": [
+   "libp2p"
+  ],
+  "10.89.4.38": [
+   "libp2p"
+  ],
+  "fe80::b466:94ff:fef8:354c": [
+   "libp2p"
+  ],
+  "ff02::fb": [
+   "libp2p"
+  ],
+  "fe80::2ccf:a5ff:fedd:db78": [
+   "libp2p"
+  ],
+  "fe80::c48c:7bff:fef9:b5bd": [
+   "libp2p"
+  ],
+  "10.89.4.39": [
+   "libp2p"
+  ],
+  "10.89.4.40": [
+   "libp2p"
+  ],
+  "10.89.4.41": [
+   "libp2p"
+  ],
+  "fe80::b0a9:a2ff:feaf:881a": [
+   "libp2p"
+  ],
+  "fe80::4076:6bff:fe84:301": [
+   "libp2p"
+  ],
+  "fe80::5cb5:35ff:fe20:972a": [
+   "libp2p"
+  ]
+ },
+ "flow_table": [
+  {
+   "flow": "icmp6 :::0 <-> ff02::16:0",
+   "t": 0.0,
+   "duration": 955.1,
+   "packets": 22,
+   "bytes_ab": 2080,
+   "bytes_ba": 0,
+   "payload_ab": 716,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": ""
+  },
+  {
+   "flow": "icmp6 :::0 <-> ff02::1:ffc6:c520:0",
+   "t": 0.064,
+   "duration": 0.0,
+   "packets": 1,
+   "bytes_ab": 86,
+   "bytes_ba": 0,
+   "payload_ab": 32,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": ""
+  },
+  {
+   "flow": "icmp6 :::0 <-> ff02::1:ff9f:84b5:0",
+   "t": 0.127,
+   "duration": 0.0,
+   "packets": 1,
+   "bytes_ab": 86,
+   "bytes_ba": 0,
+   "payload_ab": 32,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": ""
+  },
+  {
+   "flow": "icmp6 fe80::782d:91ff:fec6:c520:0 <-> ff02::16:0",
+   "t": 1.087,
+   "duration": 0.6,
+   "packets": 2,
+   "bytes_ab": 180,
+   "bytes_ba": 0,
+   "payload_ab": 56,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": ""
+  },
+  {
+   "flow": "icmp6 fe80::782d:91ff:fec6:c520:0 <-> ff02::2:0",
+   "t": 1.087,
+   "duration": 1009.7,
+   "packets": 9,
+   "bytes_ab": 630,
+   "bytes_ba": 0,
+   "payload_ab": 144,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": ""
+  },
+  {
+   "flow": "icmp6 fe80::d0e5:ecff:fe9f:84b5:0 <-> ff02::16:0",
+   "t": 1.151,
+   "duration": 0.6,
+   "packets": 2,
+   "bytes_ab": 220,
+   "bytes_ba": 0,
+   "payload_ab": 96,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": ""
+  },
+  {
+   "flow": "icmp6 fe80::d0e5:ecff:fe9f:84b5:0 <-> ff02::2:0",
+   "t": 1.151,
+   "duration": 514.0,
+   "packets": 8,
+   "bytes_ab": 560,
+   "bytes_ba": 0,
+   "payload_ab": 128,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": ""
+  },
+  {
+   "flow": "icmp6 :::0 <-> ff02::1:fff8:354c:0",
+   "t": 3.932,
+   "duration": 0.0,
+   "packets": 1,
+   "bytes_ab": 86,
+   "bytes_ba": 0,
+   "payload_ab": 32,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.36:52759 <-> 239.255.255.250:1900",
+   "t": 4.098,
+   "duration": 0.0,
+   "packets": 3,
+   "bytes_ab": 531,
+   "bytes_ba": 0,
+   "payload_ab": 405,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.36:5353 <-> 224.0.0.251:5353",
+   "t": 4.101,
+   "duration": 927.3,
+   "packets": 133,
+   "bytes_ab": 96201,
+   "bytes_ba": 0,
+   "payload_ab": 90615,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "igmp 10.89.4.36:0 <-> 224.0.0.22:0",
+   "t": 4.103,
+   "duration": 949.1,
+   "packets": 7,
+   "bytes_ab": 378,
+   "bytes_ba": 0,
+   "payload_ab": 112,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.37:60266 <-> 239.255.255.250:1900",
+   "t": 4.426,
+   "duration": 0.0,
+   "packets": 3,
+   "bytes_ab": 531,
+   "bytes_ba": 0,
+   "payload_ab": 405,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.37:5353 <-> 224.0.0.251:5353",
+   "t": 4.428,
+   "duration": 843.7,
+   "packets": 125,
+   "bytes_ab": 94958,
+   "bytes_ba": 0,
+   "payload_ab": 89708,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "igmp 10.89.4.37:0 <-> 224.0.0.22:0",
+   "t": 4.431,
+   "duration": 850.1,
+   "packets": 7,
+   "bytes_ab": 378,
+   "bytes_ba": 0,
+   "payload_ab": 112,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.36:55427 <-> 10.89.4.37:53935",
+   "t": 4.46,
+   "duration": 880.1,
+   "packets": 150252,
+   "bytes_ab": 499114302,
+   "bytes_ba": 1131836328,
+   "payload_ab": 496428066,
+   "payload_ba": 1128211980,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.38:41637 <-> 239.255.255.250:1900",
+   "t": 4.627,
+   "duration": 0.0,
+   "packets": 3,
+   "bytes_ab": 531,
+   "bytes_ba": 0,
+   "payload_ab": 405,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.38:5353 <-> 224.0.0.251:5353",
+   "t": 4.63,
+   "duration": 926.8,
+   "packets": 131,
+   "bytes_ab": 95477,
+   "bytes_ba": 0,
+   "payload_ab": 89975,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "igmp 10.89.4.38:0 <-> 224.0.0.22:0",
+   "t": 4.633,
+   "duration": 949.4,
+   "packets": 7,
+   "bytes_ab": 378,
+   "bytes_ba": 0,
+   "payload_ab": 112,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.36:55427 <-> 10.89.4.38:51961",
+   "t": 4.661,
+   "duration": 949.2,
+   "packets": 123666,
+   "bytes_ab": 466875270,
+   "bytes_ba": 806526343,
+   "payload_ab": 464456448,
+   "payload_ba": 803751193,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.37:53935 <-> 10.89.4.38:51961",
+   "t": 4.661,
+   "duration": 872.6,
+   "packets": 2732,
+   "bytes_ab": 666045,
+   "bytes_ba": 687680,
+   "payload_ab": 609639,
+   "payload_ba": 629342,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "icmp6 :::0 <-> ff02::1:ffdd:db78:0",
+   "t": 4.799,
+   "duration": 0.0,
+   "packets": 1,
+   "bytes_ab": 86,
+   "bytes_ba": 0,
+   "payload_ab": 32,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "icmp6 fe80::b466:94ff:fef8:354c:0 <-> ff02::16:0",
+   "t": 4.992,
+   "duration": 948.2,
+   "packets": 3,
+   "bytes_ab": 310,
+   "bytes_ba": 0,
+   "payload_ab": 124,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "icmp6 fe80::b466:94ff:fef8:354c:0 <-> ff02::2:0",
+   "t": 4.992,
+   "duration": 506.0,
+   "packets": 8,
+   "bytes_ab": 560,
+   "bytes_ba": 0,
+   "payload_ab": 128,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "icmp6 :::0 <-> ff02::1:fff9:b5bd:0",
+   "t": 5.376,
+   "duration": 0.0,
+   "packets": 1,
+   "bytes_ab": 86,
+   "bytes_ba": 0,
+   "payload_ab": 32,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "icmp6 fe80::2ccf:a5ff:fedd:db78:0 <-> ff02::16:0",
+   "t": 5.823,
+   "duration": 848.7,
+   "packets": 3,
+   "bytes_ab": 310,
+   "bytes_ba": 0,
+   "payload_ab": 124,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "icmp6 fe80::2ccf:a5ff:fedd:db78:0 <-> ff02::2:0",
+   "t": 5.823,
+   "duration": 484.7,
+   "packets": 8,
+   "bytes_ab": 560,
+   "bytes_ba": 0,
+   "payload_ab": 128,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp fe80::b466:94ff:fef8:354c:5353 <-> ff02::fb:5353",
+   "t": 5.879,
+   "duration": 925.6,
+   "packets": 125,
+   "bytes_ab": 92453,
+   "bytes_ba": 0,
+   "payload_ab": 84703,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.36:34457 <-> 239.255.255.250:1900",
+   "t": 6.099,
+   "duration": 0.0,
+   "packets": 3,
+   "bytes_ab": 531,
+   "bytes_ba": 0,
+   "payload_ab": 405,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp fe80::2ccf:a5ff:fedd:db78:5353 <-> ff02::fb:5353",
+   "t": 6.371,
+   "duration": 841.8,
+   "packets": 118,
+   "bytes_ab": 91514,
+   "bytes_ba": 0,
+   "payload_ab": 84198,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "icmp6 fe80::c48c:7bff:fef9:b5bd:0 <-> ff02::16:0",
+   "t": 6.399,
+   "duration": 947.6,
+   "packets": 3,
+   "bytes_ab": 310,
+   "bytes_ba": 0,
+   "payload_ab": 124,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "icmp6 fe80::c48c:7bff:fef9:b5bd:0 <-> ff02::2:0",
+   "t": 6.399,
+   "duration": 545.6,
+   "packets": 8,
+   "bytes_ab": 560,
+   "bytes_ba": 0,
+   "payload_ab": 128,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.37:46119 <-> 239.255.255.250:1900",
+   "t": 6.427,
+   "duration": 0.0,
+   "packets": 3,
+   "bytes_ab": 531,
+   "bytes_ba": 0,
+   "payload_ab": 405,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp fe80::c48c:7bff:fef9:b5bd:5353 <-> ff02::fb:5353",
+   "t": 6.566,
+   "duration": 924.9,
+   "packets": 125,
+   "bytes_ab": 93309,
+   "bytes_ba": 0,
+   "payload_ab": 85559,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.38:44726 <-> 239.255.255.250:1900",
+   "t": 6.628,
+   "duration": 0.0,
+   "packets": 3,
+   "bytes_ab": 531,
+   "bytes_ba": 0,
+   "payload_ab": 405,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.36:53476 <-> 239.255.255.250:1900",
+   "t": 8.1,
+   "duration": 0.0,
+   "packets": 1,
+   "bytes_ab": 136,
+   "bytes_ba": 0,
+   "payload_ab": 94,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.37:58405 <-> 239.255.255.250:1900",
+   "t": 8.428,
+   "duration": 0.0,
+   "packets": 1,
+   "bytes_ab": 136,
+   "bytes_ba": 0,
+   "payload_ab": 94,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.38:47502 <-> 239.255.255.250:1900",
+   "t": 8.629,
+   "duration": 0.0,
+   "packets": 1,
+   "bytes_ab": 136,
+   "bytes_ba": 0,
+   "payload_ab": 94,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.1:53 <-> 10.89.4.36:38394",
+   "t": 14.092,
+   "duration": 0.2,
+   "packets": 2,
+   "bytes_ab": 143,
+   "bytes_ba": 87,
+   "payload_ab": 101,
+   "payload_ba": 45,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.1:53 <-> 10.89.4.36:43191",
+   "t": 14.092,
+   "duration": 0.2,
+   "packets": 2,
+   "bytes_ab": 119,
+   "bytes_ba": 87,
+   "payload_ab": 77,
+   "payload_ba": 45,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "tcp 10.89.4.36:41860 <-> 172.67.174.186:443",
+   "t": 14.301,
+   "duration": 91.6,
+   "packets": 95,
+   "bytes_ab": 4423,
+   "bytes_ba": 60369,
+   "payload_ab": 2351,
+   "payload_ba": 57283,
+   "expected_ab": 2351,
+   "expected_ba": 57283,
+   "dropped": 0,
+   "fin": 105.887,
+   "rst": null,
+   "phase": "start"
+  },
+  {
+   "flow": "icmp 10.89.4.36:0 <-> 10.89.4.37:0",
+   "t": 854.576,
+   "duration": 0.0,
+   "packets": 2,
+   "bytes_ab": 0,
+   "bytes_ba": 699,
+   "payload_ab": 0,
+   "payload_ba": 631,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "kill"
+  },
+  {
+   "flow": "udp 10.89.4.39:44884 <-> 239.255.255.250:1900",
+   "t": 953.761,
+   "duration": 0.0,
+   "packets": 3,
+   "bytes_ab": 531,
+   "bytes_ba": 0,
+   "payload_ab": 405,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.39:5353 <-> 224.0.0.251:5353",
+   "t": 953.763,
+   "duration": 76.2,
+   "packets": 35,
+   "bytes_ab": 27409,
+   "bytes_ba": 0,
+   "payload_ab": 25939,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "igmp 10.89.4.39:0 <-> 224.0.0.22:0",
+   "t": 953.765,
+   "duration": 9.3,
+   "packets": 6,
+   "bytes_ab": 324,
+   "bytes_ba": 0,
+   "payload_ab": 96,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "icmp6 :::0 <-> ff02::1:ffaf:881a:0",
+   "t": 953.975,
+   "duration": 0.0,
+   "packets": 1,
+   "bytes_ab": 86,
+   "bytes_ba": 0,
+   "payload_ab": 32,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.40:38995 <-> 239.255.255.250:1900",
+   "t": 954.085,
+   "duration": 0.0,
+   "packets": 3,
+   "bytes_ab": 531,
+   "bytes_ba": 0,
+   "payload_ab": 405,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.40:5353 <-> 224.0.0.251:5353",
+   "t": 954.088,
+   "duration": 75.9,
+   "packets": 34,
+   "bytes_ab": 25573,
+   "bytes_ba": 0,
+   "payload_ab": 24145,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "igmp 10.89.4.40:0 <-> 224.0.0.22:0",
+   "t": 954.09,
+   "duration": 9.8,
+   "packets": 6,
+   "bytes_ab": 324,
+   "bytes_ba": 0,
+   "payload_ab": 96,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.39:47212 <-> 10.89.4.40:51723",
+   "t": 954.119,
+   "duration": 80.0,
+   "packets": 83497,
+   "bytes_ab": 910601632,
+   "bytes_ba": 22335223,
+   "payload_ab": 908221702,
+   "payload_ba": 21208279,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "icmp6 :::0 <-> ff02::1:ff20:972a:0",
+   "t": 954.383,
+   "duration": 0.0,
+   "packets": 1,
+   "bytes_ab": 86,
+   "bytes_ba": 0,
+   "payload_ab": 32,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.41:41537 <-> 239.255.255.250:1900",
+   "t": 954.454,
+   "duration": 0.0,
+   "packets": 3,
+   "bytes_ab": 531,
+   "bytes_ba": 0,
+   "payload_ab": 405,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.41:5353 <-> 224.0.0.251:5353",
+   "t": 954.458,
+   "duration": 75.5,
+   "packets": 32,
+   "bytes_ab": 24432,
+   "bytes_ba": 0,
+   "payload_ab": 23088,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "igmp 10.89.4.41:0 <-> 224.0.0.22:0",
+   "t": 954.46,
+   "duration": 9.8,
+   "packets": 6,
+   "bytes_ab": 324,
+   "bytes_ba": 0,
+   "payload_ab": 96,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.40:51723 <-> 10.89.4.41:37597",
+   "t": 954.489,
+   "duration": 74.1,
+   "packets": 263,
+   "bytes_ab": 86273,
+   "bytes_ba": 49947,
+   "payload_ab": 79385,
+   "payload_ba": 45789,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.39:47212 <-> 10.89.4.41:37597",
+   "t": 954.489,
+   "duration": 60.8,
+   "packets": 36893,
+   "bytes_ab": 393469839,
+   "bytes_ba": 17267858,
+   "payload_ab": 392433447,
+   "payload_ba": 16754744,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "icmp6 :::0 <-> ff02::1:ff84:301:0",
+   "t": 954.816,
+   "duration": 0.0,
+   "packets": 1,
+   "bytes_ab": 86,
+   "bytes_ba": 0,
+   "payload_ab": 32,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "icmp6 fe80::b0a9:a2ff:feaf:881a:0 <-> ff02::16:0",
+   "t": 955.008,
+   "duration": 0.5,
+   "packets": 2,
+   "bytes_ab": 220,
+   "bytes_ba": 0,
+   "payload_ab": 96,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "icmp6 fe80::b0a9:a2ff:feaf:881a:0 <-> ff02::2:0",
+   "t": 955.008,
+   "duration": 63.9,
+   "packets": 5,
+   "bytes_ab": 350,
+   "bytes_ba": 0,
+   "payload_ab": 80,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "icmp6 fe80::5cb5:35ff:fe20:972a:0 <-> ff02::16:0",
+   "t": 955.391,
+   "duration": 1.0,
+   "packets": 2,
+   "bytes_ab": 220,
+   "bytes_ba": 0,
+   "payload_ab": 96,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "icmp6 fe80::5cb5:35ff:fe20:972a:0 <-> ff02::2:0",
+   "t": 955.391,
+   "duration": 63.6,
+   "packets": 5,
+   "bytes_ab": 350,
+   "bytes_ba": 0,
+   "payload_ab": 80,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp fe80::b0a9:a2ff:feaf:881a:5353 <-> ff02::fb:5353",
+   "t": 955.581,
+   "duration": 74.4,
+   "packets": 27,
+   "bytes_ab": 21161,
+   "bytes_ba": 0,
+   "payload_ab": 19487,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.39:52442 <-> 239.255.255.250:1900",
+   "t": 955.761,
+   "duration": 0.0,
+   "packets": 3,
+   "bytes_ab": 531,
+   "bytes_ba": 0,
+   "payload_ab": 405,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "icmp6 fe80::4076:6bff:fe84:301:0 <-> ff02::16:0",
+   "t": 955.839,
+   "duration": 0.0,
+   "packets": 2,
+   "bytes_ab": 220,
+   "bytes_ba": 0,
+   "payload_ab": 96,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "icmp6 fe80::4076:6bff:fe84:301:0 <-> ff02::2:0",
+   "t": 955.839,
+   "duration": 59.0,
+   "packets": 5,
+   "bytes_ab": 350,
+   "bytes_ba": 0,
+   "payload_ab": 80,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp fe80::4076:6bff:fe84:301:5353 <-> ff02::fb:5353",
+   "t": 956.016,
+   "duration": 74.0,
+   "packets": 27,
+   "bytes_ab": 20471,
+   "bytes_ba": 0,
+   "payload_ab": 18797,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.40:37105 <-> 239.255.255.250:1900",
+   "t": 956.085,
+   "duration": 0.0,
+   "packets": 3,
+   "bytes_ab": 531,
+   "bytes_ba": 0,
+   "payload_ab": 405,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp fe80::5cb5:35ff:fe20:972a:5353 <-> ff02::fb:5353",
+   "t": 956.244,
+   "duration": 73.8,
+   "packets": 26,
+   "bytes_ab": 20204,
+   "bytes_ba": 0,
+   "payload_ab": 18592,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.41:36746 <-> 239.255.255.250:1900",
+   "t": 956.454,
+   "duration": 0.0,
+   "packets": 3,
+   "bytes_ab": 531,
+   "bytes_ba": 0,
+   "payload_ab": 405,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.39:38332 <-> 239.255.255.250:1900",
+   "t": 957.761,
+   "duration": 0.0,
+   "packets": 1,
+   "bytes_ab": 136,
+   "bytes_ba": 0,
+   "payload_ab": 94,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.40:40035 <-> 239.255.255.250:1900",
+   "t": 958.085,
+   "duration": 0.0,
+   "packets": 1,
+   "bytes_ab": 136,
+   "bytes_ba": 0,
+   "payload_ab": 94,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.41:54348 <-> 239.255.255.250:1900",
+   "t": 958.455,
+   "duration": 0.0,
+   "packets": 1,
+   "bytes_ab": 136,
+   "bytes_ba": 0,
+   "payload_ab": 94,
+   "payload_ba": 0,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.1:53 <-> 10.89.4.39:38573",
+   "t": 963.748,
+   "duration": 0.1,
+   "packets": 2,
+   "bytes_ab": 143,
+   "bytes_ba": 87,
+   "payload_ab": 101,
+   "payload_ba": 45,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "udp 10.89.4.1:53 <-> 10.89.4.39:40839",
+   "t": 963.748,
+   "duration": 0.0,
+   "packets": 2,
+   "bytes_ab": 119,
+   "bytes_ba": 87,
+   "payload_ab": 77,
+   "payload_ba": 45,
+   "expected_ab": 0,
+   "expected_ba": 0,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  },
+  {
+   "flow": "tcp 10.89.4.39:43478 <-> 104.21.80.62:443",
+   "t": 963.808,
+   "duration": 61.3,
+   "packets": 104,
+   "bytes_ab": 4399,
+   "bytes_ba": 60860,
+   "payload_ab": 2327,
+   "payload_ba": 57288,
+   "expected_ab": 2327,
+   "expected_ba": 57288,
+   "dropped": 0,
+   "fin": null,
+   "rst": null,
+   "phase": "recover"
+  }
+ ],
+ "pair_periods": [],
+ "dropped_bytes": 0,
+ "first_match_s": {
+  "mdns_libp2p": 4.101
+ }
+}

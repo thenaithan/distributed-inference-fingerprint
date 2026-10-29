@@ -1,0 +1,102 @@
+CPU info:
+model name	: Intel(R) Core(TM) i5-14600K
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb intel_pt sha_ni xsaveopt xsavec xgetbv1 xsaves split_lock_detect user_shstk avx_vnni dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req hfi vnmi umip pku ospke waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize pconfig arch_lbr ibt flush_l1d arch_capabilities
+CPU:    AVX    found OK
+CPU:    AVX2   found OK
+CPU: no AVX512 found
+[90mOct 29 07:57:10[0m [90mDEBUG[0m GPU vendor detected via ghw [36mvendor[0m="nvidia" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/xsysinfo/gpu.go"  [36mcaller.L[0m=242 } 
+[90mOct 29 07:57:10[0m [90mDEBUG[0m GPU vendor [36mgpuVendor[0m="nvidia" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/system/state.go"  [36mcaller.L[0m=111 } 
+[90mOct 29 07:57:10[0m [90mDEBUG[0m Total available VRAM [36mvram[0m=0 [36mcaller[0m={[36mcaller.file[0m="/build/pkg/system/state.go"  [36mcaller.L[0m=113 } 
+[90mOct 29 07:57:10[0m [34mINFO [0m Using forced capability run file [36mcapabilityRunFile[0m="/run/localai/capability" [36mcapability[0m="default\n" [36menv[0m="" [36mcaller[0m={[36mcaller.file[0m="/build/pkg/system/capabilities.go"  [36mcaller.L[0m=358 } 
+[90mOct 29 07:57:10[0m [34mINFO [0m Starting llama-cpp-rpc-server [36maddress[0m="127.0.0.1" [36mport[0m=43143 [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/worker/worker_p2p.go"  [36mcaller.L[0m=74 } 
+[90mOct 29 07:57:10[0m [90mDEBUG[0m No system backends found [36mcaller[0m={[36mcaller.file[0m="/build/core/gallery/backends.go"  [36mcaller.L[0m=697 } 
+[90mOct 29 07:57:10[0m [90mDEBUG[0m System backends [36mbackends[0m=map[llama-cpp:{llama-cpp /backends/llama-cpp/run.sh false false 0x3db3b1946600 false  []}] [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/worker/worker_llamacpp.go"  [36mcaller.L[0m=36 } 
+[90mOct 29 07:57:10[0m [90mDEBUG[0m Starting llama-cpp-rpc-server [36maddress[0m="127.0.0.1" [36mport[0m=43143 [36margs[0m=[--host 127.0.0.1 --port 43143] [36margCount[0m=4 [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/worker/worker_p2p.go"  [36mcaller.L[0m=88 } 
+Starting RPC server v8.0.0
+  endpoint       : 127.0.0.1:43143
+  local cache    : n/a
+Devices:
+  CPU: Intel(R) Core(TM) i5-14600K (31842 MiB, 31842 MiB free)
+  transport      : TCP
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
+recv returned 0 (peer closed?)
+Client connection closed
+Accepted client connection
