@@ -1,0 +1,10 @@
+# t,phase,note
+1793324124.904457081,load,cluster.sh main: the main host reconnects to both rpc hosts and uploads the slices
+1793324127.560926558,idle,model loaded, no requests for 600 s
+1793324727.565778795,generate,20 x 30 tokens, 33-token prompt
+1793324843.792602740,generate-long,5 x 30 tokens, ~2048-token prompt
+1793324904.424078386,kill,killproc rpc-0 0.5 s into a 300-token request
+1793324933.152209340,recover,cluster.sh up 2 again
+1793324937.207815720,pause,pause rpc-1 0.5 s into a 300-token request (never detected: 120 s harness timeout)
+1793325057.767111420,resume,
+1793325067.820758548,done,
