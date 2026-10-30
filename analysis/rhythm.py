@@ -141,6 +141,21 @@ class Bursts:
                 and max(self.req_bytes, self.resp_bytes) >= 2048 and 0.01 <= self.period_s <= 60)
 
 
+QUIC_ACK_MAX = 63          # UDP payload this small is a QUIC acknowledgement, not data
+MIN_TURN_S = 0.002         # shortest turn: well under any decode period seen (26 ms)
+
+
+def _events(f: Flow) -> List[Tuple[float, int, str]]:
+    """The flow's payload packets as (t, bytes, "ab"|"ba"), time-sorted. On UDP the
+    datagrams of QUIC_ACK_MAX bytes or less are left out: QUIC acknowledges every few
+    packets, so as payload they would end every exchange after one packet and bridge
+    every quiet gap (LocalAI's tunnels, 2026-10-29)."""
+    ev = sorted([(t, n, "ab") for t, n in f.series_ab] + [(t, n, "ba") for t, n in f.series_ba])
+    if f.proto == "udp":
+        ev = [e for e in ev if e[1] > QUIC_ACK_MAX]
+    return ev
+
+
 def _group(ev, gap):
     groups = [[ev[0]]]
     for e in ev[1:]:
@@ -178,7 +193,7 @@ def burst_scales(f: Flow, max_cands: int = 400) -> List[Bursts]:
     scale (seconds). Every jump in the sorted inter-packet gaps (ratio > 3) is tried as the
     split threshold; groupings with at least 10 exchanges and a period spread under 0.35
     are kept, deduplicated by their exchange count."""
-    ev = sorted([(t, n, "ab") for t, n in f.series_ab] + [(t, n, "ba") for t, n in f.series_ba])
+    ev = _events(f)
     if len(ev) < 20:
         return []
     gaps = sorted(set(ev[i + 1][0] - ev[i][0] for i in range(len(ev) - 1)))
@@ -204,19 +219,18 @@ def turns(f: Flow) -> Optional[Bursts]:
     after a server segment. For a request/response protocol this is the token scale even
     when the server's compute time exceeds the gaps between the client's own segments,
     which defeats the quiet-gap split (seen on the first llama.cpp capture). The client
-    side is whichever direction sends first."""
-    ev = sorted([(t, n, "ab") for t, n in f.series_ab] + [(t, n, "ba") for t, n in f.series_ba])
-    if f.proto == "udp":
-        # QUIC acknowledgements are UDP datagrams of a few dozen bytes; as payload they
-        # would end every exchange after one packet (LocalAI's tunnels, 2026-10-29)
-        ev = [e for e in ev if e[1] >= 64]
+    side is whichever direction sends first. A turn that would start within MIN_TURN_S of
+    the previous one is folded into it: LocalAI opens each request with ~26 round trips
+    0.4 ms apart (351 B out, 146 KB back) that are not tokens, and as turns of their own
+    they set the median period and the spread instead of the 28 ms tokens after them."""
+    ev = _events(f)
     if len(ev) < 20:
         return None
     client = ev[0][2]
     groups: List[List[tuple]] = [[ev[0]]]
     prev = ev[0][2]
     for e in ev[1:]:
-        if e[2] == client and prev != client:
+        if e[2] == client and prev != client and e[0] - groups[-1][0][0] >= MIN_TURN_S:
             groups.append([e])
         else:
             groups[-1].append(e)
@@ -228,7 +242,7 @@ def turns(f: Flow) -> Optional[Bursts]:
 def bursts(f: Flow, gap: Optional[float] = None) -> Optional[Bursts]:
     """The finest regular grouping (the token scale when there is one); see burst_scales."""
     if gap is not None:
-        ev = sorted([(t, n, "ab") for t, n in f.series_ab] + [(t, n, "ba") for t, n in f.series_ba])
+        ev = _events(f)
         return _measure(_group(ev, gap), gap) if len(ev) >= 20 else None
     sc = burst_scales(f)
     return sc[0] if sc else None

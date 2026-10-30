@@ -118,6 +118,31 @@ def main(path: str) -> None:
         ans = (b"\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x01" + bytes(170)
                + b"Ydnsaddr=/ip4/10.0.3.1/udp/4001/quic-v1/p2p/12D3KooW" + rng.randbytes(40))
         w.frame(t0 + 71 + k * 23.3, eth(40, 0x33, 0x0800, ip4("10.0.3.1", "224.0.0.251", 17, udp(5353, 5353, ans))))
+    # LocalAI: a QUIC tunnel main 10.0.3.1 -> worker 10.0.3.2. Each request opens with 26
+    # round trips 0.4 ms apart (351 B out, 9 datagrams back), then 28 tokens at 30 ms (7 KB
+    # out, 64 KB back); 38-byte acknowledgements every third datagram; overlay gossip of
+    # ~1.5 KB each way between requests. Flagged only when the acknowledgements and the
+    # preamble do not split the exchanges (analysis/rhythm.py _events, MIN_TURN_S).
+    def quic(t, fwd, n):
+        src, dst, si, di = ("10.0.3.1", "10.0.3.2", 40, 41) if fwd else ("10.0.3.2", "10.0.3.1", 41, 40)
+        w.frame(t, eth(si, di, 0x0800, ip4(src, dst, 17, udp(4001 if fwd else 4002, 4002 if fwd else 4001, bytes(n)))))
+
+    def leg(t, fwd, total):
+        for d in range(0, total, 1452):
+            quic(t + d / 5e8, fwd, min(1452, total - d))
+            if d // 1452 % 3 == 2:
+                quic(t + d / 5e8 + 1e-5, not fwd, 38)
+    for req in range(3):
+        t = t0 + 80 + req * 3.0
+        for k in range(26):
+            leg(t + k * 0.0004, True, 351)
+            leg(t + k * 0.0004 + 0.0001, False, 9 * 1452)
+        for tok in range(28):
+            tt = t + 0.05 + tok * 0.030 + rng.uniform(-0.001, 0.001)
+            leg(tt, True, 7068)
+            leg(tt + 0.012, False, 64_000)
+        leg(t + 1.5, True, 1570)
+        leg(t + 1.501, False, 1577)
     w.close()
 
 
