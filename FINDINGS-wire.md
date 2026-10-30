@@ -251,6 +251,11 @@ tunnel interface: one libp2p stream per RPC connection.
   hard-coded in LocalAI. **[inferred]** edgevpn falls back to the public IPFS bootstrap
   nodes when the list is empty, so a default install beacons to the internet.
 - Security and muxing **[inferred]** go-libp2p defaults: Noise and TLS 1.3, yamux.
+- QUIC (go-libp2p v0.48.0, `p2p/transport/quicreuse/config.go:9-20`): `KeepAlivePeriod`
+  15 s and no `MaxIdleTimeout`, so quic-go v0.59.0's default of 30 s applies
+  (`internal/protocol/params.go:100`). A tunnel to a node that stops answering is closed
+  30 s later, before LocalAI's own 40 s `IsOnline` window (read 2026-10-30, after the
+  captures showed 30 s on every node loss).
 - The token (`p2p.go:31-63`) is base64 of: room name, rendezvous string and mDNS label (each
   a random 43-character string, `:43-45`), an OTP DHT key (rotation 360 s, `run.go:117`), an
   OTP crypto key (9000 s, `run.go:118`), max message size 20 MB. A long-lived pre-shared

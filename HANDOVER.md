@@ -264,7 +264,10 @@ EOF`, and the HTTP client gets a stream that simply ends, with no error: a trunc
 that looks complete. 30 s in all four cases (kill 07:55:31 -> 07:56:01, pause 07:57:32 ->
 07:58:06, kill 08:28:40 -> 08:29:10, pause 08:30:40 -> 08:31:10), not the 40 s ledger
 window: the `Node is offline, deleting` line comes before or after it (07:55:55, 07:58:10,
-08:29:24, 08:31:14). 30 s is quic-go's default idle timeout; not checked in the source.
+08:29:24, 08:31:14). 30 s is quic-go's default idle timeout: go-libp2p v0.48.0's `quicConfig`
+(`p2p/transport/quicreuse/config.go:9-20`) sets `KeepAlivePeriod` 15 s and no
+`MaxIdleTimeout`, so quic-go v0.59.0's `DefaultIdleTimeout = 30 * time.Second`
+(`internal/protocol/params.go:100`) applies; checked 2026-10-30.
 The next request restarts the backend with the remaining workers in
 `LLAMACPP_GRPC_SERVERS` and uploads the whole model again (~650 MB to the one worker left,
 4–5 s TTFT). The paused worker came back after resume in the DHT run (fresh `LastSeen` 15 s

@@ -175,7 +175,7 @@ regular status exchange of the same size.
 | llama.cpp | RST from the dead host 0.07 s after the kill; the main host FINs the other rpc host 3.1 s later | not a packet on either RPC connection for 120 s; 2.4 MB from the paused host on resume | the stream ends 3.2 s after the kill, with that FIN, after 12 tokens; no token for 120 s during the pause, then the harness gave up |
 | llama.cpp, killed while idle | one FIN from the dead host; no reaction, probe or reconnect from the main host | | |
 | exo | the node's beacon stops at once; `InstanceDeleted` 15 s later; new ring flows on new ports after re-placement (175 s) | | the Experiment 3 numbers |
-| LocalAI | the node goes silent; main sends a few small QUIC probes a second for 30 s, then nothing; the next request reloads ~650 MB to the surviving worker | the same, 30 s | the stream ends after 30 s **with no error**: a truncated answer that looks complete; 30 s is QUIC's idle timeout, not LocalAI's 40 s ledger window |
+| LocalAI | the node goes silent; main sends a few small QUIC probes a second for 30 s, then nothing; the next request reloads ~650 MB to the surviving worker | the same, 30 s | the stream ends after 30 s **with no error**: a truncated answer that looks complete; 30 s is QUIC's idle timeout (go-libp2p v0.48.0 sets no `MaxIdleTimeout` in its `quic.Config`, `p2p/transport/quicreuse/config.go:9-20`, so quic-go v0.59.0's `DefaultIdleTimeout` of 30 s applies, `internal/protocol/params.go:100`; keepalives every 15 s), not LocalAI's 40 s ledger window |
 
 ## 4. What leaves the LAN
 
