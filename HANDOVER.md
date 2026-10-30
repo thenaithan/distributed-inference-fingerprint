@@ -330,9 +330,14 @@ are `<stamp>.<container>.1.log`, of the second `.2.log`.
 - `cluster.sh` gained `tunnels [N]`, `killproc|pause|resume <i>`.
 
 Next:
-1. Analysis: the generation rule on UDP/QUIC with burst grouping (prediction 13), a QUIC
-   Initial decoder (prediction 9), the 30 s detection against quic-go's idle timeout in
-   the source; keep the generation rule off DHT keepalives (5 s, ~2.7 KB / 1.5 KB).
+1. Analysis: a QUIC Initial decoder (prediction 9), the 30 s detection against quic-go's
+   idle timeout in the source; keep the generation rule off the DHT's exchanges with
+   public peers (33 flows: every 5 s of ~3.0 KB / 1.4 KB, every 10 s of ~1.5 KB / 6.9 KB).
+   Done 2026-10-30: the generation rule on QUIC. UDP datagrams under 64 B are left out of
+   every exchange grouping, and a turn starting under 2 ms after the previous one is
+   folded into it (LocalAI opens each request with ~26 round trips 0.4 ms apart, 351 B
+   out and 146 KB back). Both tunnels are flagged in `generate` on both runs: 7067 B /
+   621 122 B and 16 111 B / 4194 B every 30.0 ms.
 2. Optional: `NO_LIMITS=1` and `P2P_LISTEN=/ip4/0.0.0.0/tcp/0` runs (TCP would give
    prediction 9 its plaintext multistream handshake, and shows whether the 30 s is QUIC's).
 3. A longer resume wait in `run_localai.sh` (the paused worker needs >21 s to rejoin).

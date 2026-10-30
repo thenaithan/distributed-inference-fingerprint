@@ -130,14 +130,15 @@ classed ordinary because its records carry no `/p2p/`.
 | llama.cpp | main → rpc-0 | 30 | 26.2 ms | 15 994 | 4104 | 7 SET_TENSOR + graph + GET_TENSOR; hidden state 1024 × 4 B back |
 | llama.cpp | main → rpc-1 | 30 | 26.2 ms | 7170 | 607 752 | logits: 151 936 × 4 B + 8 |
 | exo | ring neighbours, all three pairs | 30 | 2423 ms | 4104 | 2048 | activation 1024 × 2 B each way |
-| LocalAI | main → worker-0, QUIC | 30 | 29.6 ms | ~7 KB | ~621 KB | the same logits plus ~2% overlay (by hand from the pcap; the classifier's QUIC grouping is in the next regenerated report) |
+| LocalAI | main → worker-1, QUIC | 30 | 29.9 ms | 16 111 | 4194 | the same hidden state plus ~2% QUIC framing |
+| LocalAI | main → worker-0, QUIC | 30 | 30.0 ms | 7067 | 621 122 | the same logits plus ~2% QUIC framing |
 
 The decode rate read from the exchange interval matches the client's within 3% on
 llama.cpp (26.2 ms against 25 ms per token), exo (2.42 s against 2.46 s) and LocalAI
-(29.6 ms against 29.7 ms). The model's hidden size and vocabulary are on the wire: the
+(30.0 ms against 29.7 ms). The model's hidden size and vocabulary are on the wire: the
 4104-byte and 2048-byte legs are the 1024-wide hidden state in F32 and bf16, the 607 752
-and 621 KB legs are the vocabulary times four. Encryption changes the second figure by
-2% and the first not at all.
+and 621 122-byte legs are the vocabulary times four. Encryption adds about 2% to each
+leg (4104 to 4194 B, 607 752 to 621 122 B), which leaves both readings intact.
 
 The topology differs and is visible: llama.cpp and LocalAI are a star (the rpc hosts never
 exchange a packet with each other; LocalAI's workers exchange only overlay gossip, 0.6 MB
@@ -161,7 +162,8 @@ On the background set no flow was generation-like: the download, the stream and 
 are one-directional at the exchange scale, the ping and mDNS carry no activation-sized
 leg. Within a swarm the rule does fire on things that are not decode: exo's 1 Hz
 `NodeGatheredInfo` (2079 B with a 522 B reply) in idle, and with the DHT on, LocalAI's
-keepalives to public peers (every 5 s, 2.4 KB / 1.7 KB, 17 flows). Both are the swarm's
+exchanges with public peers (38 phase-flows on 33 flows: 17 every 5 s of ~3.0 KB / 1.4 KB,
+16 every 10 s of ~1.5 KB / 6.9 KB, 4 at 0.2 to 0.4 s). Both are the swarm's
 own traffic, but a rule that reads only sizes and timing cannot tell a slow decode from a
 regular status exchange of the same size.
 
@@ -206,10 +208,10 @@ The fifteen predictions in [STUDY.md](STUDY.md), as written before the first cap
 | 7 | star; ~4 KiB each way per host, ~600 KB logits back from the last host; constant within 5%; rate within 10% | star; 16 KB / 4104 B and 7170 B / 607 752 B; cv 0.0 at the token scale; rate within 3% | right on shape and rate, the small legs 2 to 4 times larger (7 SET_TENSOR per token) |
 | 8 | load moves ~320 MB to each host | 252 MB and 385 MB, the whole file, split unevenly by the tied embedding | right in total, wrong in split |
 | 9 | LocalAI shows the libp2p handshake and nothing readable after; loopback shows llama.cpp unchanged | nothing readable on the LAN and llama.cpp unchanged on loopback; but no handshake either: the tunnels are QUIC, and the plaintext multistream appears only on TCP to DHT peers | half right: the content half holds, the handshake half fails on QUIC |
-| 10 | LocalAI's per-token structure equals llama.cpp's plus a constant overhead; decode rate readable | 621 KB per token on the output-layer worker (+2%), 29.6 ms against 29.7 ms at the client | right (by hand; the classifier's QUIC grouping pending) |
+| 10 | LocalAI's per-token structure equals llama.cpp's plus a constant overhead; decode rate readable | 621 122 B per token on the output-layer worker and 4194 B on the other (+2% each), 30.0 ms against 29.7 ms at the client | right |
 | 11 | LocalAI idle: 10, 20, 60 s periodicities; mDNS with a random label and `/p2p/` TXT | mDNS as predicted, every 23.3 s; the encrypted overlay shows ~1 exchange/s and a weak 6 s peak, not 10/20/60 s | partially |
 | 12 | LocalAI leaves the LAN by default (DHT bootstrap on 4001 within 60 s); exo and llama.cpp send nothing after the model is on disk | DHT: a bootstrap node at 1.1 s, 131 MB over 728 s; with DHT off still `index.localai.io`; llama.cpp `-hf` checks the CDN at every start; exo contacts Hugging Face at placement | right for LocalAI, wrong for the other two |
-| 13 | a size-and-timing rule flags generation in all three within 10 tokens and not the video or the download | llama.cpp and exo flagged; the background set clean; LocalAI not flagged by the classifier (QUIC acknowledgements split its exchanges; fixed, report pending); false positives inside the swarms on exo's status messages and the DHT keepalives | partially |
+| 13 | a size-and-timing rule flags generation in all three within 10 tokens and not the video or the download | llama.cpp and exo flagged; the background set clean; LocalAI flagged on both tunnels in `generate` once QUIC acknowledgements and its per-request preamble (~26 round trips 0.4 ms apart) stopped splitting the exchanges; false positives inside the swarms on exo's status messages and, with the DHT on, on 33 flows to public peers | partially |
 | 14 | node loss visible: exo's beacon stops then re-placement; llama.cpp RST on kill, nothing on pause | as predicted, except a kill with no request in flight gives a FIN, not a RST | right, with a condition |
 | 15 | the static rules fail only to a port change | not tested (no stack was modified); the port rules and byte rules are separate in `signatures.py` | not tested |
 
@@ -226,9 +228,8 @@ swarm from the background set, not decode from the swarm's own control plane. Pr
 15 (evasion by port change) was not run. exo's long prefill cannot be observed as shipped.
 LocalAI was captured at v4.12.1 while the source was read at master 35224b8; the tunnels
 are QUIC, and the classifier has no QUIC Initial decoder, so the ALPN `libp2p` that a
-defender could read from the Initial packets is not used. The LocalAI per-token figures
-in §3 are from a reading of the pcap by hand; the classifier's figures follow when the
-reports are regenerated. The background set is five generators, not a home network.
+defender could read from the Initial packets is not used. The background set is five
+generators, not a home network.
 
 ## Conclusion
 
@@ -297,7 +298,8 @@ python3 -m analysis.classify captures/<stack>/<stamp>.pcap --timeline captures/<
 - [x] predictions written (STUDY.md)
 - [x] capture harness and analysis; captures of llama.cpp, exo, LocalAI (DHT off and on, with loopback), background
 - [x] §1 to §6 written from the reports; the predictions scored
-- [ ] LocalAI reports regenerated with the QUIC exchange grouping (the §3 LocalAI row is by hand until then)
+- [x] LocalAI reports regenerated with the QUIC exchange grouping
+- [ ] the generation rule off the DHT's exchanges with public peers (33 flows at 0.2 to 10 s)
 - [ ] a QUIC Initial decoder for the ALPN `libp2p` signature (prediction 9 on QUIC)
 - [ ] the headline llama.cpp report (20261027-150104) is on the old rule set; its pcap is gone, a rerun would replace it
 - [ ] introduction and conclusion
