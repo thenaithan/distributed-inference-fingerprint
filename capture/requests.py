@@ -77,8 +77,10 @@ def main() -> None:
             prompt = a.prompt if a.same_prompt else f"Request {i} of {a.n}. " + a.prompt
             if a.prompt_tokens:
                 prompt = ("" if a.same_prompt else f"Request {i}. ") + FILLER * max(1, a.prompt_tokens // 10) + a.prompt
+            # t_request before the call, so a request that fails (a pause timeout) keeps it;
+            # one() overwrites it with its own, a few microseconds later
             rec = dict(i=i, base=a.base, prompt_tokens_requested=a.prompt_tokens, max_tokens=a.max_tokens,
-                       same_prompt=a.same_prompt)
+                       same_prompt=a.same_prompt, t_request=time.time())
             try:
                 rec.update(one(a.base, a.model, prompt, a.max_tokens, a.thinking, a.timeout))
             except Exception as e:                      # noqa: BLE001

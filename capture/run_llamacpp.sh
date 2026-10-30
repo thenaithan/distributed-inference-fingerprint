@@ -33,6 +33,8 @@ mark kill "killproc rpc-0 0.5 s into a 300-token request"
 ( sleep 0.5; llamacpp/cluster.sh killproc 0 >/dev/null ) &
 python3 capture/requests.py --base http://localhost:8080 --n 1 --max-tokens 300 --out "$rq" --timeout 120 || true
 sleep 20
+# the first cluster's logs before cluster.sh up replaces its containers (the kill phase)
+for c in main $(podman ps -a --format '{{.Names}}' | grep '^rpc-' || true); do podman logs "$c" > "$dir/$stamp.$c.1.log" 2>&1 || true; done
 mark recover "cluster.sh up 2 again"
 llamacpp/cluster.sh up 2
 until curl -sf http://localhost:8080/health >/dev/null; do sleep 1; done
