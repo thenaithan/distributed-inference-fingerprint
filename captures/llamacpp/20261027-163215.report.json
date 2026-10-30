@@ -688,28 +688,6 @@
  ],
  "rhythm": [
   {
-   "flow": "tcp 10.89.3.20:50052 <-> 10.89.3.22:51234",
-   "packets": 86,
-   "duration": 0.0,
-   "payload_ab": 220,
-   "payload_ba": 22955,
-   "periods": [],
-   "scales": [
-    {
-     "phase": "load",
-     "n": 11,
-     "period_s": 0.0001,
-     "period_cv": 0.59,
-     "req_bytes": 3269,
-     "resp_bytes": 16,
-     "req_cv": 0.0,
-     "resp_cv": 0.0,
-     "generation_like": false,
-     "t": 6.6
-    }
-   ]
-  },
-  {
    "flow": "tcp 10.89.3.19:50052 <-> 10.89.3.22:33464",
    "packets": 9659,
    "duration": 108.4,
@@ -723,22 +701,10 @@
    ],
    "scales": [
     {
-     "phase": "load",
-     "n": 18,
-     "period_s": 0.0006,
-     "period_cv": 0.91,
-     "req_bytes": 3269,
-     "resp_bytes": 16,
-     "req_cv": 0.99,
-     "resp_cv": 0.0,
-     "generation_like": false,
-     "t": 6.7
-    },
-    {
      "phase": "warm",
-     "n": 38,
-     "period_s": 0.0241,
-     "period_cv": 0.13,
+     "n": 30,
+     "period_s": 0.0256,
+     "period_cv": 0.08,
      "req_bytes": 15994,
      "resp_bytes": 4104,
      "req_cv": 0.0,
@@ -793,22 +759,10 @@
    "periods": [],
    "scales": [
     {
-     "phase": "load",
-     "n": 20,
-     "period_s": 0.0001,
-     "period_cv": 0.74,
-     "req_bytes": 3269,
-     "resp_bytes": 16,
-     "req_cv": 0.72,
-     "resp_cv": 0.0,
-     "generation_like": false,
-     "t": 6.7
-    },
-    {
      "phase": "warm",
-     "n": 36,
-     "period_s": 0.0249,
-     "period_cv": 0.06,
+     "n": 32,
+     "period_s": 0.0254,
+     "period_cv": 0.08,
      "req_bytes": 7170,
      "resp_bytes": 607752,
      "req_cv": 0.0,

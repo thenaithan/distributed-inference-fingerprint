@@ -1338,28 +1338,6 @@
  ],
  "rhythm": [
   {
-   "flow": "tcp 10.89.3.6:50052 <-> 10.89.3.8:47182",
-   "packets": 86,
-   "duration": 0.0,
-   "payload_ab": 220,
-   "payload_ba": 22955,
-   "periods": [],
-   "scales": [
-    {
-     "phase": "load",
-     "n": 11,
-     "period_s": 0.0001,
-     "period_cv": 0.58,
-     "req_bytes": 3269,
-     "resp_bytes": 16,
-     "req_cv": 0.0,
-     "resp_cv": 0.0,
-     "generation_like": false,
-     "t": 5.1
-    }
-   ]
-  },
-  {
    "flow": "tcp 10.89.3.5:50052 <-> 10.89.3.8:49040",
    "packets": 43598,
    "duration": 254.7,
@@ -1373,20 +1351,8 @@
    ],
    "scales": [
     {
-     "phase": "load",
-     "n": 18,
-     "period_s": 0.0005,
-     "period_cv": 0.95,
-     "req_bytes": 3269,
-     "resp_bytes": 16,
-     "req_cv": 0.99,
-     "resp_cv": 0.0,
-     "generation_like": false,
-     "t": 5.2
-    },
-    {
      "phase": "generate",
-     "n": 608,
+     "n": 600,
      "period_s": 0.0262,
      "period_cv": 0.03,
      "req_bytes": 15994,
@@ -1410,8 +1376,8 @@
     },
     {
      "phase": "generate-long",
-     "n": 188,
-     "period_s": 0.048,
+     "n": 157,
+     "period_s": 0.0485,
      "period_cv": 0.03,
      "req_bytes": 20090,
      "resp_bytes": 4104,
@@ -1422,9 +1388,9 @@
     },
     {
      "phase": "kill",
-     "n": 83,
-     "period_s": 0.0268,
-     "period_cv": 0.06,
+     "n": 70,
+     "period_s": 0.027,
+     "period_cv": 0.05,
      "req_bytes": 20090,
      "resp_bytes": 4104,
      "req_cv": 0.0,
@@ -1448,18 +1414,6 @@
    ],
    "scales": [
     {
-     "phase": "load",
-     "n": 20,
-     "period_s": 0.0001,
-     "period_cv": 0.82,
-     "req_bytes": 3269,
-     "resp_bytes": 16,
-     "req_cv": 0.99,
-     "resp_cv": 0.0,
-     "generation_like": false,
-     "t": 5.2
-    },
-    {
      "phase": "generate",
      "n": 1797,
      "period_s": 0.0106,
@@ -1473,8 +1427,8 @@
     },
     {
      "phase": "generate",
-     "n": 606,
-     "period_s": 0.0262,
+     "n": 602,
+     "period_s": 0.0263,
      "period_cv": 0.03,
      "req_bytes": 7170,
      "resp_bytes": 607752,
@@ -1509,8 +1463,8 @@
     },
     {
      "phase": "generate-long",
-     "n": 183,
-     "period_s": 0.048,
+     "n": 155,
+     "period_s": 0.0485,
      "period_cv": 0.03,
      "req_bytes": 11266,
      "resp_bytes": 607752,
@@ -1521,37 +1475,15 @@
     },
     {
      "phase": "kill",
-     "n": 79,
-     "period_s": 0.0268,
-     "period_cv": 0.05,
+     "n": 68,
+     "period_s": 0.0272,
+     "period_cv": 0.04,
      "req_bytes": 11266,
      "resp_bytes": 607752,
      "req_cv": 0.0,
      "resp_cv": 0.0,
      "generation_like": true,
      "t": 221.9
-    }
-   ]
-  },
-  {
-   "flow": "tcp 10.89.3.10:50052 <-> 10.89.3.11:43280",
-   "packets": 86,
-   "duration": 0.0,
-   "payload_ab": 220,
-   "payload_ba": 22955,
-   "periods": [],
-   "scales": [
-    {
-     "phase": "recover",
-     "n": 11,
-     "period_s": 0.0001,
-     "period_cv": 0.49,
-     "req_bytes": 3269,
-     "resp_bytes": 16,
-     "req_cv": 0.0,
-     "resp_cv": 0.0,
-     "generation_like": false,
-     "t": 261.7
     }
    ]
   },
@@ -1573,21 +1505,9 @@
    ],
    "scales": [
     {
-     "phase": "recover",
-     "n": 18,
-     "period_s": 0.0004,
-     "period_cv": 0.79,
-     "req_bytes": 3269,
-     "resp_bytes": 16,
-     "req_cv": 0.99,
-     "resp_cv": 0.0,
-     "generation_like": false,
-     "t": 261.8
-    },
-    {
      "phase": "pause",
-     "n": 61,
-     "period_s": 0.0265,
+     "n": 53,
+     "period_s": 0.0268,
      "period_cv": 0.02,
      "req_bytes": 15994,
      "resp_bytes": 4104,
@@ -1612,18 +1532,6 @@
    ],
    "scales": [
     {
-     "phase": "recover",
-     "n": 20,
-     "period_s": 0.0001,
-     "period_cv": 0.89,
-     "req_bytes": 3269,
-     "resp_bytes": 16,
-     "req_cv": 0.72,
-     "resp_cv": 0.0,
-     "generation_like": false,
-     "t": 261.8
-    },
-    {
      "phase": "pause",
      "n": 160,
      "period_s": 0.0109,
@@ -1637,8 +1545,8 @@
     },
     {
      "phase": "pause",
-     "n": 59,
-     "period_s": 0.0265,
+     "n": 55,
+     "period_s": 0.0266,
      "period_cv": 0.03,
      "req_bytes": 7170,
      "resp_bytes": 607752,

@@ -1,6 +1,6 @@
 {
  "capture": "captures/localai/20261029-144115.main.lo.pcap",
- "sha256": null,
+ "sha256": "23613bf2ddd7d8f7022d7ae584cada0cebd3337f5b694951bbbe1eae508d1829",
  "packets": 253817,
  "skipped": 0,
  "t0": 1793259692.156921,
@@ -686,28 +686,6 @@
    ]
   },
   {
-   "flow": "tcp 127.0.0.1:33140 <-> 127.0.0.1:41775",
-   "packets": 64,
-   "duration": 0.0,
-   "payload_ab": 22955,
-   "payload_ba": 220,
-   "periods": [],
-   "scales": [
-    {
-     "phase": "load",
-     "n": 11,
-     "period_s": 0.0002,
-     "period_cv": 0.31,
-     "req_bytes": 3269,
-     "resp_bytes": 16,
-     "req_cv": 0.0,
-     "resp_cv": 0.0,
-     "generation_like": false,
-     "t": 602.0
-    }
-   ]
-  },
-  {
    "flow": "tcp 127.0.0.1:33140 <-> 127.0.0.1:37343",
    "packets": 106621,
    "duration": 269.9,
@@ -726,18 +704,6 @@
    "scales": [
     {
      "phase": "load",
-     "n": 32,
-     "period_s": 0.0018,
-     "period_cv": 0.9,
-     "req_bytes": 3269,
-     "resp_bytes": 24,
-     "req_cv": 0.99,
-     "resp_cv": 0.33,
-     "generation_like": false,
-     "t": 602.2
-    },
-    {
-     "phase": "load",
      "n": 26,
      "period_s": 0.02,
      "period_cv": 0.22,
@@ -749,16 +715,16 @@
      "t": 602.2
     },
     {
-     "phase": "generate",
-     "n": 1212,
-     "period_s": 0.0068,
-     "period_cv": 0.98,
-     "req_bytes": 3269,
-     "resp_bytes": 100360,
-     "req_cv": 0.9,
-     "resp_cv": 0.47,
+     "phase": "load",
+     "n": 18,
+     "period_s": 0.0371,
+     "period_cv": 0.42,
+     "req_bytes": 15682,
+     "resp_bytes": 4104,
+     "req_cv": 0.16,
+     "resp_cv": 0.49,
      "generation_like": false,
-     "t": 609.7
+     "t": 602.2
     },
     {
      "phase": "generate",
@@ -770,6 +736,18 @@
      "req_cv": 1.0,
      "resp_cv": 1.0,
      "generation_like": false,
+     "t": 609.7
+    },
+    {
+     "phase": "generate",
+     "n": 730,
+     "period_s": 0.0297,
+     "period_cv": 0.05,
+     "req_bytes": 15682,
+     "resp_bytes": 4104,
+     "req_cv": 0.0,
+     "resp_cv": 0.0,
+     "generation_like": true,
      "t": 609.7
     },
     {
@@ -810,13 +788,13 @@
     },
     {
      "phase": "generate-long",
-     "n": 324,
-     "period_s": 0.0981,
-     "period_cv": 0.93,
+     "n": 297,
+     "period_s": 0.0995,
+     "period_cv": 0.53,
      "req_bytes": 19778,
-     "resp_bytes": 145416,
+     "resp_bytes": 98312,
      "req_cv": 0.98,
-     "resp_cv": 0.97,
+     "resp_cv": 0.96,
      "generation_like": false,
      "t": 732.9
     },
@@ -865,13 +843,13 @@
    "scales": [
     {
      "phase": "load",
-     "n": 31,
-     "period_s": 0.0333,
-     "period_cv": 0.99,
-     "req_bytes": 3269,
-     "resp_bytes": 24,
-     "req_cv": 0.99,
-     "resp_cv": 0.33,
+     "n": 20,
+     "period_s": 0.0398,
+     "period_cv": 0.45,
+     "req_bytes": 6858,
+     "resp_bytes": 607752,
+     "req_cv": 0.37,
+     "resp_cv": 0.0,
      "generation_like": false,
      "t": 602.2
     },
@@ -889,14 +867,14 @@
     },
     {
      "phase": "generate",
-     "n": 1132,
-     "period_s": 0.0284,
-     "period_cv": 0.75,
+     "n": 722,
+     "period_s": 0.0299,
+     "period_cv": 0.05,
      "req_bytes": 6858,
      "resp_bytes": 607752,
-     "req_cv": 0.52,
+     "req_cv": 0.0,
      "resp_cv": 0.0,
-     "generation_like": false,
+     "generation_like": true,
      "t": 609.7
     },
     {
@@ -949,14 +927,14 @@
     },
     {
      "phase": "generate-long",
-     "n": 287,
-     "period_s": 0.0986,
-     "period_cv": 0.14,
+     "n": 262,
+     "period_s": 0.0995,
+     "period_cv": 0.04,
      "req_bytes": 10954,
      "resp_bytes": 607752,
-     "req_cv": 0.7,
+     "req_cv": 0.0,
      "resp_cv": 0.0,
-     "generation_like": false,
+     "generation_like": true,
      "t": 732.9
     },
     {
