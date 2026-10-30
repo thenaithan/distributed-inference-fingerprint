@@ -20,13 +20,22 @@ branch; nothing here is in the README yet.
 
 ## 2. Done
 
-### llama.cpp RPC (three captures, two pcaps left)
+### llama.cpp RPC (four captures, three pcaps left)
 - `25691027-122003` (Buddhist-era stamp; 60 s idle; pcap on disk, 1.7 GB): 7% packet /
   20% byte kernel drops with tcpdump's default buffer. Fixed since (`-B 524288`, and
   `flows.py` counts bytes from TCP sequence numbers so drops do not corrupt totals).
 - `20261027-150104` (600 s idle, kill 0.5 s into a 300-token request, pause; pcap deleted):
-  the headline run. Its report is on the old rule set and cannot be regenerated. A 20-minute
-  rerun of `capture/run_llamacpp.sh` would replace it and also save the container logs.
+  the old headline run, on the old rule set; replaced by 20261030-083513.
+- `20261030-083513` (the rerun, 3.5 GB, 0 drops): the headline now. Same per-token sizes
+  (15 994 / 4104 B, 7170 / 607 752 B), 23.3 ms against 23.5 ms at the client; zero payload
+  on 50052 for the 600 s idle; KV state before the first token 4.7 / 4.6 MB (short) and
+  138 / 113 MB after ~2100 tokens (the old by-hand 65 / 56 MB was not reproduced); kill:
+  RST 0.07 s, FIN to the other host and end of stream 3.1 s later, 12 tokens, no error
+  recorded by requests.py; pause: no packet on either connection for 120 s, 2.4 MB on
+  resume. The first cluster's logs were lost (saved only at the end; `run_llamacpp.sh`
+  now saves them as `.1` before recover), and `requests.py` crashed printing the pause
+  timeout's line after writing its record (fixed: t_request is set before the call).
+  `20261030-083443` was a false start (timeline only kept, not committed).
 - `20261027-163215` (pause-only, with the resume; pcap on disk, 0.7 GB).
 
 Findings, all from the reports and the ad-hoc checks in the session:

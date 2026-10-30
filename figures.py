@@ -24,7 +24,7 @@ OUT = "figures"
 os.makedirs(OUT, exist_ok=True)
 # the capture each stack's timeline is drawn from (the full run of each), and extra
 # timelines worth their own figure
-HEADLINE = {"llamacpp": "20261027-150104", "exo": "20261028-125140", "localai": "20261029-144115",
+HEADLINE = {"llamacpp": "20261030-083513", "exo": "20261028-125140", "localai": "20261029-144115",
             "background": "20261028-081447"}
 EXTRA_TIMELINES = {"localai-dht": ("localai", "20261029-151923")}
 STACK = {"exo": "#2a78d6", "llamacpp": "#1baf7a", "localai": "#eda100", "background": "#52514e"}

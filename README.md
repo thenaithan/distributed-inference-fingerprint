@@ -53,8 +53,8 @@ exchanges at a stable rate with stable sizes, data both ways, one leg of at leas
 `classify.py` applies everything to a capture and reports what could be said and at which
 second of capture; `evaluate.py` prints the tables below from the committed reports.
 
-Captures: nine with a swarm, three background. The headline ones are
-`captures/llamacpp/20261027-150104` (600 s idle, kill and pause mid-request),
+Captures: ten with a swarm, three background. The headline ones are
+`captures/llamacpp/20261030-083513` (600 s idle, kill and pause mid-request),
 `captures/exo/20261028-125140`, `captures/localai/20261029-144115` (DHT off, with
 loopback captures inside the containers) and `captures/localai/20261029-151923` (DHT on),
 and `captures/background/20261028-081447`. Every capture after the first ran with no
@@ -70,9 +70,9 @@ dropped 7% of packets and its byte figures are from TCP sequence accounting.
 | exo | `exo_beacon` | 6.48 (3.6 s after the nodes start) | one 20-byte UDP datagram: `45 58 4F 00` to `[ff12::e0a1:de89]:52413` |
 | exo | `exo_zenoh_port` | 6.48 | TCP on 52414 (port only; the key expressions are not in a connection's first bytes) |
 | exo | `exo_node_id` | 16.57 | `GET /node_id` on 52415 |
-| llama.cpp | `llama_port` | 3.61 | TCP on 50052 |
-| llama.cpp | `llama_hello` | 3.93 (0.3 s after the main host starts) | the 33-byte HELLO, on the wire as three segments of 1, 8 and 24 bytes |
-| llama.cpp | `llama_tensor_names` | 5.10 | `blk.N.` names in the weight upload |
+| llama.cpp | `llama_port` | 3.78 | TCP on 50052 |
+| llama.cpp | `llama_hello` | 4.16 (0.5 s after `cluster.sh main`) | the 33-byte HELLO, on the wire as three segments of 1, 8 and 24 bytes |
+| llama.cpp | `llama_tensor_names` | 5.36 | `blk.N.` names in the weight upload |
 | LocalAI | `mdns_libp2p` | 3.89 | an mDNS answer carrying `dnsaddr=/ip4/…/p2p/12D3KooW…` |
 | LocalAI, DHT on | `libp2p_multistream` | 5.01 | `/multistream/1.0.0` then `/tls` or `/noise`, on TCP to a public peer |
 | background | none of the stack rules | | `mdns` fires and is classed ordinary |
@@ -127,14 +127,14 @@ classed ordinary because its records carry no `/p2p/`.
 
 | stack | flow | exchanges per request | period | bytes to the host | bytes back | what the sizes are |
 |---|---|---:|---:|---:|---:|---|
-| llama.cpp | main → rpc-0 | 30 | 26.2 ms | 15 994 | 4104 | 7 SET_TENSOR + graph + GET_TENSOR; hidden state 1024 × 4 B back |
-| llama.cpp | main → rpc-1 | 30 | 26.2 ms | 7170 | 607 752 | logits: 151 936 × 4 B + 8 |
+| llama.cpp | main → rpc-0 | 30 | 23.3 ms | 15 994 | 4104 | 7 SET_TENSOR + graph + GET_TENSOR; hidden state 1024 × 4 B back |
+| llama.cpp | main → rpc-1 | 30 | 23.4 ms | 7170 | 607 752 | logits: 151 936 × 4 B + 8 |
 | exo | ring neighbours, all three pairs | 30 | 2423 ms | 4104 | 2048 | activation 1024 × 2 B each way |
 | LocalAI | main → worker-1, QUIC | 30 | 29.9 ms | 16 111 | 4194 | the same hidden state plus ~2% QUIC framing |
 | LocalAI | main → worker-0, QUIC | 30 | 30.0 ms | 7067 | 621 122 | the same logits plus ~2% QUIC framing |
 
 The decode rate read from the exchange interval matches the client's within 3% on
-llama.cpp (26.2 ms against 25 ms per token), exo (2.42 s against 2.46 s) and LocalAI
+llama.cpp (23.3 ms against 23.5 ms per token), exo (2.42 s against 2.46 s) and LocalAI
 (30.0 ms against 29.7 ms). The model's hidden size and vocabulary are on the wire: the
 4104-byte and 2048-byte legs are the 1024-wide hidden state in F32 and bf16, the 607 752
 and 621 122-byte legs are the vocabulary times four. Encryption adds about 2% to each
@@ -147,13 +147,14 @@ in 49153 to 65535 chosen at placement, silent between requests. llama.cpp's heav
 sits on the host that holds the output layer; exo's hops are symmetric.
 
 A prompt change on llama-server moves KV state over the wire: with distinct prompts every
-request began with transfers from the rpc hosts to the main host (4.5 and 3.9 MB for a
-63-token context, 65 and 56 MB after ~1750 tokens), the server's prompt cache saving the
+request began with transfers from the rpc hosts to the main host (4.7 and 4.6 MB for a
+63-token context, 138 and 113 MB after ~2100 tokens, counted from the request to the
+first token), the server's prompt cache saving the
 slot's state to host RAM (`prompt_save`, `tools/server/server-context.cpp:342-370`, on by
 default at `cache_ram_mib = 8192`). A long prompt costs its prefill once and its KV
 state again at every slot change, and on an RPC split the state crosses the wire.
 
-Load is a one-way burst the size of the slice: llama.cpp 252 MB and 385 MB (the whole
+Load is a one-way burst the size of the slice: llama.cpp 252 MB and 384 MB (the whole
 Q8_0 file; the main host weighted 0 keeps nothing, the tied embedding sits on the last
 host), LocalAI 258 MB and 392 MB in ~1.5 s with the embeddings kept on main. exo loads from
 each node's disk and puts nothing on the wire at placement except its control plane.
@@ -171,7 +172,7 @@ regular status exchange of the same size.
 
 | stack | killed mid-request | paused mid-request | what the client saw |
 |---|---|---|---|
-| llama.cpp | RST from the dead host 0.04 s after the kill; the main host FINs the other rpc host 3.4 s later | nothing for 53 min; one logits-sized reply on resume | an error 3.5 s after the kill; a stream kept alive by a ~25 s send during the pause |
+| llama.cpp | RST from the dead host 0.07 s after the kill; the main host FINs the other rpc host 3.1 s later | not a packet on either RPC connection for 120 s; 2.4 MB from the paused host on resume | the stream ends 3.2 s after the kill, with that FIN, after 12 tokens; no token for 120 s during the pause, then the harness gave up |
 | llama.cpp, killed while idle | one FIN from the dead host; no reaction, probe or reconnect from the main host | | |
 | exo | the node's beacon stops at once; `InstanceDeleted` 15 s later; new ring flows on new ports after re-placement (175 s) | | the Experiment 3 numbers |
 | LocalAI | the node goes silent; main sends a few small QUIC probes a second for 30 s, then nothing; the next request reloads ~650 MB to the surviving worker | the same, 30 s | the stream ends after 30 s **with no error**: a truncated answer that looks complete; 30 s is QUIC's idle timeout, not LocalAI's 40 s ledger window |
@@ -180,7 +181,7 @@ regular status exchange of the same size.
 
 | stack | with the defaults | bytes | when |
 |---|---|---:|---|
-| llama.cpp (`-hf`) | two TLS connections to Hugging Face's CDN (CloudFront) per main-host start, even with the model cached; nothing from the rpc hosts | 2.6 KB up, 14 KB down | every start, before the first RPC connection |
+| llama.cpp (`-hf`) | two TLS connections to Hugging Face's CDN (CloudFront) per main-host start, even with the model cached; nothing from the rpc hosts | 2.6 KB up, 14 KB down | every start, within 0.6 s of the first RPC connection |
 | exo | nothing after the model is on disk; the nodes open 50 to 60 connections to Hugging Face at placement (the download coordinator's rescan) | | placement |
 | LocalAI, DHT off | one TLS connection to `index.localai.io` (Cloudflare) per main-node start | 4.4 KB up, 60 KB down | start and recover |
 | LocalAI, DHT on | an IPFS bootstrap node on TCP 4001 1.1 s after start; over 728 s all three nodes of each cluster talk to 2649 public addresses on UDP and TCP 4001, and dial the private LAN addresses other peers advertised (`192.168.x`, `169.254.x`) | 59 MB up, 72 MB down, ~180 KB/s | continuously; 942 distinct public hosts during the 300 s idle |
@@ -203,7 +204,7 @@ The fifteen predictions in [STUDY.md](STUDY.md), as written before the first cap
 | 2 | node count from beacon sources within 2 s, master within 10 s | three sources at once; the master not identified by the rules (the zenoh key expressions are not in a connection's first bytes) | partially |
 | 3 | exo idle: 1 s, 5 s, 10 s, ~2.5 s periodicities | 1 s at score 1.0; the probes run at ~1 s not 10 s; 5 s not among the top four; a 100 to 110 s component unexplained | partially |
 | 4 | exo generation: new TCP flows on 49153 to 65535 between ring neighbours, ~2 KiB per hop at 0.4 Hz | 51664 (then 65080 after re-placement), all three pairs, 4104 B / 2048 B every 2.42 s; the 2048-token prefill never ran: exo's 90 s no-progress watchdog (`RUNNER_STALL_TIMEOUT`, `supervisor.py:64`) cancels any prompt over ~35 tokens at this speed | right on the data plane, the long prefill unobtainable |
-| 5 | llama.cpp identified by the 33-byte HELLO on 50052; frame grammar and tensor names otherwise | HELLO at 3.9 s as 1 + 8 + 24 bytes; grammar and names as predicted; no false positives | right, with a correction of form |
+| 5 | llama.cpp identified by the 33-byte HELLO on 50052; frame grammar and tensor names otherwise | HELLO at 4.2 s as 1 + 8 + 24 bytes; grammar and names as predicted; no false positives | right, with a correction of form |
 | 6 | llama.cpp invisible when idle | zero payload on the RPC flows for 600 s | right |
 | 7 | star; ~4 KiB each way per host, ~600 KB logits back from the last host; constant within 5%; rate within 10% | star; 16 KB / 4104 B and 7170 B / 607 752 B; cv 0.0 at the token scale; rate within 3% | right on shape and rate, the small legs 2 to 4 times larger (7 SET_TENSOR per token) |
 | 8 | load moves ~320 MB to each host | 252 MB and 385 MB, the whole file, split unevenly by the tied embedding | right in total, wrong in split |
@@ -301,7 +302,7 @@ python3 -m analysis.classify captures/<stack>/<stamp>.pcap --timeline captures/<
 - [x] LocalAI reports regenerated with the QUIC exchange grouping
 - [ ] the generation rule off the DHT's exchanges with public peers (33 flows at 0.2 to 10 s)
 - [ ] a QUIC Initial decoder for the ALPN `libp2p` signature (prediction 9 on QUIC)
-- [ ] the headline llama.cpp report (20261027-150104) is on the old rule set; its pcap is gone, a rerun would replace it
+- [x] the headline llama.cpp capture rerun (20261030-083513) and classified on the current rules
 - [ ] introduction and conclusion
 
 ## Acknowledgement
