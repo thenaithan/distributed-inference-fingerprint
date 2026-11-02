@@ -63,7 +63,9 @@ dropped 7% of packets and its byte figures are from TCP sequence accounting.
 
 ## 2. Static signatures: how little capture identifies the stack
 
-![Time to first match](figures/detect.png)
+![llama.cpp](figures/detect-llamacpp.png)
+![exo](figures/detect-exo.png)
+![LocalAI](figures/detect-localai.png)
 
 | stack | rule | first match, s from capture start | what it needed |
 |---|---|---:|---|
@@ -98,8 +100,8 @@ peers, none of them on the LAN. The loopback capture inside the main node shows 
 llama.cpp signatures unchanged (`llama_hello` at 601.9 s, `llama_tensor_names` at
 602.0 s, the first request), which is what the overlay hides.
 
-What each capture looks like as a whole, one row per client, server and port, every
-connection a bar:
+What each headline capture looks like as a whole: one row per pair of hosts and kind of
+traffic, every connection a bar, the data plane in the stack's hue:
 
 ![llama.cpp](figures/timeline-llamacpp.png)
 ![exo](figures/timeline-exo.png)
@@ -114,6 +116,8 @@ classed ordinary because its records carry no `/p2p/`.
 
 ### Idle
 
+![Periodicities](figures/periods.png)
+
 | stack | what repeats when nothing is requested | found by the rhythm rule |
 |---|---|---|
 | exo | beacon 1 s per node (score 0.99 to 1.0); `NodeGatheredInfo` 1 s on zenoh; `GET /node_id` probes about once a second per pair (1726 to 1828 connections per pair in 69 min): the 10 s cycle of the source (`worker/main.py`, `net_profile.py` at bc412e2) probes every interface address of every peer, and the IPv6 ULA addresses refuse (SYN, RST), so each cycle retries them three times a second apart; a 100 to 110 s component on every zenoh pair whose origin is not identified | 1.0 s on every beacon flow and zenoh pair; the 5 s election heartbeat is not among the top four, masked by the 1 Hz traffic |
@@ -123,7 +127,9 @@ classed ordinary because its records carry no `/p2p/`.
 
 ### Generation
 
-![Bytes per exchange at the token scale](figures/exchanges.png)
+![llama.cpp](figures/exchanges-llamacpp.png)
+![exo](figures/exchanges-exo.png)
+![LocalAI](figures/exchanges-localai.png)
 
 | stack | flow | exchanges per request | period | bytes to the host | bytes back | what the sizes are |
 |---|---|---:|---:|---:|---:|---|
@@ -171,6 +177,10 @@ regular status exchange of the same size.
 
 ### Node loss from outside
 
+![llama.cpp](figures/nodeloss-llamacpp.png)
+![exo](figures/nodeloss-exo.png)
+![LocalAI](figures/nodeloss-localai.png)
+
 | stack | killed mid-request | paused mid-request | what the client saw |
 |---|---|---|---|
 | llama.cpp | RST from the dead host 0.07 s after the kill; the main host FINs the other rpc host 3.1 s later | not a packet on either RPC connection for 120 s; 2.4 MB from the paused host on resume | the stream ends 3.2 s after the kill, with that FIN, after 12 tokens (whether with an in-band error is not recorded: the harness skipped such events then); no token for 120 s during the pause, then the harness gave up |
@@ -187,7 +197,7 @@ events (`requests.py` now records them and the finish reason).
 | stack | with the defaults | bytes | when |
 |---|---|---:|---|
 | llama.cpp (`-hf`) | two TLS connections to Hugging Face's CDN (CloudFront) per main-host start, even with the model cached; nothing from the rpc hosts | 2.6 KB up, 14 KB down | every start, within 0.6 s of the first RPC connection |
-| exo | nothing after the model is on disk; the nodes open 50 to 60 connections to Hugging Face at placement (the download coordinator's rescan) | | placement |
+| exo | the first start of a cluster whose image was just built: 591 connections to Hugging Face's CDN, 12.4 MB, in the start and place phases (`20261028-083159`); the next cluster start, same image, none in 69 min (`20261028-125140`) | 12.4 MB once | first start |
 | LocalAI, DHT off | one TLS connection to `index.localai.io` (Cloudflare) per main-node start | 4.4 KB up, 60 KB down | start and recover |
 | LocalAI, DHT on | an IPFS bootstrap node on TCP 4001 1.1 s after start; over 728 s all three nodes of each cluster talk to 1860 public hosts on UDP and TCP 4001, and dial the private LAN addresses other peers advertised (`192.168.x`, `169.254.x`) | 58 MB up, 72 MB down, ~180 KB/s | continuously; 895 public hosts in connections opened during the 300 s idle |
 | LocalAI v4 before `cluster.sh` turned it off | a gallery warm-up fetches ~2 GB from Hugging Face for ~5.5 min after every start (`LOCALAI_VRAM_WARM_LIMIT`), plus `index.localai.io` and `raw.githubusercontent.com`, and the importer re-queries Hugging Face for a `huggingface://` model at every start | ~2 GB | every start |
@@ -196,6 +206,7 @@ The bytes and host counts are `evaluate.py`'s off-LAN table (per phase, by the p
 connection opened in, and a total per capture); the 1.1 s, the dialled private addresses
 and the warm-up row are read from the pcaps and logs by hand.
 
+![What left the LAN](figures/offlan.png)
 ![LocalAI, DHT on](figures/timeline-localai-dht.png)
 
 For the home-router vantage this is the whole story of a swarm on one LAN: llama.cpp and
@@ -220,7 +231,7 @@ The fifteen predictions in [STUDY.md](STUDY.md), as written before the first cap
 | 9 | LocalAI shows the libp2p handshake and nothing readable after; loopback shows llama.cpp unchanged | nothing readable on the LAN and llama.cpp unchanged on loopback; but no handshake either: the tunnels are QUIC, and the plaintext multistream appears only on TCP to DHT peers | half right: the content half holds, the handshake half fails on QUIC |
 | 10 | LocalAI's per-token structure equals llama.cpp's plus a constant overhead; decode rate readable | 621 122 B per token on the output-layer worker and 4194 B on the other (+2% each), 30.0 ms against 30.8 ms at the client | right |
 | 11 | LocalAI idle: 10, 20, 60 s periodicities; mDNS with a random label and `/p2p/` TXT | mDNS as predicted, every 23.3 s; the encrypted overlay shows ~1 exchange/s and a weak 6 s peak, not 10/20/60 s | partially |
-| 12 | LocalAI leaves the LAN by default (DHT bootstrap on 4001 within 60 s); exo and llama.cpp send nothing after the model is on disk | DHT: a bootstrap node at 1.1 s, 131 MB over 728 s; with DHT off still `index.localai.io`; llama.cpp `-hf` checks the CDN at every start; exo contacts Hugging Face at placement | right for LocalAI, wrong for the other two |
+| 12 | LocalAI leaves the LAN by default (DHT bootstrap on 4001 within 60 s); exo and llama.cpp send nothing after the model is on disk | DHT: a bootstrap node at 1.1 s, 131 MB over 728 s; with DHT off still `index.localai.io`; llama.cpp `-hf` checks the CDN at every start; exo 591 connections at its first start and none at the second | right for LocalAI and for exo after its first start, wrong for llama.cpp `-hf` |
 | 13 | a size-and-timing rule flags generation in all three within 10 tokens and not the video or the download | llama.cpp and exo flagged; the background set clean; LocalAI flagged on both tunnels in `generate` once QUIC acknowledgements and its per-request preamble (~26 round trips 0.4 ms apart) stopped splitting the exchanges; false positives inside the swarms on exo's status messages and, with the DHT on, on 33 flows to public peers | partially |
 | 14 | node loss visible: exo's beacon stops then re-placement; llama.cpp RST on kill, nothing on pause | as predicted, except a kill with no request in flight gives a FIN, not a RST | right, with a condition |
 | 15 | the static rules fail only to a port change | not tested (no stack was modified); the port rules and byte rules are separate in `signatures.py` | not tested |
@@ -268,7 +279,7 @@ generators, not a home network.
   test), `classify.py` (apply everything to a capture and report what could be said,
   and when).
 - `evaluate.py`: the tables in §2 to §4 from the committed reports. `figures.py`: the
-  figures, from the same reports and timelines; `figures/`.
+  figures, one per finding and per stack, from the same reports and timelines; `figures/`.
 - `tests/synthetic.py`: a synthetic pcap with the predicted shapes, to exercise the
   analysis without a cluster. It is not evidence.
 - `captures/<stack>/<stamp>.*`: per capture, the timeline, the request log, the
