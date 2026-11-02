@@ -245,7 +245,12 @@ not depend on them. The rhythm rules are judged per harness phase, which a defen
 not have; across a whole capture the same rules miss (llama.cpp's full run, all phases
 mixed, was not flagged before the per-phase change). The generation rule fires on
 status exchanges of activation size (exo's 1 Hz info, DHT keepalives); it separates a
-swarm from the background set, not decode from the swarm's own control plane. Prediction
+swarm from the background set, not decode from the swarm's own control plane. With the
+DHT on it matched 38 phase-flows on 33 QUIC flows to public peers, where no decode goes:
+34 of them in `idle`, 16 at exactly 10 s (the period of LocalAI's DHT discovery,
+FINDINGS-wire §3), 18 at about 5 s, 4 at 0.2 to 0.4 s. A period cap would remove most
+of them but sit just above exo's 2.4 s decode, and keeping the rule to flows inside the
+LAN would give up the swarm across homes of §3; the rule is left as it is. Prediction
 15 (evasion by port change) was not run. exo's long prefill cannot be observed as shipped.
 LocalAI was captured at v4.12.1 while the source was read at master 35224b8; the tunnels
 are QUIC, and the classifier has no QUIC Initial decoder, so the ALPN `libp2p` that a
@@ -327,7 +332,7 @@ report can be regenerated from its pcap; the hashes are in the `.pcap.sha256` fi
 - [x] capture harness and analysis; captures of llama.cpp, exo, LocalAI (DHT off and on, with loopback), background
 - [x] §1 to §6 written from the reports; the predictions scored
 - [x] LocalAI reports regenerated with the QUIC exchange grouping
-- [ ] the generation rule off the DHT's exchanges with public peers (33 flows at 0.2 to 10 s)
+- [x] the generation rule's false positives on the DHT's exchanges with public peers: kept as a limitation (§6)
 - [ ] a QUIC Initial decoder for the ALPN `libp2p` signature (prediction 9 on QUIC)
 - [x] the headline llama.cpp capture rerun (20261030-083513) and classified on the current rules
 - [ ] introduction and conclusion
