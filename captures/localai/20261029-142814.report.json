@@ -52,6 +52,16 @@
    "phase": "start"
   },
   {
+   "flow": "udp 10.89.4.32:49479 <-> 10.89.4.33:38479",
+   "rule": "libp2p_quic_alpn",
+   "stack": "libp2p",
+   "what": "QUIC Initial: ClientHello with ALPN libp2p, no SNI",
+   "needs": "2 datagrams",
+   "strength": "byte",
+   "t": 4.193,
+   "phase": "start"
+  },
+  {
    "flow": "udp 10.89.4.34:5353 <-> 224.0.0.251:5353",
    "rule": "mdns_libp2p",
    "stack": "libp2p",
@@ -59,6 +69,26 @@
    "needs": "1 packet",
    "strength": "byte",
    "t": 4.355,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.33:38479 <-> 10.89.4.34:36245",
+   "rule": "libp2p_quic_alpn",
+   "stack": "libp2p",
+   "what": "QUIC Initial: ClientHello with ALPN libp2p, no SNI",
+   "needs": "2 datagrams",
+   "strength": "byte",
+   "t": 4.386,
+   "phase": "start"
+  },
+  {
+   "flow": "udp 10.89.4.32:49479 <-> 10.89.4.34:36245",
+   "rule": "libp2p_quic_alpn",
+   "stack": "libp2p",
+   "what": "QUIC Initial: ClientHello with ALPN libp2p, no SNI",
+   "needs": "2 datagrams",
+   "strength": "byte",
+   "t": 4.386,
    "phase": "start"
   },
   {
@@ -914,6 +944,7 @@
  "pair_periods": [],
  "dropped_bytes": 0,
  "first_match_s": {
-  "mdns_libp2p": 3.89
+  "mdns_libp2p": 3.89,
+  "libp2p_quic_alpn": 4.193
  }
 }

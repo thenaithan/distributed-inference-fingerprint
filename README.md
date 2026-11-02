@@ -45,7 +45,8 @@ an MPEG-TS video stream over UDP, a 64-byte UDP ping every 2 s, an mDNS announce
 The analysis is `analysis/` (standard library only): flows from the pcap, then two kinds
 of rule. **Byte and port rules** (`signatures.py`) match what source said each stack puts
 on the wire: exo's beacon magic, group and ports; llama.cpp's HELLO, frame grammar, tensor
-names and port; libp2p's multistream handshake, TLS ALPN and mDNS `dnsaddr` records.
+names and port; libp2p's multistream handshake, TLS ALPN (on TCP, and inside QUIC Initials, which
+`quic.py` decrypts with the keys any observer can derive) and mDNS `dnsaddr` records.
 **Timing and size rules** (`rhythm.py`) read no payload: periodicities of a flow or of a
 host pair, and exchanges (a run of client segments answered by server segments) grouped
 at every regular scale, judged per phase, with a "generation-like" test: at least ten
@@ -76,6 +77,7 @@ dropped 7% of packets and its byte figures are from TCP sequence accounting.
 | llama.cpp | `llama_hello` | 4.16 (0.5 s after `cluster.sh main`) | the 33-byte HELLO, on the wire as three segments of 1, 8 and 24 bytes |
 | llama.cpp | `llama_tensor_names` | 5.36 | `blk.N.` names in the weight upload |
 | LocalAI | `mdns_libp2p` | 3.89 | an mDNS answer carrying `dnsaddr=/ip4/…/p2p/12D3KooW…` |
+| LocalAI | `libp2p_quic_alpn` | 4.19 | two client QUIC Initials of 1200 B whose ClientHello offers ALPN `libp2p`, no SNI |
 | LocalAI, DHT on | `libp2p_multistream` | 5.01 | `/multistream/1.0.0` then `/tls` or `/noise`, on TCP to a public peer |
 | background | none of the stack rules | | `mdns` fires and is classed ordinary |
 
@@ -90,13 +92,20 @@ connections the frame grammar still holds: every message is a 1-byte, 8-byte, n-
 segment triplet (`send_rpc_cmd`, `ggml-rpc.cpp:372-386`, with `TCP_NODELAY`), and the
 weight upload carries tensor names in ASCII.
 
-LocalAI is identified as **libp2p**, not as LocalAI, and only through its discovery: the
-mDNS records name the protocol (`/p2p/` multiaddrs) under a random 43-character label.
-Its tunnels are QUIC (`Redirecting 127.0.0.1:… to /ip4/…/udp/…/quic-v1` in the main
-node's log), so there is no plaintext multistream handshake and no plaintext TLS
-ClientHello on the LAN: none of the libp2p byte rules match a tunnel flow. With the DHT
-on, the plaintext multistream handshake does appear, on 2240 TCP connections to public
-peers, none of them on the LAN. The loopback capture inside the main node shows the
+LocalAI is identified as **libp2p**, not as LocalAI. The mDNS records name the protocol
+(`/p2p/` multiaddrs) under a random 43-character label. The tunnels are QUIC
+(`Redirecting 127.0.0.1:… to /ip4/…/udp/…/quic-v1` in the main node's log), so there is
+no plaintext multistream handshake on the LAN, but the TLS ClientHello is there, inside
+the first packets: a QUIC Initial is encrypted with keys derived from the client's
+connection id and a published salt (RFC 9001 §5.2), which any observer can do. Every
+pair of nodes opens its connection with two client Initials whose ClientHello offers
+ALPN `libp2p` and no SNI (`libp2p_quic_alpn`, 0.3 to 0.4 s after the first mDNS record
+in each LocalAI capture). It takes two because the ClientHello is about 1.5 KB, most of
+it a post-quantum key share (X25519MLKEM768, read from the pcap by hand). After it,
+nothing is readable. With the DHT on, the plaintext multistream handshake appears on
+2240 TCP connections to public peers, and the QUIC ClientHello on 2493 UDP flows: the 6
+between our nodes, 2237 to public peers and 250 to private addresses other peers
+advertised, none of which answered (the split read from the report by hand). The loopback capture inside the main node shows the
 llama.cpp signatures unchanged (`llama_hello` at 601.9 s, `llama_tensor_names` at
 602.0 s, the first request), which is what the overlay hides.
 
@@ -228,7 +237,7 @@ The fifteen predictions in [STUDY.md](STUDY.md), as written before the first cap
 | 6 | llama.cpp invisible when idle | zero payload on the RPC flows for 600 s | right |
 | 7 | star; ~4 KiB each way per host, ~600 KB logits back from the last host; constant within 5%; rate within 10% | star; 16 KB / 4104 B and 7170 B / 607 752 B; cv 0.0 at the token scale; rate within 3% | right on shape and rate, the small legs 2 to 4 times larger (7 SET_TENSOR per token) |
 | 8 | load moves ~320 MB to each host | 252 MB and 385 MB, the whole file, split unevenly by the tied embedding | right in total, wrong in split |
-| 9 | LocalAI shows the libp2p handshake and nothing readable after; loopback shows llama.cpp unchanged | nothing readable on the LAN and llama.cpp unchanged on loopback; but no handshake either: the tunnels are QUIC, and the plaintext multistream appears only on TCP to DHT peers | half right: the content half holds, the handshake half fails on QUIC |
+| 9 | LocalAI shows the libp2p handshake and nothing readable after; loopback shows llama.cpp unchanged | the tunnels are QUIC: no plaintext multistream on the LAN (it appears only on TCP to DHT peers), but the predicted ClientHello with ALPN `libp2p` and no SNI opens every tunnel, inside two QUIC Initials anyone can decrypt; nothing readable after; llama.cpp unchanged on loopback | right, with a correction of form |
 | 10 | LocalAI's per-token structure equals llama.cpp's plus a constant overhead; decode rate readable | 621 122 B per token on the output-layer worker and 4194 B on the other (+2% each), 30.0 ms against 30.8 ms at the client | right |
 | 11 | LocalAI idle: 10, 20, 60 s periodicities; mDNS with a random label and `/p2p/` TXT | mDNS as predicted, every 23.3 s; the encrypted overlay shows ~1 exchange/s and a weak 6 s peak, not 10/20/60 s | partially |
 | 12 | LocalAI leaves the LAN by default (DHT bootstrap on 4001 within 60 s); exo and llama.cpp send nothing after the model is on disk | DHT: a bootstrap node at 1.1 s, 131 MB over 728 s; with DHT off still `index.localai.io`; llama.cpp `-hf` checks the CDN at every start; exo 591 connections at its first start and none at the second | right for LocalAI and for exo after its first start, wrong for llama.cpp `-hf` |
@@ -252,9 +261,11 @@ FINDINGS-wire §3), 18 at about 5 s, 4 at 0.2 to 0.4 s. A period cap would remov
 of them but sit just above exo's 2.4 s decode, and keeping the rule to flows inside the
 LAN would give up the swarm across homes of §3; the rule is left as it is. Prediction
 15 (evasion by port change) was not run. exo's long prefill cannot be observed as shipped.
-LocalAI was captured at v4.12.1 while the source was read at master 35224b8; the tunnels
-are QUIC, and the classifier has no QUIC Initial decoder, so the ALPN `libp2p` that a
-defender could read from the Initial packets is not used. The background set is five
+LocalAI was captured at v4.12.1 while the source was read at master 35224b8. The QUIC
+decoder reads version 1 Initials only (not QUIC v2, RFC 9369), and the background set
+carries no QUIC at all, so `libp2p_quic_alpn` was not tested against ordinary QUIC such
+as a browser's HTTP/3; it needs `libp2p` in the ALPN, which HTTP/3 does not offer. The
+background set is five
 generators, not a home network.
 
 ## Conclusion
@@ -281,12 +292,15 @@ generators, not a home network.
 - `analysis/`: standard library only. `pcap.py` (reader), `flows.py` (flow table with TCP
   sequence accounting), `signatures.py` (byte and port rules per stack), `rhythm.py`
   (periodicities per flow and per host pair, exchanges at every scale, the generation
-  test), `classify.py` (apply everything to a capture and report what could be said,
-  and when).
+  test), `quic.py` (QUIC v1 Initial decryption and the ClientHello's ALPN and SNI, with
+  AES-128-GCM written out), `classify.py` (apply everything to a capture and report what
+  could be said, and when).
 - `evaluate.py`: the tables in §2 to §4 from the committed reports. `figures.py`: the
   figures, one per finding and per stack, from the same reports and timelines; `figures/`.
 - `tests/synthetic.py`: a synthetic pcap with the predicted shapes, to exercise the
-  analysis without a cluster. It is not evidence.
+  analysis without a cluster. It is not evidence. `tests/test_quic.py`: `quic.py`
+  against the AES, GCM and RFC 9001 Appendix A vectors, and round trips through
+  `tests/quicgen.py`, which builds client Initials for both.
 - `captures/<stack>/<stamp>.*`: per capture, the timeline, the request log, the
   `/api/p2p` samples and container logs where taken, the pcap's size and SHA-256, and
   the `classify.py --json` report; the pcaps are not committed (`.gitignore`).
@@ -297,6 +311,7 @@ Analysis needs Python 3.10 or later and nothing else; `figures.py` needs the mat
 pinned in `requirements.txt`:
 
 ```
+python3 -m unittest tests.test_quic
 python3 -m tests.synthetic /tmp/syn.pcap && python3 -m analysis.classify /tmp/syn.pcap
 python3 evaluate.py                         # the tables, from the committed reports
 python3 figures.py                          # the figures, from the committed reports
@@ -333,7 +348,7 @@ report can be regenerated from its pcap; the hashes are in the `.pcap.sha256` fi
 - [x] §1 to §6 written from the reports; the predictions scored
 - [x] LocalAI reports regenerated with the QUIC exchange grouping
 - [x] the generation rule's false positives on the DHT's exchanges with public peers: kept as a limitation (§6)
-- [ ] a QUIC Initial decoder for the ALPN `libp2p` signature (prediction 9 on QUIC)
+- [x] a QUIC Initial decoder for the ALPN `libp2p` signature (prediction 9 on QUIC); LocalAI reports regenerated
 - [x] the headline llama.cpp capture rerun (20261030-083513) and classified on the current rules
 - [ ] introduction and conclusion
 

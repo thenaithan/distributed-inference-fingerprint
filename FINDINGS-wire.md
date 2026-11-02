@@ -290,7 +290,9 @@ download hosts. No phone-home telemetry found in the P2P path.
   `dnsaddr=/ip4/…/p2p/12D3Koo…` records in plaintext, revealing peer ids and ports.
 - TCP handshake in plaintext multistream-select: `/multistream/1.0.0\n` then `/noise` or
   `/tls/1.0.0`; everything after is encrypted, including stream protocol ids. TLS
-  ClientHello with ALPN `libp2p` and no SNI; QUIC Initials show the same ALPN.
+  ClientHello with ALPN `libp2p` and no SNI; QUIC Initials show the same ALPN (observed at
+  v4.12.1: every tunnel opens with two client Initials, decryptable with the RFC 9001
+  Initial keys, whose ClientHello offers `libp2p` and no SNI; README §2).
 - Random high ports; SSDP to 239.255.255.250:1900 if UPnP is on; DHT traffic to public
   addresses, usually port 4001.
 - 10 s, 20 s and 60 s ledger bursts.
