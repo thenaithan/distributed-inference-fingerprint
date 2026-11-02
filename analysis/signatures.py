@@ -12,6 +12,7 @@ import struct
 from dataclasses import dataclass
 from typing import List, Optional
 
+from . import quic
 from .flows import Flow
 
 EXO_MAGIC = b"EXO"
@@ -158,6 +159,23 @@ def libp2p_handshake(f: Flow) -> Optional[Match]:
     return None
 
 
+def libp2p_quic(f: Flow) -> Optional[Match]:
+    """A QUIC Initial whose ClientHello offers ALPN libp2p. The Initial keys are public
+    (derived from the client's connection id), so this is a byte rule on QUIC, the
+    counterpart of libp2p_alpn on TCP. The client is whichever side's Initials open."""
+    if f.proto != "udp":
+        return None
+    for kept in sorted((f.quic_ab, f.quic_ba), key=lambda k: k[0][0] if k else float("inf")):
+        if not kept:
+            continue
+        ch = quic.client_hello([d for _, d in kept])
+        if ch and "libp2p" in ch.alpn:
+            sni = f", SNI {ch.sni}" if ch.sni else ", no SNI"
+            return Match("libp2p_quic_alpn", "libp2p", f"QUIC Initial: ClientHello with ALPN libp2p{sni}",
+                         f"{ch.datagrams} datagrams", kept[ch.datagrams - 1][0], "byte")
+    return None
+
+
 def mdns(f: Flow) -> Optional[Match]:
     """mDNS to the multicast group; libp2p peers advertise /p2p/ in TXT, LocalAI uses a random
     43-char label. Ordinary devices also speak mDNS: on its own this is background."""
@@ -173,7 +191,7 @@ def mdns(f: Flow) -> Optional[Match]:
 
 
 RULES = [exo_beacon, exo_zenoh, exo_api, llama_hello, llama_tensor_names, llama_frames, llama_port,
-         libp2p_handshake, mdns]
+         libp2p_handshake, libp2p_quic, mdns]
 
 
 def match_all(f: Flow) -> List[Match]:

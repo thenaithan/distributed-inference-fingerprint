@@ -20,6 +20,10 @@ FIRST_BYTES = 64          # payload prefix kept per direction, for static signat
 # (offset 528 on LocalAI's loopback, after HELLO and the buffer allocations)
 MARKERS = (b"dnsaddr=", b"/p2p/", b"blk.", b"token_embd", b"output_norm")
 SCAN_PACKETS = 256
+# the first QUIC long-header datagrams of client size per direction, (t, payload), for the
+# Initial decoder (analysis/quic.py): quic-go's ClientHello spans two
+QUIC_DATAGRAMS = 4
+QUIC_CLIENT_MIN = 1200
 
 
 @dataclass
@@ -41,6 +45,8 @@ class Flow:
     first_ba: bytes = b""
     flags: int = 0            # OR of TCP flags seen
     markers: Set[bytes] = field(default_factory=set)   # MARKERS seen in the first packets
+    quic_ab: List[Tuple[float, bytes]] = field(default_factory=list)
+    quic_ba: List[Tuple[float, bytes]] = field(default_factory=list)
     rst_at: Optional[float] = None
     syn_at: Optional[float] = None
     fin_at: Optional[float] = None
@@ -84,6 +90,10 @@ class Flow:
         n = len(p.payload)
         if n and len(self.series_ab) + len(self.series_ba) < SCAN_PACKETS:
             self.markers.update(m for m in MARKERS if m in p.payload)
+        if p.proto == "udp" and n >= QUIC_CLIENT_MIN and p.payload[0] & 0xC0 == 0xC0:
+            kept = self.quic_ab if p.forward else self.quic_ba
+            if len(kept) < QUIC_DATAGRAMS:
+                kept.append((p.t, p.payload))
         if p.forward:
             self.bytes_ab += p.wire_len
             self.payload_ab += n

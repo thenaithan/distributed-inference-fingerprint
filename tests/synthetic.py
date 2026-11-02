@@ -13,6 +13,8 @@ import socket
 import struct
 import sys
 
+from tests import quicgen
+
 ETH = 1
 
 
@@ -118,7 +120,8 @@ def main(path: str) -> None:
         ans = (b"\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x01" + bytes(170)
                + b"Ydnsaddr=/ip4/10.0.3.1/udp/4001/quic-v1/p2p/12D3KooW" + rng.randbytes(40))
         w.frame(t0 + 71 + k * 23.3, eth(40, 0x33, 0x0800, ip4("10.0.3.1", "224.0.0.251", 17, udp(5353, 5353, ans))))
-    # LocalAI: a QUIC tunnel main 10.0.3.1 -> worker 10.0.3.2. Each request opens with 26
+    # LocalAI: a QUIC tunnel main 10.0.3.1 -> worker 10.0.3.2. It opens with two client
+    # Initials whose ClientHello offers ALPN libp2p (analysis/quic.py). Each request opens with 26
     # round trips 0.4 ms apart (351 B out, 9 datagrams back), then 28 tokens at 30 ms (7 KB
     # out, 64 KB back); 38-byte acknowledgements every third datagram; overlay gossip of
     # ~1.5 KB each way between requests. Flagged only when the acknowledgements and the
@@ -132,6 +135,8 @@ def main(path: str) -> None:
             quic(t + d / 5e8, fwd, min(1452, total - d))
             if d // 1452 % 3 == 2:
                 quic(t + d / 5e8 + 1e-5, not fwd, 38)
+    for k, d in enumerate(quicgen.initials(quicgen.client_hello(["libp2p"]), bytes(range(8)))):
+        w.frame(t0 + 79 + k * 0.0001, eth(40, 41, 0x0800, ip4("10.0.3.1", "10.0.3.2", 17, udp(4001, 4002, d))))
     for req in range(3):
         t = t0 + 80 + req * 3.0
         for k in range(26):
