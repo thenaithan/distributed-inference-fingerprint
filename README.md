@@ -116,7 +116,7 @@ classed ordinary because its records carry no `/p2p/`.
 
 | stack | what repeats when nothing is requested | found by the rhythm rule |
 |---|---|---|
-| exo | beacon 1 s per node (score 0.99 to 1.0); `NodeGatheredInfo` 1 s on zenoh; `GET /node_id` probes about once a second per pair (1726 to 1828 connections per pair in 69 min; the findings file said ~10 s); a 100 to 110 s component on every zenoh pair whose origin is not identified | 1.0 s on every beacon flow and zenoh pair; the 5 s election heartbeat is not among the top four, masked by the 1 Hz traffic |
+| exo | beacon 1 s per node (score 0.99 to 1.0); `NodeGatheredInfo` 1 s on zenoh; `GET /node_id` probes about once a second per pair (1726 to 1828 connections per pair in 69 min): the 10 s cycle of the source (`worker/main.py`, `net_profile.py` at bc412e2) probes every interface address of every peer, and the IPv6 ULA addresses refuse (SYN, RST), so each cycle retries them three times a second apart; a 100 to 110 s component on every zenoh pair whose origin is not identified | 1.0 s on every beacon flow and zenoh pair; the 5 s election heartbeat is not among the top four, masked by the 1 Hz traffic |
 | llama.cpp | nothing: zero packets on the RPC connections for 600 s | nothing to find |
 | LocalAI | ~1 exchange per second of 115 B / ~1.6 KB per main-worker pair on the QUIC tunnels (0.3 to 0.5 MB per direction in 600 s; from the pcap by hand), mDNS every 23.3 s per node (cv 0.05), worker `LastSeen` every 20 to 30 s | a 6.1 s peak at score 0.2; the 10, 20 and 60 s intervals of the source are not visible on the wire |
 | background | the UDP ping every 2.0 s (score 0.97 to 0.98) as a host-pair rhythm across its 304 one-packet flows; the download every 34.8 s; mDNS every 2 s | as stated |
@@ -211,7 +211,7 @@ The fifteen predictions in [STUDY.md](STUDY.md), as written before the first cap
 |---|---|---|---|
 | 1 | exo identified by its first beacon, within 1 s, no false positives | 20-byte `45 58 4F 00` to the group, 3.6 s after the nodes start, every second thereafter; none in the background set | right |
 | 2 | node count from beacon sources within 2 s, master within 10 s | three sources at once; the master not identified by the rules (the zenoh key expressions are not in a connection's first bytes) | partially |
-| 3 | exo idle: 1 s, 5 s, 10 s, ~2.5 s periodicities | 1 s at score 1.0; the probes run at ~1 s not 10 s; 5 s not among the top four; a 100 to 110 s component unexplained | partially |
+| 3 | exo idle: 1 s, 5 s, 10 s, ~2.5 s periodicities | 1 s at score 1.0; the probes run at ~1 s, the source's 10 s cycle plus three tries a second apart on the refused ULA addresses; 5 s not among the top four; a 100 to 110 s component unexplained | partially |
 | 4 | exo generation: new TCP flows on 49153 to 65535 between ring neighbours, ~2 KiB per hop at 0.4 Hz | 51664 (then 65080 after re-placement), all three pairs, 4104 B / 2048 B every 2.42 s; the 2048-token prefill never ran: exo's 90 s no-progress watchdog (`RUNNER_STALL_TIMEOUT`, `supervisor.py:64`) cancels any prompt over ~35 tokens at this speed | right on the data plane, the long prefill unobtainable |
 | 5 | llama.cpp identified by the 33-byte HELLO on 50052; frame grammar and tensor names otherwise | HELLO at 4.2 s as 1 + 8 + 24 bytes; grammar and names as predicted; no false positives | right, with a correction of form |
 | 6 | llama.cpp invisible when idle | zero payload on the RPC flows for 600 s | right |
