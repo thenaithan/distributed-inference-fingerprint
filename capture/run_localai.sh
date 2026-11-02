@@ -22,8 +22,10 @@ rq=$dir/$stamp.requests.jsonl; p2p=$dir/$stamp.p2p.jsonl; lopids=$dir/$stamp.lo.
 mkdir -p "$dir"
 mark() { capture/phase.sh "$tl" "$@"; }
 req() { python3 capture/requests.py --base "$API" --model "$MODEL" --out "$rq" "$@"; }
+# the main node prints the swarm token (its pre-shared secret) at start; kept out of the logs
+redact() { sed -E 's/^b3RwOg[A-Za-z0-9+\/=]*$/<redacted: the swarm token>/; s/export TOKEN="[^"]*"/export TOKEN="<redacted>"/'; }
 save_logs() { for c in main $(podman ps -a --format '{{.Names}}' | grep '^worker-' || true); do
-                podman logs "$c" > "$dir/$stamp.$c$1.log" 2>&1 || true; done; }
+                podman logs "$c" 2>&1 | redact > "$dir/$stamp.$c$1.log" || true; done; }
 
 # LOOPBACK=1: the plaintext llama.cpp RPC on each container's lo (ground truth for the
 # encrypted bridge flows, STUDY.md). The host's tcpdump in the container's network

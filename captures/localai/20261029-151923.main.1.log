@@ -11,7 +11,7 @@ CPU: no AVX512 found
 [90mOct 29 08:19:28[0m [34mINFO [0m P2P mode enabled [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=539 } 
 [90mOct 29 08:19:28[0m [34mINFO [0m No token provided, generating one [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=544 } 
 [90mOct 29 08:19:28[0m [34mINFO [0m Generated Token: [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=546 } 
-<redacted>
+<redacted: the swarm token>
 [90mOct 29 08:19:28[0m [34mINFO [0m To use the token, you can run the following command in another node or terminal: [36mcaller[0m={[36mcaller.file[0m="/build/core/cli/run.go"  [36mcaller.L[0m=549 } 
 export TOKEN="<redacted>"
 local-ai worker p2p-llama-cpp-rpc

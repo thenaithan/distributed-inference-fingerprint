@@ -18,6 +18,8 @@ stamp=$(LC_ALL=C date +%Y%m%d-%H%M%S); dir=captures/localai
 pcap=$dir/$stamp.pcap; tl=$dir/$stamp.timeline.csv; rq=$dir/$stamp.requests.jsonl; p2p=$dir/$stamp.p2p.jsonl
 mkdir -p "$dir"
 mark() { capture/phase.sh "$tl" "$@"; }
+# the main node prints the swarm token (its pre-shared secret) at start; kept out of the logs
+redact() { sed -E 's/^b3RwOg[A-Za-z0-9+\/=]*$/<redacted: the swarm token>/; s/export TOKEN="[^"]*"/export TOKEN="<redacted>"/'; }
 
 localai/cluster.sh down >/dev/null 2>&1 || true
 podman network exists "$NET" || podman network create "$NET" >/dev/null
@@ -33,7 +35,7 @@ localai/cluster.sh up "$N"
 # worker; a request before that loads the whole model on the main node alone
 if ! localai/cluster.sh tunnels "$N"; then
   mark failed "fewer than $N tunnels after the wait"
-  for c in main $(podman ps -a --format '{{.Names}}' | grep '^worker-' || true); do podman logs "$c" > "$dir/$stamp.$c.log" 2>&1 || true; done
+  for c in main $(podman ps -a --format '{{.Names}}' | grep '^worker-' || true); do podman logs "$c" 2>&1 | redact > "$dir/$stamp.$c.log" || true; done
   capture/capture.sh stop; localai/cluster.sh down >/dev/null; podman rm -f anchor >/dev/null 2>&1 || true
   echo "no load attempted; logs in $dir/$stamp.*.log"; exit 1
 fi
@@ -47,7 +49,7 @@ kill "$sampler" 2>/dev/null || true
 mark done ""
 podman stats --no-stream main $(podman ps --format '{{.Names}}' | grep '^worker-' || true) > "$dir/$stamp.stats.txt" 2>&1 || true
 capture/capture.sh stop
-for c in main $(podman ps -a --format '{{.Names}}' | grep '^worker-' || true); do podman logs "$c" > "$dir/$stamp.$c.log" 2>&1 || true; done
+for c in main $(podman ps -a --format '{{.Names}}' | grep '^worker-' || true); do podman logs "$c" 2>&1 | redact > "$dir/$stamp.$c.log" || true; done
 localai/cluster.sh down >/dev/null
 podman rm -f anchor >/dev/null 2>&1 || true
 cat "$dir/$stamp.stats.txt"
