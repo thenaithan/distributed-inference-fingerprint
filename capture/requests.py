@@ -27,6 +27,7 @@ def one(base: str, model: str, prompt: str, max_tokens: int, thinking: bool, tim
                                  headers={"Content-Type": "application/json"})
     t_req, t_first, n = time.time(), None, 0
     t_last = t_req
+    stream_error, finish = None, None
     timings = None
     with urllib.request.urlopen(req, timeout=timeout) as r:
         for raw in r:
@@ -46,14 +47,23 @@ def one(base: str, model: str, prompt: str, max_tokens: int, thinking: bool, tim
                 continue
             if obj.get("timings"):                 # llama-server: server-side timings in the last chunk
                 timings = obj["timings"]
-            ch = (obj.get("choices") or [{}])[0].get("delta", {})
+            # a failure after the first chunk comes in-band, after HTTP 200: an {"error": ...}
+            # event then [DONE] (LocalAI v4.12.1 chat.go; read 2026-11-02, after this script had
+            # been skipping it as a chunk without choices)
+            if obj.get("error"):
+                stream_error = obj["error"]
+            choice = (obj.get("choices") or [{}])[0]
+            if choice.get("finish_reason"):
+                finish = choice["finish_reason"]
+            ch = choice.get("delta", {})
             # thinking tokens: reasoning_content (llama-server), reasoning (LocalAI v4)
             if ch.get("content") or ch.get("reasoning_content") or ch.get("reasoning"):
                 n += 1
                 t_last = time.time()
                 if t_first is None:
                     t_first = t_last
-    return dict(t_request=t_req, t_first_token=t_first, t_end=time.time(), tokens=n, timings=timings)
+    return dict(t_request=t_req, t_first_token=t_first, t_end=time.time(), tokens=n, timings=timings,
+                finish_reason=finish, stream_error=stream_error)
 
 
 def main() -> None:
@@ -89,7 +99,8 @@ def main() -> None:
             ft = rec.get("t_first_token")
             print(f"{i}: {rec.get('tokens', 0)} tokens, first token after "
                   f"{(ft - rec['t_request']) if ft else float('nan'):.2f} s, total {rec['t_end'] - rec['t_request']:.1f} s"
-                  + (f"  {rec['error']}" if "error" in rec else ""))
+                  + (f"  {rec['error']}" if "error" in rec else "")
+                  + (f"  stream error: {rec['stream_error']}" if rec.get("stream_error") else ""))
             time.sleep(a.gap)
 
 
