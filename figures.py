@@ -4,7 +4,7 @@ written by `analysis/classify.py --json`) and their timelines. No pcap is needed
     python3 figures.py            # writes figures/*.png
 
 One figure per finding, one stack per figure where the stacks differ:
-    detect-<stack>.png      seconds of capture before each rule first matched
+    detect-<stack>.png      seconds of capture before each rule first matched (not background)
     exchanges-<stack>.png   bytes per token-scale exchange, each leg
     timeline-<stack>.png    the headline capture: at most ten rows of flows, hosts by role,
                             phases as a strip; data plane in the stack's hue
@@ -338,6 +338,8 @@ def fig_nodeloss(stack, stamp, r, tl):
 
 def fig_detect(reps):
     for stack, d in reps.items():
+        if stack == "background":   # no stack rule matched; its one bar would be the ordinary mDNS
+            continue
         best = {}
         for stamp, (r, _) in d.items():
             for rule, t in r.get("first_match_s", {}).items():

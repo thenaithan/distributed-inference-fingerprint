@@ -142,6 +142,8 @@ matched: `exo_beacon`, `llama_hello`, `llama_frames`, `llama_tensor_names` and
 `libp2p_multistream` have no false positives in this set, and the mDNS announcer is
 classed ordinary because its records carry no `/p2p/`.
 
+![background set](figures/timeline-background.png)
+
 ## 3. Timing and size: what survives without payload
 
 ### Idle
