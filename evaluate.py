@@ -6,8 +6,9 @@ and timelines. No pcap needed.
 
 Tables: time to first match per rule per capture (§2); generation-like exchanges per
 stack and phase (§3); periodicities per stack in idle (§3); false positives on the
-background set (§2, §3); flows that left private address ranges (§4); capture quality
-(packets, drops).
+background set (§2, §3); flows that left private address ranges (§4), with a total per
+capture and the generation-like ones among them; connections and bytes per LAN host pair
+(§2, §3); the client's decode rate per phase (§3); capture quality (packets, drops).
 """
 
 from __future__ import annotations
@@ -56,6 +57,14 @@ def is_private(host: str) -> bool:
     return ip.is_private or ip.is_link_local or ip.is_multicast or ip.is_loopback or ip.is_unspecified
 
 
+def _is_ip(host: str) -> bool:
+    try:
+        ipaddress.ip_address(host.strip("[]"))
+        return True
+    except ValueError:
+        return False
+
+
 def endpoints(flow: str):
     proto, rest = flow.split(" ", 1)
     a, b = rest.split(" <-> ")
@@ -80,18 +89,21 @@ def main() -> None:
         print(f"| {stack} | {stamp} | {row['packets']} | {row['flows']} | {row['duration']} | {row['dropped']} |")
 
     print("\n## time to first match, seconds from the start of the capture")
-    print("| stack | capture | rule | first match s | phase |")
-    print("|---|---|---|---:|---|")
+    print("| stack | capture | rule | first match s | phase | flows matched |")
+    print("|---|---|---|---:|---|---:|")
     out["first_match"] = []
     for stack, stamp, r, tl in reps:
         t0 = r["t0"]
+        nflows = defaultdict(set)
+        for m in r.get("matches", []):
+            nflows[m["rule"]].add(m["flow"])
         for rule, t in sorted(r.get("first_match_s", {}).items(), key=lambda x: x[1]):
             ph = ""
             for tt, p in tl:
                 if tt - t0 <= t:
                     ph = p
-            out["first_match"].append(dict(stack=stack, capture=stamp, rule=rule, t=t, phase=ph))
-            print(f"| {stack} | {stamp} | {rule} | {t:.2f} | {ph} |")
+            out["first_match"].append(dict(stack=stack, capture=stamp, rule=rule, t=t, phase=ph, flows=len(nflows[rule])))
+            print(f"| {stack} | {stamp} | {rule} | {t:.2f} | {ph} | {len(nflows[rule])} |")
 
     print("\n## generation-like exchanges (token scale), one row per flow and phase")
     print("| stack | capture | phase | flow | exchanges | period ms | bytes in | bytes out |")
@@ -135,6 +147,73 @@ def main() -> None:
         for ph, (hosts, n, up, down) in sorted(agg.items()):
             out["off_lan"].append(dict(stack=stack, capture=stamp, phase=ph, hosts=len(hosts), flows=n, up=up, down=down))
             print(f"| {stack} | {stamp} | {ph} | {len(hosts)} | {n} | {up} | {down} |")
+        if len(agg) > 1:                      # the whole capture: distinct hosts across phases
+            allh = set().union(*(g[0] for g in agg.values()))
+            n, up, down = (sum(g[i] for g in agg.values()) for i in (1, 2, 3))
+            out["off_lan"].append(dict(stack=stack, capture=stamp, phase="all", hosts=len(allh), flows=n, up=up, down=down))
+            print(f"| {stack} | {stamp} | all | {len(allh)} | {n} | {up} | {down} |")
+
+    print("\n## generation-like phase-flows with an endpoint off the LAN (false positives: no decode leaves the LAN here)")
+    print("| stack | capture | phase-flows | flows | period s, median per band (count) |")
+    print("|---|---|---:|---:|---|")
+    out["off_lan_generation"] = []
+    for stack, stamp, r, tl in reps:
+        rows = []
+        for x in r.get("rhythm", []):
+            _, a, b = endpoints(x["flow"])
+            if is_private(a) and is_private(b):
+                continue
+            rows += [(x["flow"], s["period_s"]) for s in x.get("scales", []) if s.get("generation_like")]
+        if not rows:
+            continue
+        bands = defaultdict(list)
+        for _, per in rows:
+            bands["< 1" if per < 1 else "1 to 7" if per < 7 else ">= 7"].append(per)
+        desc = ", ".join(f"{k}: {st.median(v):.2f} ({len(v)})" for k, v in sorted(bands.items()))
+        out["off_lan_generation"].append(dict(stack=stack, capture=stamp, phase_flows=len(rows),
+                                              flows=len({f for f, _ in rows}), bands={k: len(v) for k, v in bands.items()}))
+        print(f"| {stack} | {stamp} | {len(rows)} | {len({f for f, _ in rows})} | {desc} |")
+
+    print("\n## LAN host pairs: connections and bytes (pairs with >= 10 flows or >= 100 KB)")
+    print("| stack | capture | pair | flows | bytes a->b | bytes b->a |")
+    print("|---|---|---|---:|---:|---:|")
+    out["lan_pairs"] = []
+    for stack, stamp, r, tl in reps:
+        agg = defaultdict(lambda: [0, 0, 0])
+        for f in r.get("flow_table", []):
+            proto, a, b = endpoints(f["flow"])
+            if not (is_private(a) and is_private(b)):
+                continue
+            if any(ipaddress.ip_address(h.strip("[]")).is_multicast for h in (a, b) if _is_ip(h)):
+                continue
+            g = agg[f"{proto} {a} <-> {b}"]
+            g[0] += 1; g[1] += f["payload_ab"]; g[2] += f["payload_ba"]
+        for pair, (n, ab, ba) in sorted(agg.items()):
+            if n >= 10 or ab + ba >= 100_000:
+                out["lan_pairs"].append(dict(stack=stack, capture=stamp, pair=pair, flows=n, ab=ab, ba=ba))
+                print(f"| {stack} | {stamp} | {pair} | {n} | {ab} | {ba} |")
+
+    print("\n## decode rate at the client (requests.jsonl): median ms per token after the first, per phase")
+    print("| stack | capture | phase | requests | ms per token |")
+    print("|---|---|---|---:|---:|")
+    out["client_rate"] = []
+    for stack, stamp, r, tl in reps:
+        path = f"captures/{stack}/{stamp.split('.')[0]}.requests.jsonl"
+        if "." in stamp or not os.path.exists(path):
+            continue
+        per_phase = defaultdict(list)
+        with open(path) as fh:
+            for line in fh:
+                q = json.loads(line)
+                if q.get("t_first_token") and q.get("tokens", 0) > 1:
+                    ph = ""
+                    for tt, p in tl:
+                        if tt <= q["t_request"]:
+                            ph = p
+                    per_phase[ph].append(1000 * (q["t_end"] - q["t_first_token"]) / (q["tokens"] - 1))
+        for ph, v in per_phase.items():
+            out["client_rate"].append(dict(stack=stack, capture=stamp, phase=ph, n=len(v), ms=round(st.median(v), 1)))
+            print(f"| {stack} | {stamp} | {ph} | {len(v)} | {st.median(v):.1f} |")
 
     if args.json:
         with open(args.json, "w") as fh:
