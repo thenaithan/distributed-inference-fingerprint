@@ -1,17 +1,18 @@
 # distributed-inference-fingerprint
 
-<!-- INTRO (Nat): the question (the essay's "can shard-to-shard traffic be fingerprinted
-against background noise"), where it came from, the two readers, scope (measure and
-classify with readable rules; no evasion; vLLM dropped, LocalAI added, see STUDY.md), the
-one-sentence outcome once there is one, who did what, where the numbers come from
-(analysis/classify.py from the committed reports and timelines). -->
 
-Experiment 4 of the distributed-inference resilience work: what a swarm looks like on the
-wire, and how little capture a defender needs to recognise it. Three stacks, read from
-source first ([FINDINGS-wire.md](FINDINGS-wire.md)), fifteen predictions written before
-any capture ([STUDY.md](STUDY.md)), then packet captures of exo, llama.cpp RPC and
-LocalAI's P2P mode on a rootless Podman bridge, with ordinary traffic captured the same
-way as the negative set. Earlier experiments: the model and the cut experiment in
+This is the fourth experiment from the series I began on the detection, containment and removal of a hypothetical AI swarm that is no longer under human control. The question came from [the essay](https://naithanweigh.com/writing/asymmetric-persistence/) where I ask if it's possible to fingerprint shard-to-shard traffic against background noise.
+The first experiments focussed on the resilience, cuts and recovery of a swarm. This experiment focussed on if and how I can detect them.
+To see if this fingerprinting is possible I have chosen three different stacks for this: llama.cpp, exo and LocalAI P2P. It is written for two readers: the operator, who tries to keep the swarm serving under churn, and the defender, who needs the smallest intervention that stops a swarm they do not operate.
+
+
+Per stack I use tcpdump to capture the network activity on the single Podman bridge (acting as a passive tap to the LAN) and I derive the egress visibility from this. I have only measured and classified the data with readable rules. I did not let the swarms utilise any evasion tactics. vLLM is left out: with pipeline parallelism on one host its ranks are processes that share memory and nothing reaches the wire. This can be a later experiment when more resources are available. 
+
+I ran the captures and manually verified findings in pcaps with Wireshark; the source reading, harnesses, analysis and figures I developed together with Claude. All the numbers in this document come from running the captures as described and using the analysis scripts to analyse the data, except where the text says a figure was read from the pcap by hand. 
+
+The findings showed that with a small amount of data I could already say if there was swarm traffic on the wire just by looking at one or two packets, the discovery records or the rhythm. The background noise did not create false positives on the packets, discovery records or rhythm.
+
+Earlier experiments: the model and the cut experiment in
 [distributed-inference-resilience](https://github.com/thenaithan/distributed-inference-resilience),
 the measured recovery cost in
 [distributed-inference-recovery](https://github.com/thenaithan/distributed-inference-recovery).
