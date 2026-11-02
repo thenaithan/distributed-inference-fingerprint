@@ -173,13 +173,14 @@ regular status exchange of the same size.
 
 | stack | killed mid-request | paused mid-request | what the client saw |
 |---|---|---|---|
-| llama.cpp | RST from the dead host 0.07 s after the kill; the main host FINs the other rpc host 3.1 s later | not a packet on either RPC connection for 120 s; 2.4 MB from the paused host on resume | the stream ends 3.2 s after the kill, with that FIN, after 12 tokens; no token for 120 s during the pause, then the harness gave up |
+| llama.cpp | RST from the dead host 0.07 s after the kill; the main host FINs the other rpc host 3.1 s later | not a packet on either RPC connection for 120 s; 2.4 MB from the paused host on resume | the stream ends 3.2 s after the kill, with that FIN, after 12 tokens (whether with an in-band error is not recorded: the harness skipped such events then); no token for 120 s during the pause, then the harness gave up |
 | llama.cpp, killed while idle | one FIN from the dead host; no reaction, probe or reconnect from the main host | | |
 | exo | the node's beacon stops at once; `InstanceDeleted` 15 s later; new ring flows on new ports after re-placement (175 s) | | the Experiment 3 numbers |
-| LocalAI | the node goes silent; main sends a few small QUIC probes a second for 30 s, then nothing; the next request reloads ~650 MB to the surviving worker | the same, 30 s | the stream ends after 30 s **with no error**: a truncated answer that looks complete; 30 s is QUIC's idle timeout (go-libp2p v0.48.0 sets no `MaxIdleTimeout` in its `quic.Config`, `p2p/transport/quicreuse/config.go:9-20`, so quic-go v0.59.0's `DefaultIdleTimeout` of 30 s applies, `internal/protocol/params.go:100`; keepalives every 15 s), not LocalAI's 40 s ledger window |
+| LocalAI | the node goes silent; main sends a few small QUIC probes a second for 30 s, then nothing; the next request reloads ~650 MB to the surviving worker | the same, 30 s | after 30 s an in-band `server_error` event and `[DONE]` on a stream that began with HTTP 200 (`Stream ended with error` in the main node's log; a client that reads only `choices`, as our harness did, sees a truncated answer that looks complete); 30 s is QUIC's idle timeout (go-libp2p v0.48.0 sets no `MaxIdleTimeout` in its `quic.Config`, `p2p/transport/quicreuse/config.go:9-20`, so quic-go v0.59.0's `DefaultIdleTimeout` of 30 s applies, `internal/protocol/params.go:100`; keepalives every 15 s), not LocalAI's 40 s ledger window |
 
 The timings in this table are read from the pcaps and the container logs by hand; the
-client's side is in the request logs.
+client's side is in the request logs, which until 2026-11-02 did not keep in-band error
+events (`requests.py` now records them and the finish reason).
 
 ## 4. What leaves the LAN
 
