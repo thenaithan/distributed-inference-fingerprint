@@ -30,6 +30,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.lines import Line2D  # noqa: E402
+from matplotlib.transforms import offset_copy  # noqa: E402
 
 OUT = "figures"
 os.makedirs(OUT, exist_ok=True)
@@ -244,10 +245,19 @@ def flow_rows(stack, r):
             if kind == "elsewhere" or sum(f["payload_ab"] + f["payload_ba"] for f in fl) >= 10_000]
 
 
-def phase_strip(ax, tl, t0, t_end, x0, x1):
-    """Phases as alternating shading with staggered labels above the axes."""
+PHASE_ROW_PT = 11          # height of one row of phase labels above the axes, in points
+
+
+def phase_strip(ax, tl, t0, t_end, x0, x1) -> int:
+    """Phases as alternating shading with horizontal labels above the axes; a label that
+    would run into the one before it goes up a row. Returns the number of rows, so the
+    title can clear them. Call after the layout is settled: it measures rendered text."""
     if not tl:
-        return
+        return 0
+    fig = ax.figure
+    renderer = fig.canvas.get_renderer()
+    base = ax.get_xaxis_transform()
+    row_ends = []              # right edge, in pixels, of the last label in each row
     for i, (t, ph) in enumerate(tl):
         t1 = tl[i + 1][0] if i + 1 < len(tl) else t0 + t_end
         a, b = max(t - t0, x0), min(t1 - t0, x1)
@@ -255,8 +265,14 @@ def phase_strip(ax, tl, t0, t_end, x0, x1):
             continue
         if i % 2 == 0:
             ax.axvspan(a, b, color=SHADE, lw=0, zorder=0)
-        ax.text(a + 0.004 * (x1 - x0), 1.01, ph, transform=ax.get_xaxis_transform(),
-                fontsize=7.5, color=INK2, ha="left", va="bottom", rotation=45)
+        txt = ax.text(a, 1.01, ph, transform=base, fontsize=7.5, color=INK2, ha="left", va="bottom")
+        box = txt.get_window_extent(renderer)
+        row = next((k for k, end in enumerate(row_ends) if box.x0 > end + 4), len(row_ends))
+        if row == len(row_ends):
+            row_ends.append(0)
+        row_ends[row] = box.x1
+        txt.set_transform(offset_copy(base, fig=fig, y=row * PHASE_ROW_PT, units="points"))
+    return len(row_ends)
 
 
 def fig_timeline(stack, stamp, r, tl, name=None, window=None):
@@ -287,11 +303,10 @@ def fig_timeline(stack, stamp, r, tl, name=None, window=None):
         n = len(fl)
         ax.text(-0.01, y, f"{label}  ({n} conn, {tot/1e6:.1f} MB)" if n > 1 else f"{label}  ({tot/1e6:.2f} MB)",
                 ha="right", va="center", fontsize=8.5, color=INK, transform=ax.get_yaxis_transform())
-    phase_strip(ax, tl, t0, r["duration"], x0, x1)
     ax.set_yticks([])
     ax.set_ylim(-0.8, len(rows) - 0.2)
     ax.set_xlim(x0, x1)
-    note = {"exo": "exo nodes speak IPv6 link-local (control) and IPv4 (data), so each node appears under two numbers",
+    note = {"exo": "exo nodes speak IPv6 link-local (control) and IPv4 (data),\nso each node appears under two numbers",
             "llamacpp": "hosts of a restarted or second cluster are numbered (2), (3)",
             "localai": "hosts of the second cluster are numbered (2)"}.get(stack, "")
     ax.set_xlabel("seconds from the start of the capture; thickness ~ log bytes; on data rows | FIN, x RST" + ("\n" + note if note else ""))
@@ -302,6 +317,9 @@ def fig_timeline(stack, stamp, r, tl, name=None, window=None):
     handles = [Line2D([], [], color=STACK[stack], lw=4, label="data plane"), Line2D([], [], color=INK2, lw=4, label="control plane"),
                Line2D([], [], color="#9b9a94", lw=4, label="discovery, DNS, other"), Line2D([], [], color=INK, lw=4, label="off the LAN")]
     fig.legend(handles=handles, loc="lower center", ncol=4, frameon=False, fontsize=8, bbox_to_anchor=(0.5, 0.0))
+    fig.tight_layout(rect=(0, 0.05, 1, 1))
+    rows_used = phase_strip(ax, tl, t0, r["duration"], x0, x1)
+    ax.set_title(ax.get_title(loc="left"), loc="left", fontsize=11, fontweight="bold", pad=8 + PHASE_ROW_PT * rows_used)
     fig.tight_layout(rect=(0, 0.05, 1, 1))
     fig.savefig(f"{OUT}/{name or 'timeline-' + stack}.png", metadata=META)
     plt.close(fig)

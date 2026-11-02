@@ -77,9 +77,11 @@ Captures: ten with a swarm, three background. The headline ones are
 `captures/llamacpp/20261030-083513` (600 s idle, kill and pause mid-request),
 `captures/exo/20261028-125140`, `captures/localai/20261029-144115` (DHT off, with
 loopback captures inside the containers) and `captures/localai/20261029-151923` (DHT on),
-and `captures/background/20261028-081447`. Every capture after the first ran with no
+and `captures/background/20261028-081447`. Every capture after the first two ran with no
 kernel drops; the first (`25691027-122003`, a 1.7 GB pcap with tcpdump's default buffer)
-dropped 7% of packets and its byte figures are from TCP sequence accounting.
+dropped 7% of packets and its byte figures are from TCP sequence accounting, and the
+first background run (`20261027-163430`, 55 GB, generators unthrottled) dropped 81% and
+was replaced by the LAN-rate set.
 
 ## 2. Static signatures: how little capture identifies the stack
 
@@ -95,8 +97,8 @@ dropped 7% of packets and its byte figures are from TCP sequence accounting.
 | llama.cpp | `llama_port` | 3.78 | TCP on 50052 |
 | llama.cpp | `llama_hello` | 4.16 (0.5 s after `cluster.sh main`) | the 33-byte HELLO, on the wire as three segments of 1, 8 and 24 bytes |
 | llama.cpp | `llama_tensor_names` | 5.36 | `blk.N.` names in the weight upload |
-| LocalAI | `mdns_libp2p` | 3.89 | an mDNS answer carrying `dnsaddr=/ip4/…/p2p/12D3KooW…` |
-| LocalAI | `libp2p_quic_alpn` | 4.19 | two client QUIC Initials of 1200 B whose ClientHello offers ALPN `libp2p`, no SNI |
+| LocalAI | `mdns_libp2p` | 4.10 | an mDNS answer carrying `dnsaddr=/ip4/…/p2p/12D3KooW…` |
+| LocalAI | `libp2p_quic_alpn` | 4.46 | two client QUIC Initials of 1200 B whose ClientHello offers ALPN `libp2p`, no SNI |
 | LocalAI, DHT on | `libp2p_multistream` | 5.01 | `/multistream/1.0.0` then `/tls` or `/noise`, on TCP to a public peer |
 | background | none of the stack rules | | `mdns` fires and is classed ordinary |
 
@@ -255,7 +257,7 @@ The fifteen predictions in [STUDY.md](STUDY.md), as written before the first cap
 | 5 | llama.cpp identified by the 33-byte HELLO on 50052; frame grammar and tensor names otherwise | HELLO at 4.2 s as 1 + 8 + 24 bytes; grammar and names as predicted; no false positives | right, with a correction of form |
 | 6 | llama.cpp invisible when idle | zero payload on the RPC flows for 600 s | right |
 | 7 | star; ~4 KiB each way per host, ~600 KB logits back from the last host; constant within 5%; rate within 10% | star; 16 KB / 4104 B and 7170 B / 607 752 B; cv 0.0 at the token scale; rate within 3% | right on shape and rate, the small legs 2 to 4 times larger (7 SET_TENSOR per token) |
-| 8 | load moves ~320 MB to each host | 252 MB and 385 MB, the whole file, split unevenly by the tied embedding | right in total, wrong in split |
+| 8 | load moves ~320 MB to each host | 252 MB and 384 MB, the whole file, split unevenly by the tied embedding | right in total, wrong in split |
 | 9 | LocalAI shows the libp2p handshake and nothing readable after; loopback shows llama.cpp unchanged | the tunnels are QUIC: no plaintext multistream on the LAN (it appears only on TCP to DHT peers), but the predicted ClientHello with ALPN `libp2p` and no SNI opens every tunnel, inside two QUIC Initials anyone can decrypt; nothing readable after; llama.cpp unchanged on loopback | right, with a correction of form |
 | 10 | LocalAI's per-token structure equals llama.cpp's plus a constant overhead; decode rate readable | 621 122 B per token on the output-layer worker and 4194 B on the other (+2% each), 30.0 ms against 30.8 ms at the client | right |
 | 11 | LocalAI idle: 10, 20, 60 s periodicities; mDNS with a random label and `/p2p/` TXT | mDNS as predicted, every 23.3 s; the encrypted overlay shows ~1 exchange/s and a weak 6 s peak, not 10/20/60 s | partially |
@@ -350,7 +352,7 @@ and zero jitter; the rhythm rules were not tuned against a real LAN or WAN, and 
 judged per harness phase, which a defender does not have (§6). This would be my next step
 if I take this experiment one step further.
 
-The generation rule manages to clearly separate the swarm from the background noise. It
+The generation rule manages to separate the swarm from the background noise. It
 also fires on exo's 1 Hz status messages and on 33 DHT flows to public peers, neither of
 which is decode (§3, §6). LocalAI is identified as libp2p, not as LocalAI: the mDNS
 records, the ALPN and the DHT traffic are the same as any libp2p application's, and with
