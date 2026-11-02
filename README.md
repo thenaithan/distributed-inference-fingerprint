@@ -244,8 +244,6 @@ generators, not a home network.
 - `STUDY.md`: the question, vantage points, what is captured, the fifteen numbered
   predictions, method, out of scope.
 - `STYLE.md`: the series' style, copied in unchanged.
-- `HANDOVER.md`: working notes on the state of the experiment, to be folded into this
-  README or removed before the repo goes public.
 - `capture/`: `capture.sh` (tcpdump on a rootless Podman network's bridge, size and
   SHA-256 at stop), `phase.sh` (timeline markers on the same clock as the pcap),
   `requests.py` (streaming requests to any OpenAI-compatible endpoint), `run_llamacpp.sh`,
@@ -284,7 +282,7 @@ Captures need the host from Experiment 3 (i5-14600K, rootless Podman, `tcpdump`,
 `llamacpp/Containerfile`; LocalAI pulls its image and backend by digest):
 
 ```
-capture/run_llamacpp.sh 600                 # ~70 min with the 53 min pause; writes captures/llamacpp/<stamp>.*
+capture/run_llamacpp.sh 600                 # ~16 min; writes captures/llamacpp/<stamp>.*
 capture/run_llamacpp_pause.sh               # the hang case alone, with the resume
 RECOVERY=../distributed-inference-recovery capture/run_exo.sh 600    # ~70 min: exo decodes at 2.4 s/token
 capture/run_localai.sh 600                  # ~18 min; LOOPBACK=1 adds tcpdump on each container's lo (~7 GB)
@@ -292,6 +290,15 @@ DHT=1 capture/run_localai.sh 300            # prediction 12
 capture/run_background.sh llama-net 600     # the ordinary-traffic set
 python3 -m analysis.classify captures/<stack>/<stamp>.pcap --timeline captures/<stack>/<stamp>.timeline.csv --json captures/<stack>/<stamp>.report.json
 ```
+
+`LOOPBACK=1` runs the host's `tcpdump -i lo` inside each container's network namespace
+(`podman unshare nsenter --net=/proc/<pid>/ns/net`; the LocalAI image has no tcpdump), one
+`<stamp>.<container>[.2].lo.pcap` per cluster start, hashed at the end like the bridge
+capture. The LocalAI scripts write each node's log with the swarm token redacted.
+
+The pcaps are not in the repository. On the capturing host (2026-11-02), all but
+`llamacpp/20261027-150104` and `background/20261027-163430` are kept, so every other
+report can be regenerated from its pcap; the hashes are in the `.pcap.sha256` files.
 
 ### Status
 

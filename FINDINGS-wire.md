@@ -260,8 +260,10 @@ tunnel interface: one libp2p stream per RPC connection.
   a random 43-character string, `:43-45`), an OTP DHT key (rotation 360 s, `run.go:117`), an
   OTP crypto key (9000 s, `run.go:118`), max message size 20 MB. A long-lived pre-shared
   secret, not one-time; peer identity is not in it.
-- Possible bug: `LOCALAI_P2P_ENABLE_LIMITS` is read inverted into `Limit.Enable`
-  (`p2p.go:382,407`).
+- `LOCALAI_P2P_ENABLE_LIMITS` is read inverted into `Limit.Enable` (`p2p.go:382,407`:
+  `noLimits := … != "true"`): from v4 the libp2p resource manager is on by default and
+  setting the variable to `true` turns it off. At v3.0.0 the comparison was `== "true"`
+  (`p2p.go:387`), so the name was right there and the default the opposite.
 
 ### Idle traffic (intervals from LocalAI code)
 Ledger sync and announce 10 s (`p2p.go:415-416`); users announce `{PeerID, Timestamp}` 10 s
@@ -301,6 +303,25 @@ download hosts. No phone-home telemetry found in the P2P path.
 - Plaintext comparison: manual mode (`worker llama-cpp-rpc` with
   `LLAMACPP_GRPC_SERVERS=host:port`, docs `:93-99`) is llama.cpp RPC with no overlay, i.e.
   §2.
+
+### Running it at v4.12.1 (2026-10-29)
+`localai/localai:latest-cpu` has not moved since v3.0.0 (2025-06-19); the CPU image is now
+the unsuffixed tag, so `cluster.sh` pins v4.12.1 by digest, and nothing of LocalAI was
+captured on v3. Four things changed from the v3 setup and the docs: the worker command is
+`p2p-worker p2p-llama-cpp-rpc` (`core/cli/cli.go:21`), while the docs
+(`distributed_inferencing.md:122`) and the main node's start-up hint (`run.go:550`) still
+print v3's `worker p2p-llama-cpp-rpc`, which exits 80 at once; the image ships no backends,
+so each node would fetch `llama-cpp` from a moving gallery tag inside the capture
+(`cluster.sh` installs `v4.12.1-cpu-llama-cpp` once into a volume, under the name the worker
+looks up, `core/cli/worker/worker_llamacpp.go:38`); a start runs a ~2 GB gallery warm-up
+from Hugging Face unless `LOCALAI_VRAM_WARM_LIMIT=0` (README §4); and models live in
+`/models`, the volume, where v3 re-downloaded them into the container at every start.
+The model loads on the first request, onto whatever workers are in the ledger then: a
+request before the tunnels are up loads it all on the main node (`cluster.sh tunnels`
+waits). With workers attached the backend is `llama-cpp-grpc` built without AVX
+(`system_info` SSE3/SSSE3), unlike the AVX2 build the main node uses alone. On v3.0.0 the
+upload ran at ~1.5 MB/s and the main node dropped the worker being loaded after the 40 s
+`IsOnline` window; on v4.12.1 the same 650 MB went over in ~1.5 s.
 
 ## 4. What this means before any capture
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # One LocalAI load attempt under capture: discovery, the lazy model load through the P2P
 # tunnels, and whatever happens to it (at v3.0.0 the worker being uploaded to was dropped
-# after 40 s, HANDOVER §4). Not the full run; that is run_localai.sh once a load completes.
+# after 40 s, FINDINGS-wire §3). Not the full run; that is run_localai.sh once a load completes.
 #
 #   capture/run_localai_load.sh [load_timeout_s]               default 600
 #   NO_LIMITS=1 capture/run_localai_load.sh                    libp2p resource manager off

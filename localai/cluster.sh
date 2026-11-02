@@ -11,7 +11,7 @@
 #   localai/cluster.sh tunnels [N]  wait until main has a tunnel to N workers (fails after 180 s)
 #   localai/cluster.sh killproc|pause|resume <i>   node loss on worker-<i>
 #
-# Settled on v3.0.0 (HANDOVER §4): mDNS discovery works on one podman bridge; the model is
+# Settled on v3.0.0 and still true at v4.12.1 (FINDINGS-wire §3): mDNS discovery works on one podman bridge; the model is
 # loaded on the first request, not at start; the `model` field is the file name
 # (Qwen3-0.6B-Q8_0.gguf). Environment knobs: DHT, P2P_LISTEN, LIB_LOG, NO_LIMITS (below).
 # DHT is off by default here (LOCALAI_P2P_DISABLE_DHT=true) so nothing leaves the LAN;
