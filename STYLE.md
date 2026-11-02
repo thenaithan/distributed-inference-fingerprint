@@ -92,9 +92,11 @@ rest stays.
   documentation.
 - Figures are rendered by `figures.py` from the same records and committed as PNG in
   `figures/` (or `out/` where the simulation writes its own). Rerunning the script
-  must reproduce the committed figures: the same picture, and the same bytes when the
-  pinned matplotlib version is used and `savefig` is called with
-  `metadata={"Software": None}` so no version string or timestamp lands in the file.
+  must reproduce the committed figures: the same picture, and, on the machine that
+  committed them, the same bytes when the pinned matplotlib version is used and
+  `savefig` is called with `metadata={"Software": None}` so no version string or
+  timestamp lands in the file. Fonts and the FreeType build differ between machines, so
+  another machine gets the same picture, not the same bytes.
 - One hue per system or strategy, fixed across the series, not only the repo; no default
   matplotlib palette. Phases and background in neutral or secondary colours.
 

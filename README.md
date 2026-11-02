@@ -118,7 +118,7 @@ classed ordinary because its records carry no `/p2p/`.
 |---|---|---|
 | exo | beacon 1 s per node (score 0.99 to 1.0); `NodeGatheredInfo` 1 s on zenoh; `GET /node_id` probes about once a second per pair (1726 to 1828 connections per pair in 69 min; the findings file said ~10 s); a 100 to 110 s component on every zenoh pair whose origin is not identified | 1.0 s on every beacon flow and zenoh pair; the 5 s election heartbeat is not among the top four, masked by the 1 Hz traffic |
 | llama.cpp | nothing: zero packets on the RPC connections for 600 s | nothing to find |
-| LocalAI | ~1 exchange per second of 115 B / ~1.6 KB per main-worker pair on the QUIC tunnels (0.3 to 0.5 MB per direction in 600 s), mDNS every 23.3 s per node (cv 0.05), worker `LastSeen` every 20 to 30 s | a 6.1 s peak at score 0.2; the 10, 20 and 60 s intervals of the source are not visible on the wire |
+| LocalAI | ~1 exchange per second of 115 B / ~1.6 KB per main-worker pair on the QUIC tunnels (0.3 to 0.5 MB per direction in 600 s; from the pcap by hand), mDNS every 23.3 s per node (cv 0.05), worker `LastSeen` every 20 to 30 s | a 6.1 s peak at score 0.2; the 10, 20 and 60 s intervals of the source are not visible on the wire |
 | background | the UDP ping every 2.0 s (score 0.97 to 0.98) as a host-pair rhythm across its 304 one-packet flows; the download every 34.8 s; mDNS every 2 s | as stated |
 
 ### Generation
@@ -134,8 +134,8 @@ classed ordinary because its records carry no `/p2p/`.
 | LocalAI | main → worker-0, QUIC | 30 | 30.0 ms | 7067 | 621 122 | the same logits plus ~2% QUIC framing |
 
 The decode rate read from the exchange interval matches the client's within 3% on
-llama.cpp (23.3 ms against 23.5 ms per token), exo (2.42 s against 2.46 s) and LocalAI
-(30.0 ms against 29.7 ms). The model's hidden size and vocabulary are on the wire: the
+llama.cpp (23.3 ms against 23.5 ms per token), exo (2.42 s against 2.45 s) and LocalAI
+(30.0 ms against 30.8 ms). The model's hidden size and vocabulary are on the wire: the
 4104-byte and 2048-byte legs are the 1024-wide hidden state in F32 and bf16, the 607 752
 and 621 122-byte legs are the vocabulary times four. Encryption adds about 2% to each
 leg (4104 to 4194 B, 607 752 to 621 122 B), which leaves both readings intact.
@@ -149,21 +149,22 @@ sits on the host that holds the output layer; exo's hops are symmetric.
 A prompt change on llama-server moves KV state over the wire: with distinct prompts every
 request began with transfers from the rpc hosts to the main host (4.7 and 4.6 MB for a
 63-token context, 138 and 113 MB after ~2100 tokens, counted from the request to the
-first token), the server's prompt cache saving the
+first token; from the pcap by hand), the server's prompt cache saving the
 slot's state to host RAM (`prompt_save`, `tools/server/server-context.cpp:342-370`, on by
 default at `cache_ram_mib = 8192`). A long prompt costs its prefill once and its KV
 state again at every slot change, and on an RPC split the state crosses the wire.
 
 Load is a one-way burst the size of the slice: llama.cpp 252 MB and 384 MB (the whole
 Q8_0 file; the main host weighted 0 keeps nothing, the tied embedding sits on the last
-host), LocalAI 258 MB and 392 MB in ~1.5 s with the embeddings kept on main. exo loads from
+host), LocalAI 258 MB and 392 MB in ~1.5 s (the duration from the pcap by hand) with the
+embeddings kept on main. exo loads from
 each node's disk and puts nothing on the wire at placement except its control plane.
 
 On the background set no flow was generation-like: the download, the stream and iperf
 are one-directional at the exchange scale, the ping and mDNS carry no activation-sized
 leg. Within a swarm the rule does fire on things that are not decode: exo's 1 Hz
 `NodeGatheredInfo` (2079 B with a 522 B reply) in idle, and with the DHT on, LocalAI's
-exchanges with public peers (38 phase-flows on 33 flows: 17 every 5 s of ~3.0 KB / 1.4 KB,
+exchanges with public peers (38 phase-flows on 33 flows: 18 every 4 to 5 s of ~3.0 KB / 1.4 KB,
 16 every 10 s of ~1.5 KB / 6.9 KB, 4 at 0.2 to 0.4 s). Both are the swarm's
 own traffic, but a rule that reads only sizes and timing cannot tell a slow decode from a
 regular status exchange of the same size.
@@ -177,6 +178,9 @@ regular status exchange of the same size.
 | exo | the node's beacon stops at once; `InstanceDeleted` 15 s later; new ring flows on new ports after re-placement (175 s) | | the Experiment 3 numbers |
 | LocalAI | the node goes silent; main sends a few small QUIC probes a second for 30 s, then nothing; the next request reloads ~650 MB to the surviving worker | the same, 30 s | the stream ends after 30 s **with no error**: a truncated answer that looks complete; 30 s is QUIC's idle timeout (go-libp2p v0.48.0 sets no `MaxIdleTimeout` in its `quic.Config`, `p2p/transport/quicreuse/config.go:9-20`, so quic-go v0.59.0's `DefaultIdleTimeout` of 30 s applies, `internal/protocol/params.go:100`; keepalives every 15 s), not LocalAI's 40 s ledger window |
 
+The timings in this table are read from the pcaps and the container logs by hand; the
+client's side is in the request logs.
+
 ## 4. What leaves the LAN
 
 | stack | with the defaults | bytes | when |
@@ -184,8 +188,12 @@ regular status exchange of the same size.
 | llama.cpp (`-hf`) | two TLS connections to Hugging Face's CDN (CloudFront) per main-host start, even with the model cached; nothing from the rpc hosts | 2.6 KB up, 14 KB down | every start, within 0.6 s of the first RPC connection |
 | exo | nothing after the model is on disk; the nodes open 50 to 60 connections to Hugging Face at placement (the download coordinator's rescan) | | placement |
 | LocalAI, DHT off | one TLS connection to `index.localai.io` (Cloudflare) per main-node start | 4.4 KB up, 60 KB down | start and recover |
-| LocalAI, DHT on | an IPFS bootstrap node on TCP 4001 1.1 s after start; over 728 s all three nodes of each cluster talk to 2649 public addresses on UDP and TCP 4001, and dial the private LAN addresses other peers advertised (`192.168.x`, `169.254.x`) | 59 MB up, 72 MB down, ~180 KB/s | continuously; 942 distinct public hosts during the 300 s idle |
+| LocalAI, DHT on | an IPFS bootstrap node on TCP 4001 1.1 s after start; over 728 s all three nodes of each cluster talk to 1860 public hosts on UDP and TCP 4001, and dial the private LAN addresses other peers advertised (`192.168.x`, `169.254.x`) | 58 MB up, 72 MB down, ~180 KB/s | continuously; 895 public hosts in connections opened during the 300 s idle |
 | LocalAI v4 before `cluster.sh` turned it off | a gallery warm-up fetches ~2 GB from Hugging Face for ~5.5 min after every start (`LOCALAI_VRAM_WARM_LIMIT`), plus `index.localai.io` and `raw.githubusercontent.com`, and the importer re-queries Hugging Face for a `huggingface://` model at every start | ~2 GB | every start |
+
+The bytes and host counts are `evaluate.py`'s off-LAN table (per phase, by the phase a
+connection opened in, and a total per capture); the 1.1 s, the dialled private addresses
+and the warm-up row are read from the pcaps and logs by hand.
 
 ![LocalAI, DHT on](figures/timeline-localai-dht.png)
 
@@ -209,7 +217,7 @@ The fifteen predictions in [STUDY.md](STUDY.md), as written before the first cap
 | 7 | star; ~4 KiB each way per host, ~600 KB logits back from the last host; constant within 5%; rate within 10% | star; 16 KB / 4104 B and 7170 B / 607 752 B; cv 0.0 at the token scale; rate within 3% | right on shape and rate, the small legs 2 to 4 times larger (7 SET_TENSOR per token) |
 | 8 | load moves ~320 MB to each host | 252 MB and 385 MB, the whole file, split unevenly by the tied embedding | right in total, wrong in split |
 | 9 | LocalAI shows the libp2p handshake and nothing readable after; loopback shows llama.cpp unchanged | nothing readable on the LAN and llama.cpp unchanged on loopback; but no handshake either: the tunnels are QUIC, and the plaintext multistream appears only on TCP to DHT peers | half right: the content half holds, the handshake half fails on QUIC |
-| 10 | LocalAI's per-token structure equals llama.cpp's plus a constant overhead; decode rate readable | 621 122 B per token on the output-layer worker and 4194 B on the other (+2% each), 30.0 ms against 29.7 ms at the client | right |
+| 10 | LocalAI's per-token structure equals llama.cpp's plus a constant overhead; decode rate readable | 621 122 B per token on the output-layer worker and 4194 B on the other (+2% each), 30.0 ms against 30.8 ms at the client | right |
 | 11 | LocalAI idle: 10, 20, 60 s periodicities; mDNS with a random label and `/p2p/` TXT | mDNS as predicted, every 23.3 s; the encrypted overlay shows ~1 exchange/s and a weak 6 s peak, not 10/20/60 s | partially |
 | 12 | LocalAI leaves the LAN by default (DHT bootstrap on 4001 within 60 s); exo and llama.cpp send nothing after the model is on disk | DHT: a bootstrap node at 1.1 s, 131 MB over 728 s; with DHT off still `index.localai.io`; llama.cpp `-hf` checks the CDN at every start; exo contacts Hugging Face at placement | right for LocalAI, wrong for the other two |
 | 13 | a size-and-timing rule flags generation in all three within 10 tokens and not the video or the download | llama.cpp and exo flagged; the background set clean; LocalAI flagged on both tunnels in `generate` once QUIC acknowledgements and its per-request preamble (~26 round trips 0.4 ms apart) stopped splitting the exchanges; false positives inside the swarms on exo's status messages and, with the DHT on, on 33 flows to public peers | partially |
