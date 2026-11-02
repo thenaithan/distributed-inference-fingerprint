@@ -1,16 +1,34 @@
 # distributed-inference-fingerprint
 
+This is the fourth experiment from the series I began on the detection, containment and
+removal of a hypothetical AI swarm that is no longer under human control. The question
+came from [the essay](https://naithanweigh.com/writing/asymmetric-persistence/) where I
+ask if it's possible to fingerprint shard-to-shard traffic against background noise. The
+first experiments focussed on the resilience, cuts and recovery of a swarm. This
+experiment focussed on if and how I can detect them.
 
-This is the fourth experiment from the series I began on the detection, containment and removal of a hypothetical AI swarm that is no longer under human control. The question came from [the essay](https://naithanweigh.com/writing/asymmetric-persistence/) where I ask if it's possible to fingerprint shard-to-shard traffic against background noise.
-The first experiments focussed on the resilience, cuts and recovery of a swarm. This experiment focussed on if and how I can detect them.
-To see if this fingerprinting is possible I have chosen three different stacks for this: llama.cpp, exo and LocalAI P2P. It is written for two readers: the operator, who tries to keep the swarm serving under churn, and the defender, who needs the smallest intervention that stops a swarm they do not operate.
+To see if this fingerprinting is possible I have chosen three different stacks for this:
+llama.cpp, exo and LocalAI P2P. It is written for two readers: the operator, who tries to
+keep the swarm serving under churn, and the defender, who needs the smallest intervention
+that stops a swarm they do not operate.
 
+Per stack I use tcpdump to capture the network activity on the single Podman bridge
+(acting as a passive tap to the LAN) and I derive the egress visibility from this (§4). I
+have only measured and classified the data with readable rules (§2, §3). I did not let the
+swarms utilise any evasion tactics (§6). vLLM is left out: with pipeline parallelism on
+one host its ranks are processes that share memory and nothing reaches the wire (§1). This
+can be a later experiment when more resources are available.
 
-Per stack I use tcpdump to capture the network activity on the single Podman bridge (acting as a passive tap to the LAN) and I derive the egress visibility from this. I have only measured and classified the data with readable rules. I did not let the swarms utilise any evasion tactics. vLLM is left out: with pipeline parallelism on one host its ranks are processes that share memory and nothing reaches the wire. This can be a later experiment when more resources are available. 
+I ran the captures and manually verified findings in pcaps with Wireshark; the source
+reading, harnesses, analysis and figures I developed together with Claude. All the numbers
+in this document come from running the captures as described and using the analysis
+scripts to analyse the data, except where the text says a figure was read from the pcap by
+hand.
 
-I ran the captures and manually verified findings in pcaps with Wireshark; the source reading, harnesses, analysis and figures I developed together with Claude. All the numbers in this document come from running the captures as described and using the analysis scripts to analyse the data, except where the text says a figure was read from the pcap by hand. 
-
-The findings showed that with a small amount of data I could already say if there was swarm traffic on the wire just by looking at one or two packets, the discovery records or the rhythm. The background noise did not create false positives on the packets, discovery records or rhythm.
+The findings showed that with a small amount of data I could already say if there was
+swarm traffic on the wire just by looking at one or two packets, the discovery records or
+the rhythm (§2, §3). The background noise did not create false positives on the packets,
+discovery records or rhythm (§2, §3).
 
 Earlier experiments: the model and the cut experiment in
 [distributed-inference-resilience](https://github.com/thenaithan/distributed-inference-resilience),
@@ -273,61 +291,126 @@ generators, not a home network.
 
 ### What the result settles
 
-In the three stacks that were tested I found that the shard-to-shard traffic of all three can be fingerprinted against background noise. The capture needed for a fingerprint is small. For exo this is done the fastest. It sends a 20-byte datagram (`45 58 4F 00`) at 1 Hz, so any 1 s capture would already show it. The beacon sources also give the node count, which could be useful in stopping the swarm. In llama.cpp there is a 33-byte HELLO (1 + 8 + 24 bytes) on the first connection. This is repeated on about 15 connections per rpc host at every load. It also exposes the tensor names in ASCII in the upload. With LocalAI the experiments exposed it in the mDNS records or the ALPN libp2p ClientHello inside the first two QUIC Initials of every tunnel. The Initials can be decrypted by anyone, since their keys derive from the client’s connection id (RFC 9001 §5.2).
+In the three stacks that were tested I found that the shard-to-shard traffic of all three
+can be fingerprinted against background noise (§2). The capture needed for a fingerprint
+is small. For exo this is done the fastest. It sends a 20-byte datagram (`45 58 4F 00`) at
+1 Hz, so any 1 s capture would already show it. The beacon sources also give the node
+count, which could be useful in stopping the swarm (§2). In llama.cpp there is a 33-byte
+HELLO (1 + 8 + 24 bytes) on the first connection. This is repeated on about 15 connections
+per rpc host at every load. It also exposes the tensor names in ASCII in the upload (§2).
+With LocalAI the experiments exposed it in the mDNS records or the ALPN libp2p ClientHello
+inside the first two QUIC Initials of every tunnel (§2). The Initials can be decrypted by
+anyone, since their keys derive from the client’s connection id (RFC 9001 §5.2).
 
-The experiment showed that no stack rules got triggered in the background noise set (696 flows, 621 s, five generators). Also none of the flows matched the generation-like traffic rhythms. Using encryption may hide the network data, but it does not hide the model or the decode rate. LocalAI's tunnels carry nearly the same per-token legs as llama.cpp (4104 to 4194 B, 607 752 to 621 122 B); the hidden size (1024 × 4 B) and the vocabulary (151 936 × 4 B) are both readable from the sizes. By looking at the exchange interval the findings showed that it's possible to deduce the decode rate accurately within 3% on all three stacks. Encryption cost LocalAI nothing in exposure: the tunnel added 2% to each leg and left the hidden size, the vocabulary and the decode rate readable. A swarm that wants to hide has to change its shape, not its cipher.
+The experiment showed that no stack rules got triggered in the background noise set (696
+flows, 621 s, five generators; §2). Also none of the flows matched the generation-like
+traffic rhythms (§3). Using encryption may hide the network data, but it does not hide the
+model or the decode rate. LocalAI's tunnels carry nearly the same per-token legs as
+llama.cpp (4104 to 4194 B, 607 752 to 621 122 B); the hidden size (1024 × 4 B) and the
+vocabulary (151 936 × 4 B) are both readable from the sizes (§3). By looking at the
+exchange interval the findings showed that it's possible to deduce the decode rate
+accurately within 3% on all three stacks (§3). Encryption cost LocalAI nothing in
+exposure: the tunnel added 2% to each leg and left the hidden size, the vocabulary and the
+decode rate readable (§3). A swarm that wants to hide has to change its shape, not its
+cipher.
 
-The topology of the stacks is visible without payload. Both llama.cpp and LocalAI use a star, while exo sets up a ring on random ports chosen at placement. The node loss was visible from the outside: llama.cpp's RST within 0.07 s of a kill and a FIN 3.1 s later; exo's beacon stops at once and new ring flows appear after re-placement; LocalAI probes for 30 s (QUIC's idle timeout) then goes quiet and reloads ~650 MB on the next request.
+The topology of the stacks is visible without payload. Both llama.cpp and LocalAI use a
+star, while exo sets up a ring on random ports chosen at placement (§3). The node loss was
+visible from the outside: llama.cpp's RST within 0.07 s of a kill and a FIN 3.1 s later;
+exo's beacon stops at once and new ring flows appear after re-placement; LocalAI probes
+for 30 s (QUIC's idle timeout) then goes quiet and reloads ~650 MB on the next request
+(§3).
 
-Under default settings all three of the stacks made connections outside the LAN, which can be scanned for on the router:
-- llama.cpp `-hf` checks Hugging Face's CDN at every start even with the model cached (2.6 KB up, 14 KB down).
+Under default settings all three of the stacks made connections outside the LAN, which can
+be scanned for on the router (§4):
+- llama.cpp `-hf` checks Hugging Face's CDN at every start even with the model cached
+  (2.6 KB up, 14 KB down).
 - exo 12.4 MB over 591 connections to Hugging Face's CDN at its first start, then silent.
-- LocalAI `index.localai.io` at every start and, with the DHT on, 1860 public hosts on port 4001, 58 MB up and 72 MB down in 728 s.
+- LocalAI `index.localai.io` at every start and, with the DHT on, 1860 public hosts on
+  port 4001, 58 MB up and 72 MB down in 728 s.
 
 For the operator the same facts are the swarm's exposures:
 
-- llama.cpp puts nothing on the wire while idle (zero packets in 600 s) and is visible only while it serves;
-- exo and LocalAI never go quiet, so they are visible at any moment;
-- on an RPC split a prompt change moves the KV state between hosts, 4.6 MB at 63 tokens and 113 to 138 MB at ~2100.
+- llama.cpp puts nothing on the wire while idle (zero packets in 600 s) and is visible
+  only while it serves (§3);
+- exo and LocalAI never go quiet, so they are visible at any moment (§3);
+- on an RPC split a prompt change moves the KV state between hosts, 4.6 MB at 63 tokens
+  and 113 to 138 MB at ~2100 (§3).
 
 ### What it does not settle
 
-I only tested three stacks, with unmodified code and default settings. I'm certain I could make it more difficult to be detected with a few changes in code, or changing the ports. The rules were written with that in mind: the port part and the byte part of every signature are separate (signatures.py), so a port change defeats only the port rules, and the byte rules fall only to a change in the framing itself. This was left out on purpose in this public experiment. This could be a good experiment for in-house red-team experiments. I chose the most simple set up with one host, one bridge and zero jitter; the rhythm rules were not tuned against a real LAN or WAN, and they are judged per harness phase, which a defender does not have. This would be my next step if I take this experiment one step further. 
+I only tested three stacks, with unmodified code and default settings. I'm certain I could
+make it more difficult to be detected with a few changes in code, or changing the ports
+(§5, prediction 15). The rules were written with that in mind: the port part and the byte
+part of every signature are separate (signatures.py), so a port change defeats only the
+port rules, and the byte rules fall only to a change in the framing itself (§2). This was
+left out on purpose in this public experiment. This could be a good experiment for
+in-house red-team experiments. I chose the most simple set up with one host, one bridge
+and zero jitter; the rhythm rules were not tuned against a real LAN or WAN, and they are
+judged per harness phase, which a defender does not have (§6). This would be my next step
+if I take this experiment one step further.
 
-The generation rule manages to clearly separate the swarm from the background noise. It also fires on exo's 1 Hz status messages and on 33 DHT flows to public peers, neither of which is decode. LocalAI is identified as libp2p, not as LocalAI: the mDNS records, the ALPN and the DHT traffic are the same as any libp2p application's, and with the DHT on it is indistinguishable from an IPFS node at the router. The swarm shows only in the rhythm of its tunnels. 
+The generation rule manages to clearly separate the swarm from the background noise. It
+also fires on exo's 1 Hz status messages and on 33 DHT flows to public peers, neither of
+which is decode (§3, §6). LocalAI is identified as libp2p, not as LocalAI: the mDNS
+records, the ALPN and the DHT traffic are the same as any libp2p application's, and with
+the DHT on it is indistinguishable from an IPFS node at the router (§2, §4). The swarm
+shows only in the rhythm of its tunnels.
 
-I only used a small model (Qwen3-0.6B) for the experiment. Since the identifying sizes will scale with the model used, the rules do not use them: the generation rule looks for a regular two-way exchange with one leg over 2 KB, never for a particular size.
+I only used a small model (Qwen3-0.6B) for the experiment (§6). Since the identifying
+sizes will scale with the model used, the rules do not use them: the generation rule looks
+for a regular two-way exchange with one leg over 2 KB, never for a particular size.
 
 Of the fifteen predictions in §5:
 
 Six held, three of them with a qualification noted there:
 - exo's beacon within a second, with no false positives (1)
-- exo's ring on random ports between neighbours (4); the long prefill could not be observed
+- exo's ring on random ports between neighbours (4); the long prefill could not be
+  observed
 - llama.cpp silent when idle (6)
-- llama.cpp's star with ~600 KB of logits from the last host at a steady rate (7); the small legs came out 2 to 4 times larger than predicted
+- llama.cpp's star with ~600 KB of logits from the last host at a steady rate (7); the
+  small legs came out 2 to 4 times larger than predicted
 - LocalAI's per-token structure equal to llama.cpp's plus a constant overhead (10)
-- node loss visible from outside (14); a kill with no request in flight gives a FIN, not a RST
+- node loss visible from outside (14); a kill with no request in flight gives a FIN, not a
+  RST
 
 Two were right in substance and wrong in form:
 - llama.cpp's HELLO is 33 bytes but arrives as three segments of 1, 8 and 24 (5)
-- LocalAI's handshake is not the plaintext multistream I expected but the same ClientHello inside two QUIC Initials, which the public Initial keys open (9)
+- LocalAI's handshake is not the plaintext multistream I expected but the same ClientHello
+  inside two QUIC Initials, which the public Initial keys open (9)
 
 Four were right in part:
 - exo's node count came from the beacons at once, but the master was not identified (2)
-- exo's 1 s period was there and its 5 s election heartbeat was not, with a 100 to 110 s component I cannot explain (3)
-- LocalAI's mDNS was as predicted; its 10, 20 and 60 s intervals were not visible through the overlay (11)
-- the generation rule flagged all three stacks and nothing in the background set, but also exo's status messages and the DHT's exchanges with public peers (13)
+- exo's 1 s period was there and its 5 s election heartbeat was not, with a 100 to 110 s
+  component I cannot explain (3)
+- LocalAI's mDNS was as predicted; its 10, 20 and 60 s intervals were not visible through
+  the overlay (11)
+- the generation rule flagged all three stacks and nothing in the background set, but also
+  exo's status messages and the DHT's exchanges with public peers (13)
 
 Two were wrong in a part that matters:
-- the load split (8): 252 and 384 MB instead of two equal halves, because the tied embedding sits on the last host
-- llama.cpp leaving the LAN (12): it does, at every start with `-hf`, even with the model cached, where I had predicted nothing once the model is on disk
+- the load split (8): 252 and 384 MB instead of two equal halves, because the tied
+  embedding sits on the last host
+- llama.cpp leaving the LAN (12): it does, at every start with `-hf`, even with the model
+  cached, where I had predicted nothing once the model is on disk
 
 One was not run:
 - evasion by a port change (15)
 
 ### Whether the work continues
 
-The experiments have been largely successful and have taught me a lot about how to set up distributed swarms, their weaknesses and the tracks and traces they leave behind. Any further research on this exact topic will probably be kept private to ensure that it is not used to make a future real swarm more resilient or hidden from the defender or show an operator where the rules are weak. Although the findings of all the experiments showed mainly that the defender had the upper hand, I think this is mainly due to perfect information. I knew the ports, the bridge, the host roles and the phase boundaries, and the rules were judged per phase. A real defender has a pcap with no markers and on a whole capture with no phase markers the same rules missed llama.cpp's run (§6). For any future work the focus should be to find a rule that works on an unmarked capture. Actually locating a real swarm would come with its own difficulties that I'm looking forward to tackling.
+The experiments have been largely successful and have taught me a lot about how to set up
+distributed swarms, their weaknesses and the tracks and traces they leave behind. Any
+further research on this exact topic will probably be kept private to ensure that it is
+not used to make a future real swarm more resilient or hidden from the defender or show an
+operator where the rules are weak. Although the findings of all the experiments showed
+mainly that the defender had the upper hand, I think this is mainly due to perfect
+information. I knew the ports, the bridge, the host roles and the phase boundaries, and
+the rules were judged per phase. A real defender has a pcap with no markers and on a whole
+capture with no phase markers the same rules missed llama.cpp's run (§6). For any future
+work the focus should be to find a rule that works on an unmarked capture. Actually
+locating a real swarm would come with its own difficulties that I'm looking forward to
+tackling.
 
 ## Repository
 
