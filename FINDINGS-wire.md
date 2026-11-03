@@ -263,7 +263,8 @@ tunnel interface: one libp2p stream per RPC connection.
 - `LOCALAI_P2P_ENABLE_LIMITS` is read inverted into `Limit.Enable` (`p2p.go:382,407`:
   `noLimits := … != "true"`): from v4 the libp2p resource manager is on by default and
   setting the variable to `true` turns it off. At v3.0.0 the comparison was `== "true"`
-  (`p2p.go:387`), so the name was right there and the default the opposite.
+  (`p2p.go:387`), so the name was right there and the default the opposite. Reported as
+  [mudler/LocalAI#13031](https://github.com/mudler/LocalAI/issues/13031).
 
 ### Idle traffic (intervals from LocalAI code)
 Ledger sync and announce 10 s (`p2p.go:415-416`); users announce `{PeerID, Timestamp}` 10 s
@@ -312,8 +313,9 @@ the unsuffixed tag, so `cluster.sh` pins v4.12.1 by digest, and nothing of Local
 captured on v3. Four things changed from the v3 setup and the docs: the worker command is
 `p2p-worker p2p-llama-cpp-rpc` (`core/cli/cli.go:21`), while the docs
 (`distributed_inferencing.md:122`) and the main node's start-up hint (`run.go:550`) still
-print v3's `worker p2p-llama-cpp-rpc`, which exits 80 at once; the image ships no backends,
-so each node would fetch `llama-cpp` from a moving gallery tag inside the capture
+print v3's `worker p2p-llama-cpp-rpc`, which exits 80 at once
+([mudler/LocalAI#13032](https://github.com/mudler/LocalAI/issues/13032)); the image ships
+no backends, so each node would fetch `llama-cpp` from a moving gallery tag inside the capture
 (`cluster.sh` installs `v4.12.1-cpu-llama-cpp` once into a volume, under the name the worker
 looks up, `core/cli/worker/worker_llamacpp.go:38`); a start runs a ~2 GB gallery warm-up
 from Hugging Face unless `LOCALAI_VRAM_WARM_LIMIT=0` (README §4); and models live in

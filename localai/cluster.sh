@@ -34,7 +34,7 @@ DHT=${DHT:-0}
 # LIB_LOG: go-libp2p's own log level (LocalAI defaults it to fatal, which hides quic-go).
 # NO_LIMITS=1: go-libp2p's resource manager off. LocalAI reads LOCALAI_P2P_ENABLE_LIMITS
 # inverted (p2p.go:382 `!= "true"` into Limit.Enable), so limits are on by default and
-# "ENABLE_LIMITS=true" is what turns them off.
+# "ENABLE_LIMITS=true" is what turns them off (mudler/LocalAI#13031).
 P2P_LISTEN=${P2P_LISTEN:-}; LIB_LOG=${LIB_LOG:-info}; NO_LIMITS=${NO_LIMITS:-0}
 cmd=${1:-}; arg=${2:-}
 
@@ -81,7 +81,8 @@ case "$cmd" in
       # shellcheck disable=SC2046
       # v4: the P2P llama.cpp worker is `p2p-worker p2p-llama-cpp-rpc` (core/cli/cli.go:21);
       # `worker` is now the generic distributed worker and rejects it with kong's usage
-      # exit 80. LocalAI's docs and main's start-up hint (run.go:550) still print the v3 form.
+      # exit 80. LocalAI's docs and main's start-up hint (run.go:550) still print the v3 form
+      # (mudler/LocalAI#13032).
       podman run -d --name "worker-$i" --network "$NET" -v "$BVOL:/backends" \
         -e TOKEN="$t" $(dht_env) -e LOCALAI_LOG_LEVEL=debug -e LOCALAI_P2P_LOGLEVEL=debug "$IMG" \
         p2p-worker p2p-llama-cpp-rpc >/dev/null

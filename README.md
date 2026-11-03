@@ -449,6 +449,15 @@ tackling.
   `/api/p2p` samples and container logs where taken, the pcap's size and SHA-256, and
   the `classify.py --json` report; the pcaps are not committed (`.gitignore`).
 
+### Reported upstream
+
+- [mudler/LocalAI#13031](https://github.com/mudler/LocalAI/issues/13031):
+  `LOCALAI_P2P_ENABLE_LIMITS` is read inverted, so the libp2p resource limits are on
+  when it is unset and off when it is `true` (FINDINGS-wire §3).
+- [mudler/LocalAI#13032](https://github.com/mudler/LocalAI/issues/13032): `run --p2p`,
+  the Swarm page and the docs print v3's `worker p2p-llama-cpp-rpc`, which exits 80 at
+  once on v4; the worker is `p2p-worker p2p-llama-cpp-rpc` (FINDINGS-wire §3).
+
 ### Reproducing
 
 Analysis needs Python 3.10 or later and nothing else; `figures.py` needs the matplotlib
